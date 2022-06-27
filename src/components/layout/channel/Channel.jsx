@@ -43,7 +43,7 @@ export default function Channel() {
             {currentChannel.messages.length>0 && currentChannel.messages.map((el,i)=>(
                 <section key={i}>
                     <h4>{el.user.slice(2)}</h4>
-                    <small>{el.time}</small>
+                    <small>{JSON.stringify(el.time)}</small>
                     <p>{el.body}</p>
                 </section>
             ))}
