@@ -9,7 +9,7 @@ export default function Sidebar() {
       {state.currentUserChannels && <ul>
         {state.currentUserChannels.map((el,i)=>(
           <li key={i}>
-            <Link to={`/:${el.channelName}`}>{el.channelName}</Link>
+            <Link to={`${el.channelName}`}>{el.channelName}</Link>
           </li>
         ))}
       </ul> }
