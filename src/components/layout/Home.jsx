@@ -19,7 +19,7 @@ export default function Home() {
       <Sidebar/>
 
       <Routes>
-        <Route path='/:channelName' element={<Channel />}/>
+        <Route path=':channelName' element={<Channel />}/>
       </Routes>
     </div>
   )

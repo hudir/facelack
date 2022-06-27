@@ -10,7 +10,12 @@ const init = {
             user:'00admin',
             time: '27.06 13:54',
             body: "Welcome to join facelack! Start your chat now",
-            replay:[]
+            reply:[]
+        }, {
+            user:'00admin',
+            time: '27.06 15:36',
+            body: "find a channel or create one",
+            reply:[]
         }]
     }]
 
