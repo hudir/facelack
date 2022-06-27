@@ -20,13 +20,24 @@ export default function reducerFunc(prev, action){
             return {...prev, currentUserChannels: userChannels}
 
         case "POST":
+            let msg=[]
             const newChannels=prev.channels.map(el=>{
                 if(el.channelName===action.postObj.channelName){
-                    return {...el, messages:[...el.messages, action.postObj]}
+                    msg=[...el.messages, action.postObj]
+                    return {...el, messages:msg}
                 } else return el
             })
-            console.log(newChannels);
-            return { ...prev,channels:newChannels}
+            const newCurrentUserChannels=prev.currentUserChannels.map(el=>{
+                if(el.channelName===action.postObj.channelName){
+                    msg=[...el.messages, action.postObj]
+                    return {...el, messages:msg}
+                } else return el
+            })
+            // console.log(newChannels);
+            return { ...prev,
+                channels:newChannels,
+                currentUserChannels: newCurrentUserChannels
+            }
 
 
 
