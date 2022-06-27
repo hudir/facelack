@@ -1,15 +1,17 @@
 import React, { useContext, useState } from 'react'
-import { Context } from '../store/Context'
+import { Context } from '../../store/Context'
+import SignUp from './SignUp'
 
 export default function Login() {
     const {state, dispatch} = useContext(Context)
 
     const [userName, setUserName] = useState('')
     , [password, setPassword] = useState('')
+    , [signUp, setSignUp] = useState(false)
 
     const onSubmitHandler = e =>{
         e.preventDefault();
-        if(state.users.some(el=>el.userName===userName &&el.password===password)) {
+        if(state.users.some(el=>el.userName===userName && el.password===password)) {
             dispatch({
                 type:"LOGIN",
                 name: userName
@@ -33,10 +35,17 @@ export default function Login() {
             </div>
 
             <button type='submit'>Login</button>
-            {/* <button type='submit'>Sign up</button> */}
+
         </form>
 
-        {state.users[0].online && 'true'}
+        <div>
+            <p>if you are first time ues facelack, please sign up</p>
+             <button onClick={e=>setSignUp(prev=>!prev)}>Sign up</button>
+
+             {signUp && <SignUp />}
+
+        </div>
+
     </div>
   )
 }
