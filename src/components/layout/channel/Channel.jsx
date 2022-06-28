@@ -4,18 +4,20 @@ import { Context } from '../../../store/Context';
 
 export default function Channel() {
     const {state, dispatch} = useContext(Context)
+
     let {channelName}= useParams()
+    console.log(channelName);
+
     const [currentChannel, setCurrentChannel] = useState(null)
     , [input, setInput] = useState('')
     
-
     useEffect(()=>{
         if (state.currentUserChannels){
             const channel = state.currentUserChannels.filter(el=>el.channelName===channelName)[0];
             setCurrentChannel(channel)
         }
        
-    } ,[state.channels,state.currentUserChannels ])
+    } ,[state.currentUserChannels, channelName])
 
     const postMassage = e =>{
         e.preventDefault();
@@ -30,8 +32,7 @@ export default function Channel() {
                 channelName: currentChannel.channelName
             }
         }) 
-
-       
+        setInput('')
         // console.log(state.channels[0].messages);     
     }
 
@@ -50,7 +51,7 @@ export default function Channel() {
 
             <form onSubmit={postMassage}>
                 <textarea name="input" id="" cols="30" rows="10" value={input} onChange={e=>setInput(e.target.value)}></textarea>
-                <button type='submit'>sent</button>
+                <button type='submit'>send</button>
             </form>
             </>
         )

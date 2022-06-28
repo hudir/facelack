@@ -39,6 +39,12 @@ export default function reducerFunc(prev, action){
                 currentUserChannels: newCurrentUserChannels
             }
 
+        case "CREATECHANNEL":
+            return {...prev,
+                channels:[...prev.channels, action.newChannel],
+                currentUserChannels: [...prev.currentUserChannels, action.newChannel] 
+            }
+
 
 
 
