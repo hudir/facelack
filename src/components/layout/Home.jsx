@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Context } from '../../store/Context'
+import Login from '../loginAndSignUp/Login'
 import BrowseAllChannels from './browseAllChannels/BrowseAllChannels'
 import Channel from './channel/Channel'
-import Searchbar from './sidebarAndSearchbar/Searchbar'
+import Header from './sidebarAndSearchbar/Header'
 import Sidebar from './sidebarAndSearchbar/Sidebar'
 
 export default function Home() {
@@ -16,12 +17,12 @@ export default function Home() {
 
   return (
     <div>
-      <Searchbar />
+      <Header/>
       <Sidebar/>
-
       <Routes>
         <Route path=':channelName/*' element={<Channel />}/>
         <Route path='browseAllChannels' element={<BrowseAllChannels />}/>
+        {/* <Route path='*' element={<Login/>}/> */}
       </Routes>
     </div>
   )

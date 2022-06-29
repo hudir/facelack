@@ -5,8 +5,9 @@ const init = {
     currentUserChannels:null,
     channels:[{
         channelName: "general",
-        private:false,
-        description:'this is general channel',
+        private: false,
+        description: "This is general channel",
+        createBy : {user: 'admin', time: 'June 29, 09:50'},
         members:['00admin'],
         messages:[{
             user:'00admin',

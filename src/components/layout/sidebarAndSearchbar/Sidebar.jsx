@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../../../store/Context'
 import {Link} from 'react-router-dom'
-import CreateChannel from '../channel/CreateChannel';
+import CreateChannel from '../channel/CreateChannel'
 
 export default function Sidebar() {
-  const {state} = useContext(Context);
+  const {state} = useContext(Context)
 
   const [showModal, setShowModal] = useState(false)
 
@@ -17,11 +17,10 @@ export default function Sidebar() {
           </li>
         ))}
       </ul> }
-      <Link to="browseAllChannels">Browse all Channels</Link>
-      <span onClick={e=>setShowModal(pre=>!pre)}>Create New Channel</span>
+      <Link to='browseAllChannels'>Browser Channel</Link>
+      <span onClick={e=>setShowModal(pre=>!pre)}>Create new channel</span>
 
       {showModal && <CreateChannel setShowModal={setShowModal}/>}
-
     </div>
   )
 }
