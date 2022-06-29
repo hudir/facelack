@@ -17,7 +17,6 @@ export default function Sidebar() {
           </li>
         ))}
       </ul> }
-
       <Link to='browseAllChannels'>Browser Channel</Link>
       <span onClick={e=>setShowModal(pre=>!pre)}>Create new channel</span>
 

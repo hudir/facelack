@@ -91,9 +91,6 @@ export default function reducerFunc(prev, action){
 
             return {...prev, channels: newChannel_addPeople, currentUserChannels: newCurrentUserChannel_addPeople}
 
-
-
-
         default:
             return prev;
     }

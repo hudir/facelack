@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom'
 import { Context } from '../../store/Context'
 import Login from '../loginAndSignUp/Login'
 import BrowseAllChannels from './browseAllChannels/BrowseAllChannels'
-
 import Channel from './channel/Channel'
 import Header from './sidebarAndSearchbar/Header'
 import Sidebar from './sidebarAndSearchbar/Sidebar'
