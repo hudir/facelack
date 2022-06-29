@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
-import About from './infoModale/About'
-import Members from './infoModale/Members'
+import About from '../channel/infoModal/About'
+import Members from '../channel/infoModal/Members'
 
 export default function Info({channel,joined}) {
   return (
