@@ -19,7 +19,7 @@ export default function Login() {
         }
     }
 
-// console.log(state)
+
   return (
     <div>
         <h1>Welcome to {state.appName}</h1>

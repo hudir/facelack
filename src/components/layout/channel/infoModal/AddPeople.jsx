@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../../../../store/Context';
 
 export default function AddPeople({channel}) {
+
     const {state, dispatch} = useContext(Context);
 
     const [info, setInfo] = useState(null)
@@ -29,6 +30,7 @@ export default function AddPeople({channel}) {
         <input type="text" name='people'/>
         {info && <p>{info}</p> }
         <button type='submit'>ADD</button>
+
     </form>
   )
 }
