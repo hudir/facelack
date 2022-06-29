@@ -1,1 +1,1 @@
-https://facelack-hudir.vercel.app/
+https://facelack.vercel.app/
