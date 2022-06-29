@@ -7,6 +7,7 @@ const init = {
         channelName: "general",
         private:false,
         description:'this is general channel',
+        createBy:{user:"admin",time:'Jun 29 09:50'},
         members:['00admin'],
         messages:[{
             user:'00admin',

@@ -13,12 +13,15 @@ export default function CreateChannel({setShowModal}) {
 
     const createNewChannelHandler = e =>{
         e.preventDefault()
+        const time = JSON.stringify(new Date());
+        const createBy = {time:time, user:state.currentUser.userName}
         const newChannel = {
             channelName:e.target.channelName.value,
             description:e.target.description.value,
             members:[state.currentUser.userID],
             messages:[],
-            private:e.target.private.checked
+            private:e.target.private.checked,
+            createBy:createBy
         }
         // check if the channel is already there
         if(state.channels.some(el=>el.channelName===newChannel.channelName)) setExists(true); else {
@@ -28,7 +31,7 @@ export default function CreateChannel({setShowModal}) {
             });
             setShowModal(false);
             navigate(newChannel.channelName)
-            console.log(state.currentUserChannels);
+            // console.log(state.currentUserChannels);
         }    
     }
   return (
