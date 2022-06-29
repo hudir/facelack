@@ -17,12 +17,6 @@ export default function reducerFunc(prev, action){
             })
             return {...prev, currentUser:null, users: newUsersList, currentUserChannels: null}
         
-        case "LOGOUT":
-            const newUsersList = prev.users.map(el=>{
-                if(el.userID === prev.currentUser.userID) return {...el, online:false}; else return el
-            })
-            
-            return {...prev,currentUser:null, users:newUsersList,currentUserChannels:null}
         
         case "SIGNUP":
             const newUser={
@@ -113,25 +107,6 @@ export default function reducerFunc(prev, action){
                 users:[...action.users],channels: [...action.channels]}
 
 
-
-            const joinCurrentUserChannels = [...prev.currentUserChannels, joinChannel[toAddtoCurrentUserChannels]]
-
-            return {...prev, channels: joinChannel, currentUserChannels: joinCurrentUserChannels}
-
-        case 'ADD_USER':
-            const addedUser = prev.users.filter((el) => el.userName === action.name)[0]
-            const newChannel_addPeople = prev.channels.map((el) => {
-                if(el.channelName=== action.channelName) {
-                    return {...el, members: [...el.members, addedUser.userID]}
-                } else return el
-            })
-            const newCurrentUserChannel_addPeople = prev.currentUserChannels.map((el) => {
-                if(el.channelName=== action.channelName) {
-                    return {...el, members: [...el.members, addedUser.userID]}
-                } else return el
-            })
-
-            return {...prev, channels: newChannel_addPeople, currentUserChannels: newCurrentUserChannel_addPeople}
 
         default:
             return prev;
