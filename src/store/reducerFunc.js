@@ -23,6 +23,7 @@ export default function reducerFunc(prev, action){
             return {...prev, users:[...prev.users, newUser], currentUser:newUser}
 
         case "USERCHANNELS":
+            console.log(prev.channels);
             const userChannels = prev.channels.filter(el=>el.members.some(id=>id===action.id))
             return {...prev, currentUserChannels: userChannels}
 
@@ -46,7 +47,7 @@ export default function reducerFunc(prev, action){
                 currentUserChannels: newCurrentUserChannels
             }
 
-        case "CREATECHANNEL":
+        case "CREATE_CHANNEL":
             return {...prev,
                 channels:[...prev.channels, action.newChannel],
                 currentUserChannels: [...prev.currentUserChannels, action.newChannel] 
@@ -96,6 +97,10 @@ export default function reducerFunc(prev, action){
             }))
 
             return {...prev, channels:newChannel_addPeople, currentUserChannels:newCurrentUserChannels_addPeople}
+
+        case "UPDATE":
+            return {...prev, 
+                users:[...action.users],channels: [...action.channels]}
 
 
 
