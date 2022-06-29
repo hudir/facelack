@@ -11,6 +11,7 @@ export default function BrowseAllChannels() {
     useEffect(()=> {
       const publicChannel = state.channels.filter(el=>el.private=== false || el.members.some(id=>id===state.currentUser.userID))
       setChannelsToRender(publicChannel)
+
     }, [state.channels, state.currentUserChannels])
 
     const leaveChannel = (channelName, notPublic) => {

@@ -31,6 +31,7 @@ export default function CreateChannel({setShowModal}) {
                 type: 'CREATE_CHANNEL',
                 newChannel: newChannel,
             })
+
             setShowModal(false)
             navigate(newChannel.channelName)
         } 

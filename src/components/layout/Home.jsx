@@ -17,12 +17,16 @@ export default function Home() {
 
   return (
     <div>
-      <Header/>
+
+      <Header />
       <Sidebar/>
       <Routes>
+        
         <Route path=':channelName/*' element={<Channel />}/>
         <Route path='browseAllChannels' element={<BrowseAllChannels />}/>
-        {/* <Route path='*' element={<Login/>}/> */}
+
+        <Route path='*' element={<BrowseAllChannels /> }/>
+
       </Routes>
     </div>
   )

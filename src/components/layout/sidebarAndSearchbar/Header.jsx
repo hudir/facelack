@@ -3,19 +3,19 @@ import { Context } from '../../../store/Context'
 
 export default function Header() {
 
-  const {state, dispatch} = useContext(Context)
-
+  const {state ,dispatch} = useContext(Context)
   const [logOut, setLogOut] = useState(false)
 
-  const logOutHandler = () => {
+  const logOutHandle =() =>{
     dispatch({
-      type: 'LOGOUT',
+      type:'LOGOUT'
     })
-  }
 
+  }
   return (
     <div>
-      <span onClick={logOutHandler}>{state.currentUser.userName} Sign out</span>
+      <span onClick={logOutHandle}>{state.currentUser.userName} Sign Out</span>
+
     </div>
   )
 }

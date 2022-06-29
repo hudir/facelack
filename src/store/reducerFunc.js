@@ -17,6 +17,13 @@ export default function reducerFunc(prev, action){
             })
             return {...prev, currentUser:null, users: newUsersList, currentUserChannels: null}
         
+        case "LOGOUT":
+            const newUsersList = prev.users.map(el=>{
+                if(el.userID === prev.currentUser.userID) return {...el, online:false}; else return el
+            })
+            
+            return {...prev,currentUser:null, users:newUsersList,currentUserChannels:null}
+        
         case "SIGNUP":
             const newUser={
                 userName:action.name,password:action.password,online:true, 
@@ -24,6 +31,7 @@ export default function reducerFunc(prev, action){
             return {...prev, users:[...prev.users, newUser], currentUser:newUser}
 
         case "USERCHANNELS":
+            console.log(prev.channels);
             const userChannels = prev.channels.filter(el=>el.members.some(id=>id===action.id))
             return {...prev, currentUserChannels: userChannels}
 
@@ -46,9 +54,13 @@ export default function reducerFunc(prev, action){
                 currentUserChannels: newCurrentUserChannels
             }
 
-        case 'CREATE_CHANNEL':
-      
-            return {...prev, channels: [...prev.channels, action.newChannel], currentUserChannels: [...prev.currentUserChannels, action.newChannel]}
+
+        case "CREATE_CHANNEL":
+            return {...prev,
+                channels:[...prev.channels, action.newChannel],
+                currentUserChannels: [...prev.currentUserChannels, action.newChannel] 
+            }
+
 
         case 'LEAVE_CHANNEL':
             const leaveChannel = prev.channels.map((el, i) => {
@@ -60,17 +72,47 @@ export default function reducerFunc(prev, action){
 
             const leaveCurrentUserChannels = prev.currentUserChannels.filter((el, i) => el.channelName!==action.name)
 
-            return {...prev, channels: leaveChannel, currentUserChannels: leaveCurrentUserChannels}
 
-        case 'JOIN_CHANNEL':
-            let toAddtoCurrentUserChannels = 0
-            const joinChannel = prev.channels.map((el, i) => {
-                if(el.channelName===action.name) {
-                    toAddtoCurrentUserChannels=i
-                    const newMembers = [...el.members, prev.currentUser.userID]
-                    return {...el, members: newMembers}
-                } else return el
-            })
+            return {...prev,
+                channels: leaveChannel,
+                currentUserChannels: leaveCurrentUserChannels 
+            }
+        
+        case "JOIN_CHANNEL":
+                let toAddToCurrentUserChannels=0;
+                const joinChannel = prev.channels.map((el,i)=>{
+                    if(el.channelName===action.name){
+                        toAddToCurrentUserChannels=i;
+                        const newMembers = [...el.members, prev.currentUser.userID]
+                        return {...el, members:newMembers}
+                    } else return el
+                })
+    
+                const joinCurrentUserChannels = [...prev.currentUserChannels,joinChannel[toAddToCurrentUserChannels]]
+    
+                return {...prev,
+                    channels: joinChannel,
+                    currentUserChannels: joinCurrentUserChannels 
+                }
+
+        case "ADD_USER":
+            const user = prev.users.filter(el=>el.userName===action.name)[0];
+            const newChannel_addPeople = prev.channels.map((el=>{
+                if(el.channelName===action.channelName)
+                return {...el, members:[...el.members, user.userID]}; else return el
+            }))
+            const newCurrentUserChannels_addPeople =  prev.currentUserChannels.map((el=>{
+                if(el.channelName===action.channelName)
+                return {...el, members:[...el.members, user.userID]}; else return el
+            }))
+
+            return {...prev, channels:newChannel_addPeople, currentUserChannels:newCurrentUserChannels_addPeople}
+
+        case "UPDATE":
+            return {...prev, 
+                users:[...action.users],channels: [...action.channels]}
+
+
 
             const joinCurrentUserChannels = [...prev.currentUserChannels, joinChannel[toAddtoCurrentUserChannels]]
 

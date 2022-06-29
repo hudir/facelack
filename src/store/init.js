@@ -1,13 +1,15 @@
-const init = {
+let init = {
     appName: 'facelack',
     users:[{userName:'admin',password:'admin',online:false, userID:'00admin'}],
     currentUser:null,
     currentUserChannels:null,
     channels:[{
         channelName: "general",
+
         private: false,
         description: "This is general channel",
         createBy : {user: 'admin', time: 'June 29, 09:50'},
+
         members:['00admin'],
         messages:[{
             user:'00admin',

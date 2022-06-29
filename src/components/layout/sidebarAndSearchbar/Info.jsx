@@ -12,8 +12,8 @@ export default function Info({channel,joined}) {
         </nav>
 
         <Routes path={channel.channelName}>
-            <Route path={'/about'} element={<About/>}/>
-            <Route path={'/members'} element={<Members/>}/>
+            <Route path={'/about'} element={<About channel={channel} joined={joined}/>}/>
+            <Route path={'/members'} element={<Members channel={channel} joined={joined}/>}/>
         </Routes>
     </div>
   )
