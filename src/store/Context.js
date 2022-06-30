@@ -26,7 +26,24 @@ function ContextProvider ({children}){
         }
         
         const intervalId = setInterval(() => {
-            getUsers()
+            const getdateAndUpdate = async ()=> {
+                await getUsers();
+                const updateState = () => {
+                    if (data && !initialize){
+                        if (data.users !== state.users || data.channels!== state.channels){
+                            dispatch({
+                                type:"UPDATE",
+                                users:data.users,
+                                channels:data.channels
+                            })
+                            // console.log(data);
+                        }
+                    }
+                }
+                await updateState()
+            }
+            getdateAndUpdate()
+            console.log(1)
           }, 1000 ) // in milliseconds
           return () => clearInterval(intervalId)
 
@@ -41,18 +58,18 @@ function ContextProvider ({children}){
     },[])
      
     //update state
-    useEffect(()=>{
-        if (data){
-            if (data.users !== state.users || data.channels!== state.channels){
-                dispatch({
-                    type:"UPDATE",
-                    users:data.users,
-                    channels:data.channels
-                })
-                // console.log(data);
-            }
-        }
-    },[data])
+    // useEffect(()=>{
+    //     if (data){
+    //         if (data.users !== state.users || data.channels!== state.channels){
+    //             dispatch({
+    //                 type:"UPDATE",
+    //                 users:data.users,
+    //                 channels:data.channels
+    //             })
+    //             // console.log(data);
+    //         }
+    //     }
+    // },[data])
     // console.log(state.channels);
 
     // update data in firebase
