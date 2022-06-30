@@ -21,7 +21,9 @@ import AddIcon from "@mui/icons-material/Add";
 export default function Sidebar() {
   const { state, showModal, setShowModal } = useContext(Context);
 
-  
+  const [showChannels, setShowChannels] = useState(false)
+
+  const [showCreate, setShowCreate] = useState(false)
 
   return (
     <SidebarContainer>
@@ -36,26 +38,39 @@ export default function Sidebar() {
 
       <hr />
 
-      <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
+      <div onClick={() => setShowChannels(pre=>!pre)}>
+      <SidebarOption Icon={showChannels ? ExpandMoreIcon : ExpandLessIcon} title="Channels" /></div>
 
-      {state.currentUserChannels && (
-        <ul>
+
+      {showChannels ? state.currentUserChannels && (
+        <UlContainer>
           {state.currentUserChannels.map((el, i) => (
-            <SidebarOption key={i}>
-              <Link to={`${el.channelName}`}>{el.channelName}</Link>
-            </SidebarOption>
+            <Link to={`${el.channelName}`} >
+              <SidebarOption key={i} title={el.channelName}>
+                {" "}
+              </SidebarOption>
+            </Link>
           ))}
-        </ul>
-      )}
-      <SidebarOption title="Browser Channel">
+        </UlContainer>
+      ) : null}
+
+            <div onClick={()=> setShowCreate(pre=>!pre)}>
+              
+            <SidebarOption Icon={AddIcon} title='Add Channel'> 
+       
+        </SidebarOption>
+            </div>
+            {showCreate &&  <CreateButton><Link to="browseAllChannels" style={{}} className='browser'>
         {" "}
-        <Link to="browseAllChannels"></Link>
+        <SidebarOption title="Channel Browser" ></SidebarOption>
+      </Link>
+
+      <div  onClick={(e) => setShowModal((pre) => !pre)} className="create">
+      <SidebarOption title='Create new channel'>
       </SidebarOption>
-      <SidebarOption>
-        <span onClick={(e) => setShowModal((pre) => !pre)}>
-          Create new channel
-        </span>
-      </SidebarOption>
+      </div>
+      </CreateButton>}
+
 
     </SidebarContainer>
   );
@@ -68,10 +83,32 @@ const SidebarContainer = styled.div`
   border-top: 1px solid #49274b;
   max-width: 260px;
   overflow-y: hide;
+  padding-top: 90px;
 
   > hr {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #49274b;
-    }
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #49274b;
+  }
 `;
+
+const UlContainer = styled.ul`
+  a {
+    color: white;
+  text-decoration: none;
+  }
+`
+const CreateButton = styled.div`
+  background-color: lightgray;
+  border-radius: 5px;
+  color: 'black';
+  text-decoration: 'none';
+  .create, .browser {
+    color:black;
+    text-decoration: none;
+  }
+
+  .browser:hover, .create:hover {
+    color: white;
+  }
+`
