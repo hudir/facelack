@@ -24,7 +24,7 @@ function ContextProvider ({children}){
             await setData(data.docs.map((doc)=> ({...doc.data(), id: doc.id}))[0])
             await setInitialize(false)
         }
-        getUsers()
+        
 
         // const addUsers = async()=>{
         //     await addDoc(userCollectionRef,{
@@ -34,8 +34,14 @@ function ContextProvider ({children}){
 
         // }
         // addUsers()
+        const intervalId = setInterval(() => {
+            getUsers()
+          }, 1000 * 5) // in milliseconds
+          return () => clearInterval(intervalId)
     },[])
-     
+    
+    
+
     //update state
     useEffect(()=>{
         if (data){
@@ -65,7 +71,7 @@ function ContextProvider ({children}){
                
 
         })()  
-    }, [state.users, state.channels])
+    }, [state.users, state.channels, state.currentUserChannels])
 
     return <Context.Provider value={{
         state, dispatch

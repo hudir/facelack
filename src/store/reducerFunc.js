@@ -25,7 +25,7 @@ export default function reducerFunc(prev, action){
             return {...prev, users:[...prev.users, newUser], currentUser:newUser}
 
         case "USERCHANNELS":
-            console.log(prev.channels);
+            // console.log(prev.channels);
             const userChannels = prev.channels.filter(el=>el.members.some(id=>id===action.id))
             return {...prev, currentUserChannels: userChannels}
 
@@ -103,8 +103,12 @@ export default function reducerFunc(prev, action){
             return {...prev, channels:newChannel_addPeople, currentUserChannels:newCurrentUserChannels_addPeople}
 
         case "UPDATE":
-            return {...prev, 
-                users:[...action.users],channels: [...action.channels]}
+            if (prev.currentUser) { const newcurrentUserChannels1 = action.channels.filter(el=>el.members.some(id=>id===prev.currentUser.userID))
+                return {...prev, 
+                    users:[...action.users],channels: [...action.channels],currentUserChannels:newcurrentUserChannels1}}
+            else {return {...prev, 
+                users:[...action.users],channels: [...action.channels]}}
+           
 
 
 
