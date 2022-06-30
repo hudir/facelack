@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import { Context } from "../../../store/Context";
 import {useNavigate} from 'react-router-dom'
+// import  { db }  from '../database/firebase'
 
 export default function CreateChannel({setShowModal}) {
 
@@ -31,6 +32,9 @@ export default function CreateChannel({setShowModal}) {
                 type: 'CREATE_CHANNEL',
                 newChannel: newChannel,
             })
+          //   db.collection('channels').add(
+          //     {name:newChannel}
+          // ) 
             setShowModal(false)
             navigate(newChannel.channelName)
         } 

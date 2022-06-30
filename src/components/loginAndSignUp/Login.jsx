@@ -19,7 +19,6 @@ export default function Login() {
         }
     }
 
-    console.log(state.users)
 
   return (
     <div>
