@@ -24,28 +24,7 @@ function ContextProvider ({children}){
             await setData(data.docs.map((doc)=> ({...doc.data(), id: doc.id}))[0])
             await setInitialize(false)
         }
-        
-        const intervalId = setInterval(() => {
-            const getdateAndUpdate = async ()=> {
-                await getUsers();
-                const updateState = () => {
-                    if (data && !initialize){
-                        if (data.users !== state.users || data.channels!== state.channels){
-                            dispatch({
-                                type:"UPDATE",
-                                users:data.users,
-                                channels:data.channels
-                            })
-                            // console.log(data);
-                        }
-                    }
-                }
-                await updateState()
-            }
-            getdateAndUpdate()
-            console.log(1)
-          }, 1000 ) // in milliseconds
-          return () => clearInterval(intervalId)
+        getUsers()
 
         // const addUsers = async()=>{
         //     await addDoc(userCollectionRef,{
@@ -58,18 +37,18 @@ function ContextProvider ({children}){
     },[])
      
     //update state
-    // useEffect(()=>{
-    //     if (data){
-    //         if (data.users !== state.users || data.channels!== state.channels){
-    //             dispatch({
-    //                 type:"UPDATE",
-    //                 users:data.users,
-    //                 channels:data.channels
-    //             })
-    //             // console.log(data);
-    //         }
-    //     }
-    // },[data])
+    useEffect(()=>{
+        if (data){
+            if (data.users !== state.users || data.channels!== state.channels){
+                dispatch({
+                    type:"UPDATE",
+                    users:data.users,
+                    channels:data.channels
+                })
+                // console.log(data);
+            }
+        }
+    },[data])
     // console.log(state.channels);
 
     // update data in firebase
