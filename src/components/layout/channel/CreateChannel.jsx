@@ -32,9 +32,6 @@ export default function CreateChannel({setShowModal}) {
                 type: 'CREATE_CHANNEL',
                 newChannel: newChannel,
             })
-          //   db.collection('channels').add(
-          //     {name:newChannel}
-          // ) 
             setShowModal(false)
             navigate(newChannel.channelName)
         } 
