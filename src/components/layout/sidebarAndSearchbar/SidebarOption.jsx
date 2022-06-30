@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 
 
 
 
 export default function SidebarOption({Icon, title, addChannelOption, id}) {
+
+
 
     // const dispatch = useDispatch()
   
@@ -36,7 +38,7 @@ export default function SidebarOption({Icon, title, addChannelOption, id}) {
             <h3>{title}</h3>
         ) : (
             <SidebarOptionChannel>
-                <span>#</span>{title}
+                <span># {title}</span>
             </SidebarOptionChannel>
         )}
     </SidebarOptionContainer>
