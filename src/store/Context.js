@@ -24,7 +24,11 @@ function ContextProvider ({children}){
             await setData(data.docs.map((doc)=> ({...doc.data(), id: doc.id}))[0])
             await setInitialize(false)
         }
-        getUsers()
+        
+        const intervalId = setInterval(() => {
+            getUsers()
+          }, 1000 ) // in milliseconds
+          return () => clearInterval(intervalId)
 
         // const addUsers = async()=>{
         //     await addDoc(userCollectionRef,{
@@ -49,7 +53,7 @@ function ContextProvider ({children}){
             }
         }
     },[data])
-    console.log(state.channels);
+    // console.log(state.channels);
 
     // update data in firebase
     useEffect(()=>{  
