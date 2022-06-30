@@ -153,6 +153,8 @@ const ChatInputContainer = styled.div`
   margin-top: 50px;
   position: relative;
   bottom: 70px;
+  position: relative;
+  z-index: 2;
 
 ;
 
@@ -187,6 +189,8 @@ const ChatContainer = styled.div`
   margin-top: 30px;
   padding:20px 10px;
   max-height: calc(100vh-100px);
+  position: relative;
+  z-index: 2;
 `;
 const Header = styled.div`
   display: flex;
@@ -228,7 +232,7 @@ const MessageContainer = styled.div`
   margin: 20px 0;
 
   display: flex;
-  z-index: -1;
+  z-index: 1;
   position: relative;
   span {
     font-weight: bold;
