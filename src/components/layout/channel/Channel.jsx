@@ -4,8 +4,11 @@ import { Context } from "../../../store/Context";
 import Info from "../sidebarAndSearchbar/Info";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-
+import { Avatar } from "@mui/material";
 import styled from "styled-components";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 export default function Channel() {
   const { state, dispatch } = useContext(Context);
@@ -40,7 +43,9 @@ export default function Channel() {
 
   const postMassage = (e) => {
     e.preventDefault();
-    const time = new Date();
+    const time =  new Date().toString() // FIX TIMESTAMP!!!!!!!!
+    console.log(time);
+    // console.log(new Date(time*1000))
     dispatch({
       type: "POST",
       postObj: {
@@ -52,20 +57,20 @@ export default function Channel() {
       },
     });
     setInput("");
-    // console.log(state.channels[0].messages);
+
   };
 
   return (
     <ChatInputContainer>
       {currentChannel ? (
         <>
-          <div onClick={() => setCallInfo(false)}>
+          <div >
             
                 <ChatContainer>
                   <>
-                    <Header>
+                    <Header onClick={() => setCallInfo(pre=>!pre)}>
                       <HeaderLeft>
-                        <h4 onClick={() => setCallInfo(true)}>
+                        <h4 >
                           <strong>#{currentChannel.channelName}</strong>
                         </h4>
                         <StarOutlineIcon />
@@ -77,11 +82,16 @@ export default function Channel() {
                       </HeaderRight>
                     </Header>
                     {currentChannel.messages.length > 0 &&
-              currentChannel.messages.map((el, i) => (<div key={i}>
-                    <h4>{el.user.slice(2)}</h4>
+              currentChannel.messages.map((el, i) => (<MessageContainer key={i}>
+                        <HeaderAvatar>
+          {el.user.slice(2, 3).toUpperCase()}
+        </HeaderAvatar>
+                    <div className="msg-right">
+                    <span>{el.user.slice(2)}</span>
                     <small>{JSON.stringify(el.time)}</small>
                     <p>{el.body}</p>
-                    </div>))}
+                    </div>
+                    </MessageContainer>))}
                   </>
                 </ChatContainer>
               
@@ -140,7 +150,11 @@ const ChatInputContainer = styled.div`
   flex: 0.7;
   flex-grow: 1;
   overflow-y: scroll;
-  margin-top: 0;
+  margin-top: 50px;
+  position: relative;
+  bottom: 70px;
+
+;
 
   border-radius: 20px;
   form {
@@ -170,7 +184,6 @@ const ChatInputContainer = styled.div`
 const ChatContainer = styled.div`
   flex: 0.7;
   flex-grow: 1;
-  overflow-y: scroll;
   margin-top: 30px;
   padding:20px 10px;
   max-height: calc(100vh-100px);
@@ -208,5 +221,27 @@ const HeaderRight = styled.div`
       margin-right: 5px !important;
       font-size: 16px;
     }
+  }
+`;
+
+const MessageContainer = styled.div`
+  margin: 20px 0;
+
+  display: flex;
+  z-index: -1;
+  position: relative;
+  span {
+    font-weight: bold;
+    font-size:18px;
+  }
+
+`
+
+const HeaderAvatar = styled(Avatar)`
+margin-right: 15px;
+
+
+  :hover {
+    opacity: 0.8;
   }
 `;
