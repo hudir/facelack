@@ -1,10 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../../../store/Context';
+import styled from "styled-components";
+import CreateChannel from '../channel/CreateChannel';
 
 export default function BrowseAllChannels() {
 
-    const {state, dispatch} = useContext(Context)
+    const {state, dispatch, showModal, setShowModal} = useContext(Context)
 
     const [channelsToRender, setChannelsToRender] = useState(null)
 
@@ -34,7 +36,11 @@ export default function BrowseAllChannels() {
 
   
   return (
-    <div>
+    <BrowseChannelsContainer>
+    <h2>All channels</h2>
+    <button onClick={()=> setShowModal(pre=>!pre)}>Create Channel</button>
+    {showModal && <CreateChannel/>}
+    <hr />
       {channelsToRender && channelsToRender.map((el,i) => (
             <div key={i} >
               <Link to={`../${el.channelName}`}>
@@ -47,6 +53,13 @@ export default function BrowseAllChannels() {
                 {el.members.some(x=>x===state.currentUser.userID) ? <button onClick={e=>leaveChannel(el.channelName, el.private)}>Leave Channel</button> : <button onClick={e=>joinChannel(el.channelName)}>Join Channel</button>}
             </div>
         ))}
-    </div>
+    </BrowseChannelsContainer>
   )
 }
+
+const BrowseChannelsContainer = styled.div`
+    flex: 0.7;
+  flex-grow: 1;
+  overflow-y: scroll;
+  margin-top: 60px;
+`

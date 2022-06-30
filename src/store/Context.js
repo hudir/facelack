@@ -10,6 +10,8 @@ const Context = createContext()
 function ContextProvider ({children}){
     const [state, dispatch] = useReducer(reducerFunc, init);
 
+    const [showModal, setShowModal] = useState(false);
+
     const userCollectionRef= collection(db, "user")
 
     const [data,setData] = useState(null),
@@ -68,7 +70,7 @@ function ContextProvider ({children}){
     }, [state.users, state.channels])
 
     return <Context.Provider value={{
-        state, dispatch
+        state, dispatch, showModal, setShowModal
     }}>{children}</Context.Provider>
 }
 
