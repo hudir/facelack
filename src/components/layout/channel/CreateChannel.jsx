@@ -68,7 +68,10 @@ export default function CreateChannel() {
           </small></label>
          
         </div>
-        <button type="submit">Create</button>
+        <div> <button type="submit">Create</button>
+        <button onClick={()=>setShowModal(false)}>Back</button>
+        </div>
+       
       </form>
       <div className="glass" onClick={()=>setShowModal(false)}></div>
     </CreateChannelContainer>
@@ -89,7 +92,7 @@ const CreateChannelContainer =styled.div`
     left: 50%;
     transform: translate(-50%,-50%);
     text-align: center;
-    z-index: 5;
+    z-index: 8;
   }
   form *{
     width: 100%;

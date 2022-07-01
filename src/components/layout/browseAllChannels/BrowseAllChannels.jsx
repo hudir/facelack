@@ -48,7 +48,6 @@ export default function BrowseAllChannels() {
         </button>
       </BrowserHeader>
 
-      {showModal && <CreateChannel />}
       <hr />
       <AmountChannels>{state.channels.length - 1} channels</AmountChannels>
       {channelsToRender &&
