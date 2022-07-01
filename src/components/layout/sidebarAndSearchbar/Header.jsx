@@ -113,6 +113,10 @@ const HeaderAvatar = styled(Avatar)`
   margin-left: auto;
   margin-right: 20px;
 
+   > .MuiSvgIcon-root{
+  background-color: #032631;
+   }
+
   :hover {
     opacity: 0.8;
   }
