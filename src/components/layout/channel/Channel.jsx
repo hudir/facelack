@@ -155,7 +155,6 @@ const ChatInputContainer = styled.div`
   overflow-y: scroll;
   margin-top: 50px;
   margin-bottom: 50px;
-
   border-radius: 20px;
   form {
     position: relative;
@@ -187,6 +186,8 @@ const ChatContainer = styled.div`
   margin-top: 30px;
   padding: 20px 10px;
   max-height: calc(100vh-100px);
+  position: relative;
+  z-index: 2;
 `;
 const Header = styled.div`
   display: flex;
@@ -229,7 +230,7 @@ const MessageContainer = styled.div`
   align-items:center;
   padding: 20px;
   display: flex;
-  z-index: -1;
+  z-index: 1;
   position: relative;
   span {
     font-weight: bold;

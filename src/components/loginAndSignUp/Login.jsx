@@ -3,6 +3,7 @@ import { Context } from '../../store/Context'
 import SignUp from './SignUp'
 import styled from 'styled-components';
 
+
 export default function Login() {
     const {state, dispatch} = useContext(Context)
 
@@ -23,7 +24,7 @@ export default function Login() {
 
   return (
     <LoginContainer >
-        <h1>Welcome to {state.appName}</h1>
+        <h1>{signUp ? "Bye Bye slack" : "Welcome to "+state.appName}</h1>
         <form onSubmit={onSubmitHandler}>
             <div>
                 <label htmlFor="UserName">UserName</label>
