@@ -50,7 +50,7 @@ export default function Sidebar() {
       )}
 
       <div onClick={() => setShowOptions((pre) => !pre)}>
-        <SidebarOption Icon={showOptions ? ExpandLessIcon : ExpandMoreIcon} title="Show less" />
+        <SidebarOption Icon={showOptions ? ExpandLessIcon : ExpandMoreIcon} title={showOptions ? "Show less": "Show more"} />
       </div>
 
       <hr />
