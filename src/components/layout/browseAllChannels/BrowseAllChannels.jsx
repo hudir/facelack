@@ -53,7 +53,7 @@ export default function BrowseAllChannels() {
       <AmountChannels>{state.channels.length - 1} channels</AmountChannels>
       {channelsToRender &&
         channelsToRender.map((el, i) => (
-          <ChannelContainer >
+          <ChannelContainer key={i} >
             <Link to={`../${el.channelName}`}>
               <h3>#{el.channelName}</h3>
             </Link>

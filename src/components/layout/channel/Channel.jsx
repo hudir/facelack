@@ -12,9 +12,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
-
 export default function Channel() {
-
   const { state, dispatch } = useContext(Context);
 
   let { channelName } = useParams();
@@ -69,34 +67,32 @@ export default function Channel() {
         <>
           <div>
             <ChatContainer>
- 
-                <Header onClick={() => setCallInfo((pre) => !pre)}>
-                  <HeaderLeft>
-                    <h4>
-                      <strong>#{currentChannel.channelName}</strong>
-                    </h4>
-                    <StarOutlineIcon />
-                  </HeaderLeft>
-                  <HeaderRight>
-                    <p>
-                      <InfoOutlinedIcon /> Details
-                    </p>
-                  </HeaderRight>
-                </Header>
-                {currentChannel.messages.length > 0 &&
-                  currentChannel.messages.map((el, i) => (
-                    <MessageContainer key={i}>
-                      <HeaderAvatar>
-                        {el.user.slice(2, 3).toUpperCase()}
-                      </HeaderAvatar>
-                      <div className="msg-right">
-                        <span>{el.user.slice(2)}</span>
-                        <small>{JSON.stringify(el.time)}</small>
-                        <p>{el.body}</p>
-                      </div>
-                    </MessageContainer>
-                  ))}
-              
+              <Header onClick={() => setCallInfo((pre) => !pre)}>
+                <HeaderLeft>
+                  <h4>
+                    <strong>#{currentChannel.channelName}</strong>
+                  </h4>
+                  <StarOutlineIcon />
+                </HeaderLeft>
+                <HeaderRight>
+                  <p>
+                    <InfoOutlinedIcon /> Details
+                  </p>
+                </HeaderRight>
+              </Header>
+              {currentChannel.messages.length > 0 &&
+                currentChannel.messages.map((el, i) => (
+                  <MessageContainer key={i}>
+                    <HeaderAvatar>
+                      {el.user.slice(2, 3).toUpperCase()}
+                    </HeaderAvatar>
+                    <div className="msg-right">
+                      <span>{el.user.slice(2)}</span>
+                      <small>{JSON.stringify(el.time)}</small>
+                      <p>{el.body}</p>
+                    </div>
+                  </MessageContainer>
+                ))}
             </ChatContainer>
 
             <form onSubmit={postMassage}>
@@ -119,12 +115,12 @@ export default function Channel() {
         </>
       ) : (
         notJoinedChannel && (
-          <div className='notJoined'>
+          <div className="notJoined">
             <h1>{notJoinedChannel.channelName}</h1>
 
             {notJoinedChannel.messages.length > 0 &&
               notJoinedChannel.messages.map((el, i) => (
-                <MessageContainer key={i} >
+                <MessageContainer key={i}>
                   <HeaderAvatar>
                     {el.user.slice(2, 3).toUpperCase()}
                   </HeaderAvatar>
@@ -140,17 +136,18 @@ export default function Channel() {
               <h3># {notJoinedChannel.channelName}</h3>
               <p>{notJoinedChannel.description}</p>
               <div>
-              <button className='details'>Details</button>
-              <button className='join'
-                onClick={() =>
-                  dispatch({
-                    type: "JOIN_CHANNEL",
-                    name: notJoinedChannel.channelName,
-                  })
-                }
-              >
-                Join channel
-              </button>
+                <button className="details">Details</button>
+                <button
+                  className="join"
+                  onClick={() =>
+                    dispatch({
+                      type: "JOIN_CHANNEL",
+                      name: notJoinedChannel.channelName,
+                    })
+                  }
+                >
+                  Join channel
+                </button>
               </div>
 
             </NotJoined>
@@ -294,7 +291,7 @@ const NotJoined = styled.div`
     padding: 6px;
     margin-left: 15px;
     :hover {
-      opacity:0.8;
+      opacity: 0.8;
       cursor: pointer;
     }
   }
@@ -304,7 +301,7 @@ const NotJoined = styled.div`
     border-radius: 4px;
     padding: 6px;
     :hover {
-      opacity:0.8;
+      opacity: 0.8;
       cursor: pointer;
     }
   }
