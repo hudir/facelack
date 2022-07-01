@@ -61,6 +61,7 @@ export default function Header() {
 const HeaderContainer = styled.div`
   display: flex;
   position: fixed;
+  z-index: 5;
   width: 100%;
   align-items: center;
   justify-content: space-between;

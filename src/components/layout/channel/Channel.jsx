@@ -168,7 +168,6 @@ const ChatInputContainer = styled.div`
   overflow-y: scroll;
   margin-top: 50px;
   /* margin-bottom: 50px; */
-
   border-radius: 20px;
   form {
     position: relative;
@@ -201,8 +200,7 @@ const ChatContainer = styled.div`
   flex-grow: 1;
   margin-top: 30px;
   padding: 20px 10px;
-  /* max-height: calc(100vh-100px); */
-
+  max-height: calc(100vh-100px); 
   .notJoined {
     margin-top: 90px;
   }
@@ -248,7 +246,7 @@ const MessageContainer = styled.div`
   align-items: center;
   padding: 20px;
   display: flex;
-  z-index: -1;
+  z-index: 1;
   position: relative;
   overflow-y: hidden;
 
