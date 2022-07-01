@@ -152,8 +152,7 @@ export default function Channel() {
                 Join channel
               </button>
               </div>
-              
-              <Link>Back to All channels</Link>
+
             </NotJoined>
           </div>
         )
