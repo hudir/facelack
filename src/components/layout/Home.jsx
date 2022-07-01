@@ -7,9 +7,10 @@ import Header from './sidebarAndSearchbar/Header'
 import Sidebar from './sidebarAndSearchbar/Sidebar'
 import Welcome from './Welcome'
 import styled from "styled-components";
+import CreateChannel from './channel/CreateChannel'
 
 export default function Home() {
-  const {state, dispatch} = useContext(Context)
+  const {state, dispatch, showModal} = useContext(Context)
 
   useEffect(()=>dispatch({
     type:"USERCHANNELS",
@@ -29,6 +30,8 @@ export default function Home() {
         <Route path='*' element={<BrowseAllChannels /> }/>
 
       </Routes>
+
+      {showModal && <CreateChannel/>}
     </AppBody>
   )
 }
