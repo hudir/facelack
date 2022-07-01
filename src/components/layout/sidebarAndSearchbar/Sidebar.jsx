@@ -70,7 +70,8 @@ export default function Sidebar() {
       </SidebarOption>
       </div>
       </CreateButton>}
-
+    
+    
 
     </SidebarContainer>
   );
@@ -84,6 +85,8 @@ const SidebarContainer = styled.div`
   max-width: 260px;
   overflow-y: hide;
   padding-top: 90px;
+  position: relative;
+  z-index: 4;
 
   > hr {
     margin-top: 10px;
