@@ -25,13 +25,16 @@ export default function SignUp({setSignUp}) {
   return (
     <SignUpContainer >
     <form onSubmit={signUpHandler} >
-        <h3>Welcome</h3>
-        <div>Your User Name:
+        <h3>Please enter you userName and password</h3>
+        <div>UserName:
             <input type="text" value={newUserName} onChange={e=>setNewUserName(e.target.value)} required/>
         </div>
 
-        <div>Your Password
-            <input type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} />
+        <div>
+        Password:
+            <input type="text" value={newPassword} onChange={e=>setNewPassword(e.target.value)} />
+            <br />
+            <small>please use a simple password like 123</small>
         </div>
 
         <button type='submit'>submit</button>
@@ -50,36 +53,31 @@ const SignUpContainer = styled.div`
     width: 100vw;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,0.85);
-
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background-color: #5f0066e4;
+    color: #ff9900;
 
     > div {
         height: 100vh;
         width: 100vw;
     }
-   
 
-
-
-    h1 {
+    h3 {
     font-size: 4.5rem;
     margin-bottom: 2rem;
  }
- form div {
+ form  {
     margin: 0.5rem;
-     
-    label {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: bold;
-        padding-right: 10px;
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+
     }
-    label, input {
-        font-size: 1.5rem;
-    }
+input {
+        font-size: 2rem;
+        margin-left: 10px;
 
  }
  div p {

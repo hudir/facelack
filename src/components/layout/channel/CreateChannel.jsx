@@ -1,11 +1,12 @@
 import React, {useContext, useState} from "react";
 import { Context } from "../../../store/Context";
 import {useNavigate} from 'react-router-dom'
+import styled from "styled-components";
 // import  { db }  from '../database/firebase'
 
-export default function CreateChannel({setShowModal}) {
+export default function CreateChannel() {
 
-    const {state, dispatch} = useContext(Context)
+    const {state, dispatch, setShowModal} = useContext(Context)
 
     const [exists, setExists] = useState(false)
 
@@ -38,13 +39,14 @@ export default function CreateChannel({setShowModal}) {
     }
 
   return (
-    <div>
+    <CreateChannelContainer>
+      
+      <form onSubmit={createNewChannelHandler}>
       <h2>Create a channel</h2>
       <small>
         Channels are where your team communicates. They´re best when organized
         around a topic — #marketing, for example.
       </small>
-      <form onSubmit={createNewChannelHandler}>
         <div>
           <h3>Name</h3>
           <input type="text" name="channelName" required/> {exists && <p>The Channel already exists, please try another</p>}
@@ -56,15 +58,51 @@ export default function CreateChannel({setShowModal}) {
           <input type="text" name='description' />
         </div>
         <div>
-          <h3>Make private</h3>
-          <input type="checkbox" name='private' />
-          <small>
+          <label htmlFor="pri"><h3>Make private</h3></label>
+          
+          <input type="checkbox" name='private' id="pri"/>
+
+          <label htmlFor="pri"> <small>
             When a channel is set to private, it can only be viewed or joined by
             invitation.
-          </small>
+          </small></label>
+         
         </div>
         <button type="submit">Create</button>
       </form>
-    </div>
+      <div className="glass" onClick={()=>setShowModal(false)}></div>
+    </CreateChannelContainer>
   );
 }
+
+const CreateChannelContainer =styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform: translate(-10%,-10%);
+  background: linear-gradient(180deg, var(--slack-color) 0% , #45023bec 50% , var(--slack-color) 100%);
+  
+  form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    z-index: 5;
+  }
+  form *{
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    color: #ff9900;
+  }
+  form input {
+    color: black;
+  }
+  .glass{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+`
