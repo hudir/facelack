@@ -46,7 +46,6 @@ export default function Channel() {
   const postMassage = (e) => {
     e.preventDefault();
     const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
-    console.log(time);
     // console.log(new Date(time*1000))
     dispatch({
       type: "POST",

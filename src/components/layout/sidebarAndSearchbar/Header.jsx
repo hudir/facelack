@@ -9,10 +9,24 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import Button from '@mui/material/Button';
 import CreateIcon from '@mui/icons-material/Create';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import NewMessage from "./NewMessage";
 
 export default function Header() {
   const { state, dispatch } = useContext(Context);
   const [logOut, setLogOut] = useState(false);
+  const [newMessage, setNewMessage] = useState(false);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+    setNewMessage(pre=>!pre)
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
   const navi = useNavigate();
 
   const logOutHandle = () => {
@@ -32,8 +46,9 @@ export default function Header() {
                     {state.currentUser.userName}
                 </h3>
             </SidebarInfo>
-            <CreateIcon/>
+            <NewMessageIcon onClick={handleClickOpen}/>
         </SidebarHeader>
+        {newMessage && <NewMessage handleClose={handleClose} handleClickOpen={handleClickOpen} open={open}/>}
         <AccessTimeIcon />
       </HeaderLeft>
       <HeaderSearch>
@@ -165,4 +180,11 @@ const SidebarInfo = styled.div`
         margin-right: 2px;
         margin-top: 1px;
     }
+`;
+
+const NewMessageIcon = styled(CreateIcon)`
+  :hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 `
