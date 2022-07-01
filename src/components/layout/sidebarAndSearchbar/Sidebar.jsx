@@ -60,13 +60,14 @@ export default function Sidebar() {
        
         </SidebarOption>
             </div>
-            {showCreate &&  <CreateButton><Link to="browseAllChannels" style={{}} className='browser'>
+
+            {showCreate &&  <CreateButton onClick={()=> setShowCreate(false)}><Link to="browseAllChannels" style={{}} className='browser'>
         {" "}
         <SidebarOption title="Channel Browser" ></SidebarOption>
       </Link>
 
       <div  onClick={(e) => setShowModal((pre) => !pre)} className="create">
-      <SidebarOption title='Create new channel'>
+      <SidebarOption title='Create new channel' onClick={()=> setShowCreate(false)}>
       </SidebarOption>
       </div>
       </CreateButton>}

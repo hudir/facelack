@@ -68,7 +68,10 @@ export default function CreateChannel() {
           </small></label>
          
         </div>
-        <button type="submit">Create</button>
+        <div> <button type="submit">Create</button>
+        <button onClick={()=>setShowModal(false)}>Back</button>
+        </div>
+       
       </form>
       <div className="glass" onClick={()=>setShowModal(false)}></div>
     </CreateChannelContainer>
@@ -79,7 +82,7 @@ const CreateChannelContainer =styled.div`
   height: 100%;
   width: 100%;
   position: absolute;
-  transform: translate(-10%,-10%);
+  
   background: linear-gradient(180deg, var(--slack-color) 0% , #45023bec 50% , var(--slack-color) 100%);
   
   form {
@@ -88,7 +91,7 @@ const CreateChannelContainer =styled.div`
     left: 50%;
     transform: translate(-50%,-50%);
     text-align: center;
-    z-index: 5;
+    z-index: 8;
   }
   form *{
     width: 100%;

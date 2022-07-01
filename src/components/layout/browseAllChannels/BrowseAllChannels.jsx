@@ -39,7 +39,7 @@ export default function BrowseAllChannels() {
     <BrowseChannelsContainer>
     <h2>All channels</h2>
     <button onClick={()=> setShowModal(pre=>!pre)}>Create Channel</button>
-    {showModal && <CreateChannel/>}
+   
     <hr />
       {channelsToRender && channelsToRender.map((el,i) => (
             <div key={i} >
