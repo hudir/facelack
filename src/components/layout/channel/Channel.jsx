@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../../../store/Context";
-import Info from "../sidebarAndSearchbar/Info";
+import Info from "./infoModal/Info";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Avatar } from "@mui/material";
@@ -116,8 +116,20 @@ export default function Channel() {
       ) : (
         notJoinedChannel && (
           <div className="notJoined">
-            <h1>{notJoinedChannel.channelName}</h1>
-
+            <ChatContainer>
+            <Header onClick={() => setCallInfo((pre) => !pre)}>
+                <HeaderLeft>
+                  <h4>
+                    <strong>#{notJoinedChannel.channelName}</strong>
+                  </h4>
+                  <StarOutlineIcon />
+                </HeaderLeft>
+                <HeaderRight>
+                  <p>
+                    <InfoOutlinedIcon /> Details
+                  </p>
+                </HeaderRight>
+              </Header>
             {notJoinedChannel.messages.length > 0 &&
               notJoinedChannel.messages.map((el, i) => (
                 <MessageContainer key={i}>
@@ -131,6 +143,7 @@ export default function Channel() {
                   </div>
                 </MessageContainer>
               ))}
+              </ChatContainer>
 
             <NotJoined>
               <h3># {notJoinedChannel.channelName}</h3>
@@ -179,8 +192,13 @@ const ChatInputContainer = styled.div`
     width: 60%;
     border: 1px solid lightgray;
     border-radius: 8px;
-    padding: 20px;
+    padding: 35px;
+    z-index: 2;
     outline: none;
+    transition: box-shadow 300ms ease-out;
+  :focus {
+    box-shadow: 0px 0px 13px #335aad;
+  }
   }
 
   form button {

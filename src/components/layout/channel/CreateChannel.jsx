@@ -76,10 +76,11 @@ export default function CreateChannel() {
 }
 
 const CreateChannelContainer =styled.div`
-  height: 100%;
-  width: 100%;
+  height: 60%;
+  width: 60%;
+  left: 25%;
+  top: 25%;
   position: absolute;
-  transform: translate(-10%,-10%);
   background: linear-gradient(180deg, var(--slack-color) 0% , #45023bec 50% , var(--slack-color) 100%);
   
   form {
@@ -93,7 +94,7 @@ const CreateChannelContainer =styled.div`
   form *{
     width: 100%;
     margin-bottom: 10px;
-    font-size: 2rem;
+    font-size: 1rem;
     color: #ff9900;
   }
   form input {
