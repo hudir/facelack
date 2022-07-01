@@ -5,13 +5,16 @@ import Info from "../sidebarAndSearchbar/Info";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Avatar } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function Channel() {
+
   const { state, dispatch } = useContext(Context);
 
   let { channelName } = useParams();
@@ -21,7 +24,6 @@ export default function Channel() {
     [input, setInput] = useState(""),
     [notJoinedChannel, setNotJoinedChannel] = useState(null),
     [callInfo, setCallInfo] = useState(false);
-
 
   // this is for the channel user joined
   useEffect(() => {
@@ -67,7 +69,7 @@ export default function Channel() {
         <>
           <div>
             <ChatContainer>
-              <>
+ 
                 <Header onClick={() => setCallInfo((pre) => !pre)}>
                   <HeaderLeft>
                     <h4>
@@ -93,9 +95,8 @@ export default function Channel() {
                         <p>{el.body}</p>
                       </div>
                     </MessageContainer>
-                    
                   ))}
-              </>
+              
             </ChatContainer>
 
             <form onSubmit={postMassage}>
@@ -108,7 +109,9 @@ export default function Channel() {
                 placeholder={`Message #${currentChannel.channelName}`}
                 onChange={(e) => setInput(e.target.value)}
               ></input>
-              <button type="submit"><SendIcon/></button>
+              <button type="submit">
+                <SendIcon />
+              </button>
             </form>
           </div>
 
@@ -116,22 +119,29 @@ export default function Channel() {
         </>
       ) : (
         notJoinedChannel && (
-          <div>
+          <div className='notJoined'>
             <h1>{notJoinedChannel.channelName}</h1>
 
             {notJoinedChannel.messages.length > 0 &&
               notJoinedChannel.messages.map((el, i) => (
-                <section key={i}>
-                  <h4>{el.user.slice(2)}</h4>
-                  <small>{JSON.stringify(el.time)}</small>
-                  <p>{el.body}</p>
-                </section>
+                <MessageContainer key={i} >
+                  <HeaderAvatar>
+                    {el.user.slice(2, 3).toUpperCase()}
+                  </HeaderAvatar>
+                  <div className="msg-right">
+                    <span>{el.user.slice(2)}</span>
+                    <small>{JSON.stringify(el.time)}</small>
+                    <p>{el.body}</p>
+                  </div>
+                </MessageContainer>
               ))}
 
-            <div>
-              <h3>{notJoinedChannel.channelName}</h3>
+            <NotJoined>
+              <h3># {notJoinedChannel.channelName}</h3>
               <p>{notJoinedChannel.description}</p>
-              <button
+              <div>
+              <button className='details'>Details</button>
+              <button className='join'
                 onClick={() =>
                   dispatch({
                     type: "JOIN_CHANNEL",
@@ -141,7 +151,10 @@ export default function Channel() {
               >
                 Join channel
               </button>
-            </div>
+              </div>
+              
+              <Link>Back to All channels</Link>
+            </NotJoined>
           </div>
         )
       )}
@@ -162,7 +175,7 @@ const ChatInputContainer = styled.div`
     display: flex;
     justify-content: center;
     height: 100px;
-    align-items: center
+    align-items: center;
   }
 
   form input {
@@ -188,7 +201,11 @@ const ChatContainer = styled.div`
   flex-grow: 1;
   margin-top: 30px;
   padding: 20px 10px;
-  max-height: calc(100vh-100px);
+  /* max-height: calc(100vh-100px); */
+
+  .notJoined {
+    margin-top: 90px;
+  }
 `;
 const Header = styled.div`
   display: flex;
@@ -228,22 +245,22 @@ const HeaderRight = styled.div`
 
 const MessageContainer = styled.div`
   margin: 20px 0;
-  align-items:center;
+  align-items: center;
   padding: 20px;
   display: flex;
   z-index: -1;
   position: relative;
+  overflow-y: hidden;
+
   span {
     font-weight: bold;
     font-size: 18px;
-
   }
   small {
     padding-left: 10px;
-    color:gray;
+    color: gray;
     margin-left: 4px;
-    font-size:10px;
-
+    font-size: 10px;
   }
 `;
 
@@ -255,3 +272,56 @@ const HeaderAvatar = styled(Avatar)`
   }
 `;
 
+const NotJoined = styled.div`
+  background-color: #e4e4e4;
+  width: 90%;
+  border-radius: 3px;
+  border: 1px solid #d6d6d6;
+  margin: 0 auto;
+  padding: 20px;
+
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  justify-content: space-between;
+  height: 100px;
+  align-items: center;
+  bottom: 30px;
+  .join {
+    color: white;
+    background-color: #466b46;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 6px;
+    margin-left: 15px;
+    :hover {
+      opacity:0.8;
+      cursor: pointer;
+    }
+  }
+  .details {
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 6px;
+    :hover {
+      opacity:0.8;
+      cursor: pointer;
+    }
+  }
+
+  p {
+    color: #6e6e6e;
+    font-size: 12px;
+  }
+
+  a {
+    color: #5a5a5a;
+    font-size: 14px;
+    :hover {
+      color: blue;
+    }
+  }
+`;
