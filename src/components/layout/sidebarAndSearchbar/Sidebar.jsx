@@ -30,7 +30,9 @@ export default function Sidebar() {
       <SidebarOption Icon={InsertCommentIcon} title="Threads" />
       <SidebarOption Icon={InboxIcon} title="Mentions & Reactions" />
       <SidebarOption Icon={DraftsIcon} title="Saved Items" />
-      <SidebarOption Icon={BookmarkBorderIcon} title="Channel Browser" />
+      <Link to="browseAllChannels">
+      <SidebarOption Icon={BookmarkBorderIcon} title="Channel Browser" className="link"></SidebarOption></Link>
+   
       <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
       <SidebarOption Icon={AppsIcon} title="Apps" />
       <SidebarOption Icon={FileCopyIcon} title="File Browser" />
@@ -93,6 +95,11 @@ const SidebarContainer = styled.div`
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid #49274b;
+  }
+
+  a {
+    color: white;
+  text-decoration: none;
   }
 `;
 
