@@ -5,6 +5,7 @@ import Info from "../sidebarAndSearchbar/Info";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Avatar } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 import styled from "styled-components";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -20,6 +21,7 @@ export default function Channel() {
     [input, setInput] = useState(""),
     [notJoinedChannel, setNotJoinedChannel] = useState(null),
     [callInfo, setCallInfo] = useState(false);
+
 
   // this is for the channel user joined
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function Channel() {
 
   const postMassage = (e) => {
     e.preventDefault();
-    const time =  new Date().toString() // FIX TIMESTAMP!!!!!!!!
+    const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
     console.log(time);
     // console.log(new Date(time*1000))
     dispatch({
@@ -57,44 +59,44 @@ export default function Channel() {
       },
     });
     setInput("");
-
   };
 
   return (
     <ChatInputContainer>
       {currentChannel ? (
         <>
-          <div >
-            
-                <ChatContainer>
-                  <>
-                    <Header onClick={() => setCallInfo(pre=>!pre)}>
-                      <HeaderLeft>
-                        <h4 >
-                          <strong>#{currentChannel.channelName}</strong>
-                        </h4>
-                        <StarOutlineIcon />
-                      </HeaderLeft>
-                      <HeaderRight>
-                        <p>
-                          <InfoOutlinedIcon /> Details
-                        </p>
-                      </HeaderRight>
-                    </Header>
-                    {currentChannel.messages.length > 0 &&
-              currentChannel.messages.map((el, i) => (<MessageContainer key={i}>
-                        <HeaderAvatar>
-          {el.user.slice(2, 3).toUpperCase()}
-        </HeaderAvatar>
-                    <div className="msg-right">
-                    <span>{el.user.slice(2)}</span>
-                    <small>{JSON.stringify(el.time)}</small>
-                    <p>{el.body}</p>
-                    </div>
-                    </MessageContainer>))}
-                  </>
-                </ChatContainer>
-              
+          <div>
+            <ChatContainer>
+              <>
+                <Header onClick={() => setCallInfo((pre) => !pre)}>
+                  <HeaderLeft>
+                    <h4>
+                      <strong>#{currentChannel.channelName}</strong>
+                    </h4>
+                    <StarOutlineIcon />
+                  </HeaderLeft>
+                  <HeaderRight>
+                    <p>
+                      <InfoOutlinedIcon /> Details
+                    </p>
+                  </HeaderRight>
+                </Header>
+                {currentChannel.messages.length > 0 &&
+                  currentChannel.messages.map((el, i) => (
+                    <MessageContainer key={i}>
+                      <HeaderAvatar>
+                        {el.user.slice(2, 3).toUpperCase()}
+                      </HeaderAvatar>
+                      <div className="msg-right">
+                        <span>{el.user.slice(2)}</span>
+                        <small>{JSON.stringify(el.time)}</small>
+                        <p>{el.body}</p>
+                      </div>
+                    </MessageContainer>
+                    
+                  ))}
+              </>
+            </ChatContainer>
 
             <form onSubmit={postMassage}>
               <input
@@ -103,9 +105,10 @@ export default function Channel() {
                 cols="30"
                 rows="10"
                 value={input}
+                placeholder={`Message #${currentChannel.channelName}`}
                 onChange={(e) => setInput(e.target.value)}
               ></input>
-              <button type="submit">send</button>
+              <button type="submit"><SendIcon/></button>
             </form>
           </div>
 
@@ -151,34 +154,30 @@ const ChatInputContainer = styled.div`
   flex-grow: 1;
   overflow-y: scroll;
   margin-top: 50px;
-  position: relative;
-  bottom: 70px;
-  position: relative;
-  z-index: 2;
-
-;
-
+  /* margin-bottom: 50px; */
   border-radius: 20px;
   form {
     position: relative;
     display: flex;
     justify-content: center;
+    height: 100px;
+    align-items: center
   }
 
   form input {
     position: fixed;
     bottom: 30px;
     width: 60%;
-    border: 1px solid gray;
-    border-radius: 3px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
     padding: 20px;
     outline: none;
   }
 
   form button {
-    opacity: 0.8;
+    opacity: 0;
     position: fixed;
-    bottom: 48px;
+    bottom: 30px;
     right: 20px;
   }
 `;
@@ -187,7 +186,7 @@ const ChatContainer = styled.div`
   flex: 0.7;
   flex-grow: 1;
   margin-top: 30px;
-  padding:20px 10px;
+  padding: 20px 10px;
   max-height: calc(100vh-100px);
   position: relative;
   z-index: 2;
@@ -203,25 +202,25 @@ const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
 
-   h4 {
+  h4 {
     display: flex;
     text-transform: lowercase;
     margin-right: 10px;
   }
 
-   h4 .MuiSvgIcon-root {
+  h4 .MuiSvgIcon-root {
     margin-left: 10px;
     font-size: 18px;
   }
 `;
 
 const HeaderRight = styled.div`
-   p {
+  p {
     display: flex;
     align-items: center;
     font-size: 14px;
 
-     p  .MuiSvgIcon-root {
+    p .MuiSvgIcon-root {
       margin-right: 5px !important;
       font-size: 16px;
     }
@@ -230,22 +229,30 @@ const HeaderRight = styled.div`
 
 const MessageContainer = styled.div`
   margin: 20px 0;
-
+  align-items:center;
+  padding: 20px;
   display: flex;
   z-index: 1;
   position: relative;
   span {
     font-weight: bold;
-    font-size:18px;
-  }
+    font-size: 18px;
 
-`
+  }
+  small {
+    padding-left: 10px;
+    color:gray;
+    margin-left: 4px;
+    font-size:10px;
+
+  }
+`;
 
 const HeaderAvatar = styled(Avatar)`
-margin-right: 15px;
-
+  margin-right: 15px;
 
   :hover {
     opacity: 0.8;
   }
 `;
+
