@@ -154,13 +154,15 @@ const ChatInputContainer = styled.div`
   flex-grow: 1;
   overflow-y: scroll;
   margin-top: 50px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
 
   border-radius: 20px;
   form {
     position: relative;
     display: flex;
     justify-content: center;
+    height: 100px;
+    align-items: center
   }
 
   form input {
@@ -174,9 +176,9 @@ const ChatInputContainer = styled.div`
   }
 
   form button {
-    opacity: 0.8;
+    opacity: 0;
     position: fixed;
-    bottom: 48px;
+    bottom: 30px;
     right: 20px;
   }
 `;

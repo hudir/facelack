@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../../store/Context";
 import styled from "styled-components";
 import CreateChannel from "../channel/CreateChannel";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 
 export default function BrowseAllChannels() {
   const { state, dispatch, showModal, setShowModal } = useContext(Context);
@@ -48,10 +48,9 @@ export default function BrowseAllChannels() {
         </button>
       </BrowserHeader>
 
-
       {showModal && <CreateChannel />}
       <hr />
-      <AmountChannels>{state.channels.length} channels</AmountChannels>
+      <AmountChannels>{state.channels.length - 1} channels</AmountChannels>
       {channelsToRender &&
         channelsToRender.map((el, i) => (
           <ChannelContainer >
@@ -59,27 +58,36 @@ export default function BrowseAllChannels() {
               <h3>#{el.channelName}</h3>
             </Link>
             <ChannelInfo>
-            {el.members.some((x) => x === state.currentUser.userID) ? (
-              <span className="joined"><DoneIcon/>  Joined :</span>
-            ) : null}
-            <span className="members">
-              {el.members.length > 1 ? (
-                <span>{el.members.length} members</span>
-              ) : (
-                <span>{el.members.length} member</span>
-              )}
-            </span>
+              <div>
+                {el.members.some((x) => x === state.currentUser.userID) ? (
+                  <span className="joined">
+                    <DoneIcon /> Joined :
+                  </span>
+                ) : null}
+                <span className="members">
+                  {el.members.length > 1 ? (
+                    <span>{el.members.length} members</span>
+                  ) : (
+                    <span>{el.members.length} member</span>
+                  )}
+                </span>
 
-            <span className="description">: {el.description}</span>
-            {el.members.some((x) => x === state.currentUser.userID)  ? (
-              <button onClick={(e) => leaveChannel(el.channelName, el.private)}>
-                Leave Channel
-              </button>
-            ) : (
-              <button onClick={(e) => joinChannel(el.channelName)}>
-                Join Channel
-              </button>
-            )}</ChannelInfo>
+                <span className="description">: {el.description}</span>
+              </div>
+            
+                  {el.members.some((x) => x === state.currentUser.userID) ? (
+                    <button
+                      onClick={(e) => leaveChannel(el.channelName, el.private)}
+                    >
+                      Leave Channel
+                    </button>
+                  ) : (
+                    <button onClick={(e) => joinChannel(el.channelName)}>
+                      Join Channel
+                    </button>
+                  )}
+             
+            </ChannelInfo>
           </ChannelContainer>
         ))}
     </BrowseChannelsContainer>
@@ -91,15 +99,13 @@ const BrowseChannelsContainer = styled.div`
   flex-grow: 1;
   overflow-y: scroll;
   margin-top: 100px;
-
-
 `;
 
 const BrowserHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center; 
-  padding:10px;
+  align-items: center;
+  padding: 10px;
   button {
     border-radius: 2px;
     background-color: #ffffff;
@@ -109,8 +115,9 @@ const BrowserHeader = styled.div`
 const ChannelContainer = styled.div`
   padding: 20px;
   border-bottom: 1px solid #e4e4e4;
-  width:95%;
+  width: 95%;
   margin: 0 auto;
+  height: fit-content;
   :hover {
     background-color: #a3a3a339;
   }
@@ -119,13 +126,13 @@ const ChannelContainer = styled.div`
     color: black;
     text-decoration: none;
   }
-
-`
+`;
 
 const ChannelInfo = styled.div`
-  display:flex;
+  display: flex;
   height: 25px;
   align-items: center;
+  justify-content: space-between;
   .joined {
     color: green;
     font-size: 12px;
@@ -135,17 +142,17 @@ const ChannelInfo = styled.div`
     }
   }
 
-  .members, .description {
+  .members,
+  .description {
     color: #686868;
     font-size: 15px;
   }
-
-`
+`;
 
 const AmountChannels = styled.div`
   padding-top: 30px;
   padding-bottom: 5px;
   border-bottom: 1px solid #e4e4e4;
-  width:95%;
+  width: 95%;
   margin: 0 auto;
-`
+`;
