@@ -30,7 +30,9 @@ export default function Sidebar() {
       <SidebarOption Icon={InsertCommentIcon} title="Threads" />
       <SidebarOption Icon={InboxIcon} title="Mentions & Reactions" />
       <SidebarOption Icon={DraftsIcon} title="Saved Items" />
+      <div onClick={() => setShowChannels(pre=>!pre)}>
       <SidebarOption Icon={BookmarkBorderIcon} title="Channel Browser" />
+      </div>
       <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
       <SidebarOption Icon={AppsIcon} title="Apps" />
       <SidebarOption Icon={FileCopyIcon} title="File Browser" />
@@ -60,7 +62,7 @@ export default function Sidebar() {
        
         </SidebarOption>
             </div>
-            {showCreate &&  <CreateButton><Link to="browseAllChannels" style={{}} className='browser'>
+            {showCreate &&  <CreateButton><Link to="browseAllChannels" className='browser'>
         {" "}
         <SidebarOption title="Channel Browser" ></SidebarOption>
       </Link>

@@ -32,7 +32,7 @@ export default function Login() {
 
             <div>
                 <label htmlFor="Password">Password</label>
-                <input type="text" id='Password' value={password} onChange={e=>setPassword(e.target.value)}/>
+                <input type="password" id='Password' value={password} onChange={e=>setPassword(e.target.value)}/>
             </div>
 
             <button type='submit' className='my-3 btn btn-light'>Login</button>

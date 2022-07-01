@@ -31,7 +31,7 @@ export default function SignUp({setSignUp}) {
         </div>
 
         <div>Your Password
-            <input type="text" value={newPassword} onChange={e=>setNewPassword(e.target.value)} />
+            <input type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} />
         </div>
 
         <button type='submit'>submit</button>
