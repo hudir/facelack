@@ -11,7 +11,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 export default function Header() {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch,setCurrentChannel } = useContext(Context);
   const [logOut, setLogOut] = useState(false);
   const navi = useNavigate();
 
@@ -20,6 +20,7 @@ export default function Header() {
       type: "LOGOUT",
     });
     navi("/");
+    setCurrentChannel(null)
   };
   return (
     <HeaderContainer>

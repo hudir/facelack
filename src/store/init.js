@@ -3,6 +3,7 @@ let init = {
     users:[{userName:'admin',password:'admin',online:false, userID:'00admin'}],
     currentUser:null,
     currentUserChannels:null,
+    currentChannel:null,
     channels:[{
         channelName: "general",
 
