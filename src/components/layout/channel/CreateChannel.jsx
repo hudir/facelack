@@ -10,7 +10,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import { IOSSwitch } from "./Switch";
+import ToggleButton from "@mui/material/ToggleButton";
 
 export default function CreateChannel() {
   const { state, dispatch, setShowModal } = useContext(Context);
@@ -20,6 +21,8 @@ export default function CreateChannel() {
   const [newChannel, setNewChannel] = useState("");
 
   const [description, setDescription] = useState("");
+
+  const [text, setText] = useState(false);
 
   let navigate = useNavigate();
 
@@ -54,8 +57,21 @@ export default function CreateChannel() {
   };
 
   return (
-    <Dialog open={() => setShowModal(true)} onClose={() => setShowModal(false)}>
-      <DialogTitle> Create a channel</DialogTitle>
+    <CreateChannelContainer
+      open={() => setShowModal(true)}
+      onClose={() => setShowModal(false)}
+    >
+      <DialogTitleContainer>
+        {!text ? "Create a channel" : "Create a private channel"}{" "}
+        <ToggleButton
+          value="check"
+          onChange={() => {
+            setShowModal(false);
+          }}
+        >
+          X
+        </ToggleButton>
+      </DialogTitleContainer>
       <DialogContent>
         <DialogContentText>
           Channels are where your team communicates. They´re best when organized
@@ -63,10 +79,9 @@ export default function CreateChannel() {
         </DialogContentText>
         <form onSubmit={createNewChannelHandler}>
           <MessageFieldContainer>
-            <TextField
-              label="Size"
+            <MessageField
+              label="Channel Name"
               id="outlined-size-small"
-              defaultValue="Small"
               size="small"
               value={newChannel}
               onChange={(e) => setNewChannel(e.target.value)}
@@ -81,39 +96,57 @@ export default function CreateChannel() {
               value={description}
               multiline
               rows={3}
-              placeholder="Description of the channel"
+              placeholder="Add a channel description"
               onChange={(e) => setDescription(e.target.value)}
             />
           </MessageFieldContainer>
 
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Make private"
-            name="private"
-          />
-
-          <small>
-            When a channel is set to private, it can only be viewed or joined by
-            invitation.
-          </small>
+          <CheckboxDiv>
+            <FormControlLabel
+              control={<IOSSwitch sx={{ m: 1 }} />}
+              label="Make private"
+              name="private"
+              onChange={(e) => setText((pre) => !pre)}
+            />
+            <small>
+              {!text ? (
+                "When a channel is set to private, it can only be viewed or joined by invitation."
+              ) : (
+                <span>
+                  <strong>This can’t be undone.</strong> A
+                  private channel cannot be made public later on.
+                </span>
+              )}
+            </small>
+          </CheckboxDiv>
 
           <DialogActions>
             <Button type="submit">Create</Button>
-            <Button onClick={() => setShowModal(false)}>Close</Button>
           </DialogActions>
         </form>
       </DialogContent>
-    </Dialog>
+    </CreateChannelContainer>
   );
 }
 
-const CreateChannelContainer = styled.div``;
+const CreateChannelContainer = styled(Dialog)`
 
-const InputContainer = styled.div``;
+`;
 
-const TextFieldInput = styled(TextField)``;
+const CheckboxDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const MessageFieldContainer = styled.div`
   padding: 20px;
 `;
 
-const MessageField = styled(TextField)``;
+const MessageField = styled(TextField)`
+  width: 100%;
+`;
+
+const DialogTitleContainer = styled(DialogTitle)`
+  display: flex;
+  justify-content:space-between;
+`
