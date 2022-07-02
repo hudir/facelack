@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../../store/Context";
 import SignUp from "./SignUp";
 import styled from "styled-components";
+import Button from "@mui/material/Button";
 
 export default function Login() {
   const { state, dispatch } = useContext(Context);
@@ -22,6 +23,13 @@ export default function Login() {
         name: userName,
       });
     }
+  };
+
+  // For Sign Up modal
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -55,14 +63,17 @@ export default function Login() {
 
       <div>
         <p>if you are first time ues facelack, please sign up</p>
-        <button
-          className="my-3 btn btn-light"
-          onClick={(e) => setSignUp((prev) => !prev)}
-        >
-          Sign up
-        </button>
 
-        {signUp && <SignUp setSignUp={setSignUp} />}
+        <Button variant="contained" onClick={handleClickOpen}>
+          Sign Up
+        </Button>
+
+        <SignUp
+          setSignUp={setSignUp}
+          open={open}
+          setOpen={setOpen}
+          handleClickOpen={handleClickOpen}
+        />
       </div>
     </LoginContainer>
   );
