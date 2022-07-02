@@ -2,11 +2,29 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Context } from "../../store/Context";
 
-export default function SignUp({ setSignUp }) {
-  const { state, dispatch } = useContext(Context);
-  const [newUserName, setNewUserName] = useState(""),
-    [newPassword, setNewPassword] = useState(""),
-    [userExists, setUserExists] = useState(false);
+
+export default function SignUp({setSignUp}) {
+    const {state, dispatch} = useContext(Context)
+    const [newUserName, setNewUserName] = useState('')
+    , [newPassword, setNewPassword] = useState('')
+    , [userExists, setUserExists] = useState(false)
+
+    const signUpHandler = e =>{
+        e.preventDefault();
+        if(state.users.some(el=>el.userName===newUserName)){
+            setUserExists(true)
+        } else {
+            const ran255=()=>Math.floor(Math.random()*255)
+            const color = `rgba(${ran255()},${ran255()},${ran255()})`
+            dispatch({
+                type:"SIGNUP",
+                name: newUserName,
+                password: newPassword,
+                color: color
+            })
+            
+        }
+
 
   const signUpHandler = (e) => {
     e.preventDefault();

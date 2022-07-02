@@ -19,6 +19,7 @@ function ContextProvider({ children }) {
 
     const [currentChannel, setCurrentChannel] = useState(null)
 
+
     const userCollectionRef= collection(db, "user")
 
   // get data from firebase

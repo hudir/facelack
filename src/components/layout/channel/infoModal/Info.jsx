@@ -24,7 +24,9 @@ export default function Info({ channel, joined, open, setOpen }) {
 
   const {currentChannel} =useContext(Context)
   
+
   const handleClose = () => setOpen(false);
+
 
   return (
     <div>

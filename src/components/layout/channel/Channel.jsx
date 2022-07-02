@@ -17,8 +17,14 @@ export default function Channel() {
   const [currentChannel, setCurrentChannel] = useState(null),
     [input, setInput] = useState(""),
     [notJoinedChannel, setNotJoinedChannel] = useState(null)
+
+
+    const [mouseOver,setMouseOver] =useState(false)
+    console.log(mouseOver);
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
+
     
 
   // this is for the channel user joined
@@ -79,8 +85,8 @@ export default function Channel() {
               </Header>
               {currentChannel.messages.length > 0 &&
                 currentChannel.messages.map((el, i) => (
-                  <MessageContainer key={i}>
-                    <HeaderAvatar>
+                  <MessageContainer key={i} onMouseOver={e=>state.currentUser.userID===el.user && setMouseOver(true)} onMouseLeave={e=>setMouseOver(false)}>
+                    <HeaderAvatar style={{backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color}}>
                       {el.user.slice(2, 3).toUpperCase()}
                     </HeaderAvatar>
                     <div className="msg-right">
@@ -88,6 +94,19 @@ export default function Channel() {
                       <small>{JSON.stringify(el.time)}</small>
                       <p>{el.body}</p>
                     </div>
+
+                    {state.currentUser.userID===el.user && <div>
+                      <button onClick={()=>{
+                        
+                      }}>Edit</button>
+                      <button onClick={()=>{
+                        dispatch({
+                          type:'DELETE',
+                          index:i,
+                          name:currentChannel.channelName
+                        })
+                      }}>Delete</button>
+                    </div>}
                   </MessageContainer>
                 ))}
             </ChatContainer>
