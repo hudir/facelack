@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import About from "./About";
 import Members from "./Members";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { Context } from "../../../../store/Context";
 
 
 const style = {
@@ -20,6 +21,8 @@ const style = {
 
 export default function Info({ channel, joined, open, setOpen }) {
 
+
+  const {currentChannel} =useContext(Context)
   
   const handleClose = () => setOpen(false);
 
@@ -32,20 +35,20 @@ export default function Info({ channel, joined, open, setOpen }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <h2># {channel.channelName}</h2>
+          <h2># {currentChannel.channelName}</h2>
           <nav>
-            <Link to={"../" + channel.channelName + "/about"}>About</Link>
-            <Link to={"../" + channel.channelName + "/members"}>Members</Link>
+            <Link to={"../" + currentChannel.channelName + "/about"}>About</Link>
+            <Link to={"../" + currentChannel.channelName + "/members"}>Members</Link>
           </nav>
           <hr />
           <Routes>
             <Route
               path={"/about"}
-              element={<About channel={channel} joined={joined} />}
+              element={<About channel={currentChannel} joined={joined} />}
             />
             <Route
               path={"/members"}
-              element={<Members channel={channel} joined={joined} />}
+              element={<Members channel={currentChannel} joined={joined} />}
             />
           </Routes>
         </Box>

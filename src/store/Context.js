@@ -9,12 +9,16 @@ const Context = createContext();
 function ContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunc, init);
 
-  const [showModal, setShowModal] = useState(false);
-
-  const userCollectionRef = collection(db, "user");
-
   const [data, setData] = useState(null),
     [initialize, setInitialize] = useState(true);
+
+  const [showModal, setShowModal] = useState(false),
+    // for info modal which content about and members
+    [callInfo, setCallInfo] = useState(false);
+
+  const [currentChannel, setCurrentChannel] = useState(null);
+
+  const userCollectionRef = collection(db, "user");
 
   // get data from firebase
   useEffect(() => {
@@ -64,6 +68,10 @@ function ContextProvider({ children }) {
         dispatch,
         showModal,
         setShowModal,
+        callInfo,
+        setCallInfo,
+        currentChannel,
+        setCurrentChannel,
       }}
     >
       {children}

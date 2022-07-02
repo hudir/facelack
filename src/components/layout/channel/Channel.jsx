@@ -9,16 +9,17 @@ import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
 
 export default function Channel() {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch , currentChannel, setCurrentChannel} = useContext(Context);
 
   let { channelName } = useParams();
   // console.log(channelName);
 
-  const [currentChannel, setCurrentChannel] = useState(null),
-    [input, setInput] = useState(""),
+  // const [currentChannel, setCurrentChannel] = useState(null)
+    const [input, setInput] = useState(""),
     [notJoinedChannel, setNotJoinedChannel] = useState(null)
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+
     const handleOpen = () => setOpen(true);
 
   // this is for the channel user joined
@@ -163,7 +164,7 @@ export default function Channel() {
           </div>
         )
       )}
-       {open && <Info open={open} setOpen={setOpen} channel={currentChannel} joined={true} />}
+      {open && <Info open={open} setOpen={setOpen} channel={currentChannel} joined={true} />}
       
     </ChatInputContainer>
   );
