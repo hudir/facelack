@@ -3,15 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../../store/Context";
 import styled from "styled-components";
 import DoneIcon from "@mui/icons-material/Done";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
+
 
 export default function BrowseAllChannels() {
-  const { state, dispatch, showModal, setShowModal ,setCurrentChannel} = useContext(Context);
+  const { state, dispatch, setShowModal, setCurrentChannel } =
+    useContext(Context);
 
   const [channelsToRender, setChannelsToRender] = useState(null);
-  
-  const [showButton, setShowButton] = useState(false);
 
-  useEffect(()=>setCurrentChannel(null), [])
+  useEffect(() => setCurrentChannel(null), []);
 
   useEffect(() => {
     const publicChannel = state.channels.filter(
@@ -44,9 +46,13 @@ export default function BrowseAllChannels() {
     <BrowseChannelsContainer>
       <BrowserHeader>
         <h2>All channels</h2>
-        <button onClick={() => setShowModal((pre) => !pre)}>
+        <Button
+          variant="outlined"
+          color="success"
+          onClick={() => setShowModal((pre) => !pre)}
+        >
           Create Channel
-        </button>
+        </Button>
       </BrowserHeader>
 
       <hr />
@@ -61,34 +67,51 @@ export default function BrowseAllChannels() {
               <div>
                 {el.members.some((x) => x === state.currentUser.userID) ? (
                   <span className="joined">
-                    <DoneIcon /> Joined :
+                    <DoneIcon /> Joined <span style={{fontSize: '30px'}}>· </span>
                   </span>
                 ) : null}
-                <span className="members">
-                  {el.members.length > 1 ? (
+                <span className="members" style={{fontWeight: 'bold'}}>
+                  { el.members.length > 1 ? (
                     <span>{el.members.length} members</span>
                   ) : (
                     <span>{el.members.length} member</span>
                   )}
                 </span>
 
-                <span className="description">: {el.description}</span>
+                <span className="description" ><span style={{fontSize: '30px'}}> · </span> {el.description}</span>
               </div>
 
               {el.members.some((x) => x === state.currentUser.userID) ? (
-                <button
+                <Button
+                  variant="outlined"
+                  startIcon={<CloseIcon />}
                   onClick={(e) => leaveChannel(el.channelName, el.private)}
+                  color="error"
                 >
-                  Leave Channel
-                </button>
+                  Leave
+                </Button>
               ) : (
-                <button onClick={(e) => joinChannel(el.channelName)}>
-                  Join Channel
-                </button>
+                <Button
+                  variant="outlined"
+                  startIcon={<DoneIcon />}
+                  onClick={(e) => joinChannel(el.channelName)}
+                  color="success"
+                >
+                  Join
+                </Button>
               )}
             </ChannelInfo>
           </ChannelContainer>
         ))}
+      <ButtonContainer>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => setShowModal((pre) => !pre)}
+        >
+          Create Channel
+        </Button>
+      </ButtonContainer>
     </BrowseChannelsContainer>
   );
 }
@@ -130,7 +153,7 @@ const ChannelContainer = styled.div`
 const ChannelInfo = styled.div`
   display: flex;
   height: 25px;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   .joined {
     color: green;
@@ -143,7 +166,7 @@ const ChannelInfo = styled.div`
 
   .members,
   .description {
-    color: #686868;
+    color: #383838;
     font-size: 15px;
   }
 `;
@@ -154,4 +177,9 @@ const AmountChannels = styled.div`
   border-bottom: 1px solid #e4e4e4;
   width: 95%;
   margin: 0 auto;
+`;
+
+const ButtonContainer = styled.div`
+  text-align: center;
+  margin: 60px;
 `;

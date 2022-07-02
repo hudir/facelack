@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import styled from "styled-components";
-
 import About from "./About";
 import Members from "./Members";
 import Modal from "@mui/material/Modal";
@@ -63,19 +61,3 @@ export default function Info({ channel, open, setOpen }) {
     </div>
   );
 }
-
-// const InfoOutContainer = styled.div`
-//    position: absolute;
-//   height: 100%;
-//   width: 100%;
-//   background-color: gray;
-//   color: black;
-//   z-index: 1;
-//   opacity: 0.7;
-// `
-// const InfoContainer = styled.div`
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// `

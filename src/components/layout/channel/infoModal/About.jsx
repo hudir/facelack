@@ -39,5 +39,5 @@ export default function About({ channel, joined }) {
         </>
       )}
     </div>
-  );
+  )
 }

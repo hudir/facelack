@@ -7,9 +7,13 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Avatar } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined';
 
 export default function Channel() {
-  const { state, dispatch ,setCallInfo,currentChannel, setCurrentChannel} = useContext(Context);
+  const { state, dispatch, currentChannel, setCurrentChannel } =
+    useContext(Context);
 
   let { channelName } = useParams();
   // console.log(channelName);
@@ -20,8 +24,9 @@ export default function Channel() {
     [edit, setEdit] = useState({status:false,index:null})
    
 
+  const [open, setOpen] = useState(false);
 
-    const [open, setOpen] = React.useState(false);
+  
     const handleOpen = () => setOpen(true);
 
     
@@ -119,18 +124,24 @@ export default function Channel() {
                      )  : <p>{el.body}</p>  }
                     </div>
 
-                    {state.currentUser.userID===el.user && <div>
-                      <button onClick={()=>{
-                        setEdit(pre=>({index:i, status:!pre.status}))
-                      }}>Edit</button>
-                      <button onClick={()=>{
-                        dispatch({
-                          type:'DELETE',
-                          index:i,
-                          name:currentChannel.channelName
-                        })
-                      }}>Delete</button>
-                    </div>}
+
+                    {state.currentUser.userID === el.user && (
+                      <div>
+                        <IconButton aria-label="delete" size="small" color='success' onClick={() => {setEdit(pre=>({index:i, status:!pre.status}))}}>
+                          <EditLocationOutlinedIcon />
+                        </IconButton>
+                        <IconButton aria-label="delete" size="small" color='error' onClick={() => {
+                            dispatch({
+                              type: "DELETE",
+                              index: i,
+                              name: currentChannel.channelName,
+                            });
+                          }}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    )}
+
                   </MessageContainer>
                 ))}
             </ChatContainer>
@@ -274,7 +285,6 @@ const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
 
-
   h4 {
     display: flex;
     text-transform: lowercase;
@@ -288,7 +298,6 @@ const HeaderLeft = styled.div`
 `;
 
 const HeaderRight = styled.div`
-
   p {
     display: flex;
     align-items: center;
