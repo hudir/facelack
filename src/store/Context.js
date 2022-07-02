@@ -17,7 +17,7 @@ function ContextProvider ({children}){
 
     const [currentChannel, setCurrentChannel] = useState(null)
 
-    console.log(currentChannel);
+    // console.log(currentChannel);
     const userCollectionRef= collection(db, "user")
 
     const [data,setData] = useState(null),

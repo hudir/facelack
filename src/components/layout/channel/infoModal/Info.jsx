@@ -12,7 +12,7 @@ export default function Info() {
   return (
     <InfoOutContainer>
 
-      {( <InfoContainer>
+      {currentChannel && ( <InfoContainer>
       <h2>{currentChannel.channelName}</h2>
       <nav>
         <Link to={'../'+currentChannel.channelName + "/about"}>About</Link>

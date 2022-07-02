@@ -13,10 +13,13 @@ export default function SignUp({setSignUp}) {
         if(state.users.some(el=>el.userName===newUserName)){
             setUserExists(true)
         } else {
+            const ran255=()=>Math.floor(Math.random()*255)
+            const color = `rgba(${ran255()},${ran255()},${ran255()})`
             dispatch({
                 type:"SIGNUP",
                 name: newUserName,
-                password: newPassword
+                password: newPassword,
+                color: color
             })
             
         }

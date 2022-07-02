@@ -20,8 +20,10 @@ export default function reducerFunc(prev, action){
         
         case "SIGNUP":
             const newUser={
+                color:action.color,
                 userName:action.name,password:action.password,online:true, 
                 userID:prev.users.length < 10 ? `0${prev.users.length+action.name}` : `${prev.users.length+action.name}`}
+                console.log(newUser);
             return {...prev, users:[...prev.users, newUser], currentUser:newUser}
 
         case "USERCHANNELS":
@@ -31,7 +33,7 @@ export default function reducerFunc(prev, action){
 
         case "POST":
             let msg=[]
-            console.log(action)
+            // console.log(action)
             const newChannels=prev.channels.map(el=>{
                 if(el.channelName===action.postObj.channelName){
                     msg=[...el.messages, action.postObj]
@@ -48,6 +50,26 @@ export default function reducerFunc(prev, action){
                 channels:newChannels,
                 currentUserChannels: newCurrentUserChannels
             }
+
+        case "DELETE":
+            let msgDe=[]
+            const newChannelsDe=prev.channels.map(el=>{
+                if(el.channelName===action.name){
+                    msgDe=el.messages.filter((x,i)=>i!==action.index)
+                    return {...el, messages:msgDe}
+                } else return el
+            })
+            const newCurrentUserChannelsDe=prev.currentUserChannels.map(el=>{
+                if(el.channelName===action.name){
+                    msgDe=el.messages.filter((x,i)=>i!==action.index)
+                    return {...el, messages:msgDe}
+                } else return el
+            })
+            return { ...prev,
+                channels:newChannelsDe,
+                currentUserChannels: newCurrentUserChannelsDe
+            }
+           
 
 
         case "CREATE_CHANNEL":
