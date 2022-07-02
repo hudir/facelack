@@ -2,19 +2,54 @@ import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import About from "./About";
 import Members from "./Members";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 
-export default function Info({ channel, joined }) {
+
+const style = {
+  position: "fixed",
+  top: "20%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  borderRadius: "7px",
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function Info({ channel, joined, open, setOpen }) {
+
+  
+  const handleClose = () => setOpen(false);
+
   return (
     <div>
-      <h2>{channel.channelName}</h2>
-      <nav>
-        <Link to={'../'+channel.channelName + "/about"}>About</Link>
-        <Link to={'../'+channel.channelName + "/members"}>Members</Link>
-      </nav>
-      <Routes>
-        <Route path={"/about"} element={<About channel={channel} joined={joined}/>} />
-        <Route path={"/members"} element={<Members channel={channel} joined={joined}/>} />
-      </Routes>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <h2># {channel.channelName}</h2>
+          <nav>
+            <Link to={"../" + channel.channelName + "/about"}>About</Link>
+            <Link to={"../" + channel.channelName + "/members"}>Members</Link>
+          </nav>
+          <hr />
+          <Routes>
+            <Route
+              path={"/about"}
+              element={<About channel={channel} joined={joined} />}
+            />
+            <Route
+              path={"/members"}
+              element={<Members channel={channel} joined={joined} />}
+            />
+          </Routes>
+        </Box>
+      </Modal>
     </div>
   );
 }
