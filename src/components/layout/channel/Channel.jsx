@@ -127,10 +127,10 @@ export default function Channel() {
 
                     {state.currentUser.userID === el.user && (
                       <div>
-                        <IconButton aria-label="delete" size="small" color='success' onClick={() => {setEdit(pre=>({index:i, status:!pre.status}))}}>
+                        <IconButtonStyle aria-label="delete" size="small" color='success' onClick={() => {setEdit(pre=>({index:i, status:!pre.status}))}}>
                           <EditLocationOutlinedIcon />
-                        </IconButton>
-                        <IconButton aria-label="delete" size="small" color='error' onClick={() => {
+                        </IconButtonStyle>
+                        <IconButtonStyle aria-label="delete" size="small" color='error' onClick={() => {
                             dispatch({
                               type: "DELETE",
                               index: i,
@@ -138,7 +138,7 @@ export default function Channel() {
                             });
                           }}>
                           <DeleteIcon />
-                        </IconButton>
+                        </IconButtonStyle>
                       </div>
                     )}
 
@@ -410,3 +410,11 @@ const NotJoined = styled.div`
     font-size: 12px;
   }
 `;
+
+const IconButtonStyle = styled(IconButton)`
+  opacity: 0.3;
+
+  :hover {
+    opacity: 1;
+  }
+`

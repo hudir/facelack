@@ -69,7 +69,7 @@ export default function Header() {
         {logOut && (
           <Dropdown>
             <li>
-              <Button variant="outlined" color="error" onClick={logOutHandle}>
+              <Button variant="contained" color="error" onClick={logOutHandle}>
                 Logout
               </Button>
             </li>
