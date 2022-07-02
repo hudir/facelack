@@ -9,12 +9,17 @@ const Context = createContext();
 function ContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunc, init);
 
-  const [showModal, setShowModal] = useState(false);
-
-  const userCollectionRef = collection(db, "user");
-
   const [data, setData] = useState(null),
     [initialize, setInitialize] = useState(true);
+
+    // for create new channel modal
+    const [showModal, setShowModal] = useState(false)
+    // for info modal which content about and members
+    ,[callInfo, setCallInfo] = useState(false);
+
+    const [currentChannel, setCurrentChannel] = useState(null)
+
+    const userCollectionRef= collection(db, "user")
 
   // get data from firebase
   useEffect(() => {
@@ -43,32 +48,25 @@ function ContextProvider({ children }) {
     }
   }, [data]);
 
-  // update data in firebase
-  useEffect(() => {
-    (async function () {
-      const newDoc = doc(db, "user", "DzRtcfNnNIVke15BqREm");
-      const obj = {
-        users: state.users,
-        channels: state.channels,
-      };
-      if (!initialize) {
-        await updateDoc(newDoc, obj);
-      }
-    })();
-  }, [state.users, state.channels, state.currentUserChannels]);
+    // update data in firebase
+    useEffect(()=>{  
+         (async function(){
+            const newDoc = doc(db,'user',
+               "DzRtcfNnNIVke15BqREm")
+            const obj={
+                users: state.users,
+                channels:state.channels
+            };
+            if (!initialize) {
+                await updateDoc(newDoc , obj)}
+               
 
-  return (
-    <Context.Provider
-      value={{
-        state,
-        dispatch,
-        showModal,
-        setShowModal,
-      }}
-    >
-      {children}
-    </Context.Provider>
-  );
+        })()  
+    }, [state.users, state.channels, state.currentUserChannels])
+
+    return <Context.Provider value={{
+        state, dispatch, showModal, setShowModal, callInfo, setCallInfo, currentChannel, setCurrentChannel
+    }}>{children}</Context.Provider>
 }
 
 export { Context, ContextProvider };

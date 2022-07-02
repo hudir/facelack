@@ -6,10 +6,12 @@ import Channel from "./channel/Channel";
 import Header from "./sidebarAndSearchbar/Header";
 import Sidebar from "./sidebarAndSearchbar/Sidebar";
 import styled from "styled-components";
-import CreateChannel from "./channel/CreateChannel";
+import CreateChannel from './channel/CreateChannel'
+import Info from './channel/infoModal/Info'
+
 
 export default function Home() {
-  const { state, dispatch, showModal } = useContext(Context);
+  const {state, dispatch, showModal, callInfo,currentChannel} = useContext(Context)
 
   useEffect(
     () =>
@@ -29,7 +31,8 @@ export default function Home() {
         <Route path="browseAllChannels" element={<BrowseAllChannels />} />
         <Route path="*" element={<BrowseAllChannels />} />
       </Routes>
-      {showModal && <CreateChannel />}
+      {showModal && <CreateChannel/>}
+      {callInfo && <Info channel={currentChannel} joined={true} />}
     </AppBody>
   );
 }

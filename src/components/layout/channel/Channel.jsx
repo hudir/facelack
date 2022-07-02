@@ -9,7 +9,7 @@ import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
 
 export default function Channel() {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch ,setCallInfo,currentChannel, setCurrentChannel} = useContext(Context);
 
   let { channelName } = useParams();
   // console.log(channelName);
@@ -17,9 +17,9 @@ export default function Channel() {
   const [currentChannel, setCurrentChannel] = useState(null),
     [input, setInput] = useState(""),
     [notJoinedChannel, setNotJoinedChannel] = useState(null)
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
+    
 
   // this is for the channel user joined
   useEffect(() => {
