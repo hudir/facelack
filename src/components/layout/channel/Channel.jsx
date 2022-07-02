@@ -145,9 +145,9 @@ export default function Channel() {
               </ChatContainer>
 
             <NotJoined>
+              <div className='divNotJoined'>
               <h3># {notJoinedChannel.channelName}</h3>
               <p>{notJoinedChannel.description}</p>
-              <div>
                 <button className="details">Details</button>
                 <button
                   className="join"
@@ -284,12 +284,24 @@ const HeaderAvatar = styled(Avatar)`
 `;
 
 const NotJoined = styled.div`
-  background-color: #e4e4e4;
+  background-color: rgba(220, 220, 220, 1);
   width: 90%;
   border-radius: 3px;
   border: 1px solid #d6d6d6;
   margin: 0 auto;
   padding: 20px;
+  z-index: 100;
+ 
+
+  .divNotJoined {
+    text-align: center;
+    position: relative;
+    transform: translateX(-50%) ;
+
+    p {
+      margin: 10px 0;
+    }
+  }
 
   position: fixed;
   display: flex;
@@ -298,7 +310,7 @@ const NotJoined = styled.div`
   justify-content: space-between;
   height: 100px;
   align-items: center;
-  bottom: 30px;
+  bottom: 0px;
   .join {
     color: white;
     background-color: #466b46;
@@ -328,11 +340,11 @@ const NotJoined = styled.div`
     font-size: 12px;
   }
 
-  a {
+  /* a {
     color: #5a5a5a;
     font-size: 14px;
     :hover {
       color: blue;
     }
-  }
+  } */
 `;
