@@ -21,22 +21,37 @@ import AddIcon from "@mui/icons-material/Add";
 export default function Sidebar() {
   const { state, showModal, setShowModal } = useContext(Context);
 
-  const [showChannels, setShowChannels] = useState(false)
+  const [showChannels, setShowChannels] = useState(false);
 
-  const [showCreate, setShowCreate] = useState(false)
+  const [showCreate, setShowCreate] = useState(false);
+
+  const [showOptions, setShowOptions] = useState(false);
+  
 
   return (
     <SidebarContainer>
       <SidebarOption Icon={InsertCommentIcon} title="Threads" />
       <SidebarOption Icon={InboxIcon} title="Mentions & Reactions" />
       <SidebarOption Icon={DraftsIcon} title="Saved Items" />
-      <Link to="browseAllChannels">
-      <SidebarOption Icon={BookmarkBorderIcon} title="Channel Browser" className="link"></SidebarOption></Link>
-   
-      <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
-      <SidebarOption Icon={AppsIcon} title="Apps" />
-      <SidebarOption Icon={FileCopyIcon} title="File Browser" />
-      <SidebarOption Icon={ExpandLessIcon} title="Show less" />
+      {showOptions && (
+        <>
+          <Link to="browseAllChannels">
+            <SidebarOption
+              Icon={BookmarkBorderIcon}
+              title="Channel Browser"
+              className="link"
+            ></SidebarOption>
+          </Link>
+
+          <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
+          <SidebarOption Icon={AppsIcon} title="Apps" />
+          <SidebarOption Icon={FileCopyIcon} title="File Browser" />
+        </>
+      )}
+
+      <div onClick={() => setShowOptions((pre) => !pre)}>
+        <SidebarOption Icon={showOptions ? ExpandLessIcon : ExpandMoreIcon} title={showOptions ? "Show less": "Show more"} />
+      </div>
 
       <hr />
 
@@ -72,10 +87,36 @@ export default function Sidebar() {
       <SidebarOption title='Create new channel' onClick={()=> setShowCreate(false)}>
       </SidebarOption>
       </div>
-      </CreateButton>}
-    
-    
 
+      {showChannels
+        ? state.currentUserChannels && (
+            <UlContainer>
+              {state.currentUserChannels.map((el, i) => (
+                <Link to={`${el.channelName}`}>
+                  <SidebarOption key={i} title={el.channelName}>
+                    {" "}
+                  </SidebarOption>
+                </Link>
+              ))}
+            </UlContainer>
+          )
+        : null}
+
+      <div onClick={() => setShowCreate((pre) => !pre)}>
+        <SidebarOption Icon={AddIcon} title="Add Channel"></SidebarOption>
+      </div>
+      {showCreate && (
+        <CreateButton>
+          <Link to="browseAllChannels" className="browser">
+            {" "}
+            <SidebarOption title="Channel Browser"></SidebarOption>
+          </Link>
+
+          <div onClick={(e) => setShowModal((pre) => !pre)} className="create">
+            <SidebarOption title="Create new channel"></SidebarOption>
+          </div>
+        </CreateButton>
+      )}
     </SidebarContainer>
   );
 }
@@ -99,27 +140,29 @@ const SidebarContainer = styled.div`
 
   a {
     color: white;
-  text-decoration: none;
+    text-decoration: none;
   }
 `;
 
 const UlContainer = styled.ul`
   a {
     color: white;
-  text-decoration: none;
+    text-decoration: none;
   }
-`
+`;
 const CreateButton = styled.div`
   background-color: lightgray;
   border-radius: 5px;
-  color: 'black';
-  text-decoration: 'none';
-  .create, .browser {
-    color:black;
+  color: "black";
+  text-decoration: "none";
+  .create,
+  .browser {
+    color: black;
     text-decoration: none;
   }
 
-  .browser:hover, .create:hover {
+  .browser:hover,
+  .create:hover {
     color: white;
   }
-`
+`;
