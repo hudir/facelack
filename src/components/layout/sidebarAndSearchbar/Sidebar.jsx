@@ -1,12 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../../store/Context";
 import { Link } from "react-router-dom";
-import CreateChannel from "../channel/CreateChannel";
 import styled from "styled-components";
 import SidebarOption from "./SidebarOption";
-
-import CreateIcon from "@mui/icons-material/Create";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import InsertCommentIcon from "@mui/icons-material/InsertComment";
 import InboxIcon from "@mui/icons-material/Inbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
@@ -26,7 +22,6 @@ export default function Sidebar() {
   const [showCreate, setShowCreate] = useState(false);
 
   const [showOptions, setShowOptions] = useState(false);
-  
 
   return (
     <SidebarContainer>
@@ -50,7 +45,10 @@ export default function Sidebar() {
       )}
 
       <div onClick={() => setShowOptions((pre) => !pre)}>
-        <SidebarOption Icon={showOptions ? ExpandLessIcon : ExpandMoreIcon} title={showOptions ? "Show less": "Show more"} />
+        <SidebarOption
+          Icon={showOptions ? ExpandLessIcon : ExpandMoreIcon}
+          title={showOptions ? "Show less" : "Show more"}
+        />
       </div>
 
       <hr />

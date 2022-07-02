@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../../store/Context";
 import styled from "styled-components";
-import CreateChannel from "../channel/CreateChannel";
 import DoneIcon from "@mui/icons-material/Done";
 
 export default function BrowseAllChannels() {
   const { state, dispatch, showModal, setShowModal ,setCurrentChannel} = useContext(Context);
 
   const [channelsToRender, setChannelsToRender] = useState(null);
-
+  
   const [showButton, setShowButton] = useState(false);
 
   useEffect(()=>setCurrentChannel(null), [])
+
   useEffect(() => {
     const publicChannel = state.channels.filter(
       (el) =>
@@ -53,7 +53,7 @@ export default function BrowseAllChannels() {
       <AmountChannels>{state.channels.length - 1} channels</AmountChannels>
       {channelsToRender &&
         channelsToRender.map((el, i) => (
-          <ChannelContainer key={i} >
+          <ChannelContainer key={i}>
             <Link to={`../${el.channelName}`}>
               <h3>#{el.channelName}</h3>
             </Link>
@@ -74,19 +74,18 @@ export default function BrowseAllChannels() {
 
                 <span className="description">: {el.description}</span>
               </div>
-            
-                  {el.members.some((x) => x === state.currentUser.userID) ? (
-                    <button
-                      onClick={(e) => leaveChannel(el.channelName, el.private)}
-                    >
-                      Leave Channel
-                    </button>
-                  ) : (
-                    <button onClick={(e) => joinChannel(el.channelName)}>
-                      Join Channel
-                    </button>
-                  )}
-             
+
+              {el.members.some((x) => x === state.currentUser.userID) ? (
+                <button
+                  onClick={(e) => leaveChannel(el.channelName, el.private)}
+                >
+                  Leave Channel
+                </button>
+              ) : (
+                <button onClick={(e) => joinChannel(el.channelName)}>
+                  Join Channel
+                </button>
+              )}
             </ChannelInfo>
           </ChannelContainer>
         ))}

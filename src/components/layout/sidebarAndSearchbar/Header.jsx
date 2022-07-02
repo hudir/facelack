@@ -5,10 +5,9 @@ import styled from "styled-components";
 import { Avatar } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SearchIcon from "@mui/icons-material/Search";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import Button from '@mui/material/Button';
-import CreateIcon from '@mui/icons-material/Create';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import Button from "@mui/material/Button";
+import CreateIcon from "@mui/icons-material/Create";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import NewMessage from "./NewMessage";
 
 export default function Header() {
@@ -20,13 +19,13 @@ export default function Header() {
 
   const handleClickOpen = () => {
     setOpen(true);
-    setNewMessage(pre=>!pre)
+    setNewMessage((pre) => !pre);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const navi = useNavigate();
 
   const logOutHandle = () => {
@@ -39,17 +38,23 @@ export default function Header() {
   return (
     <HeaderContainer>
       <HeaderLeft>
-      <SidebarHeader>
-            <SidebarInfo>
-                <h2>FACELACK</h2>
-                <h3>
-                    <FiberManualRecordIcon/>
-                    {state.currentUser.userName}
-                </h3>
-            </SidebarInfo>
-            <NewMessageIcon onClick={handleClickOpen}/>
+        <SidebarHeader>
+          <SidebarInfo>
+            <h2>FACELACK</h2>
+            <h3>
+              <FiberManualRecordIcon />
+              {state.currentUser.userName}
+            </h3>
+          </SidebarInfo>
+          <NewMessageIcon onClick={handleClickOpen} />
         </SidebarHeader>
-        {newMessage && <NewMessage handleClose={handleClose} handleClickOpen={handleClickOpen} open={open}/>}
+        {newMessage && (
+          <NewMessage
+            handleClose={handleClose}
+            handleClickOpen={handleClickOpen}
+            open={open}
+          />
+        )}
         <AccessTimeIcon />
       </HeaderLeft>
       <HeaderSearch>
@@ -129,9 +134,9 @@ const HeaderAvatar = styled(Avatar)`
   margin-left: auto;
   margin-right: 20px;
 
-   > .MuiSvgIcon-root{
-  background-color: #032631;
-   }
+  > .MuiSvgIcon-root {
+    background-color: #032631;
+  }
 
   :hover {
     opacity: 0.8;
@@ -145,42 +150,42 @@ const Dropdown = styled.ul`
 `;
 
 const SidebarHeader = styled.div`
-    display: flex;
-    border-bottom: 1px solid #49274b;
-    padding: 13px; 
+  display: flex;
+  border-bottom: 1px solid #49274b;
+  padding: 13px;
 
-    > .MuiSvgIcon-root {
-        font-size: 18px;
-        background-color: white;
-        border-radius: 999px;
-        padding: 8px;
-        color: #49274b;
-        margin-left: 50px;
-    }
-`
+  > .MuiSvgIcon-root {
+    font-size: 18px;
+    background-color: white;
+    border-radius: 999px;
+    padding: 8px;
+    color: #49274b;
+    margin-left: 50px;
+  }
+`;
 
 const SidebarInfo = styled.div`
-    flex: 1;
+  flex: 1;
 
-    > h2 {
-        font-size:15px;
-        font-weight: 900;
-        margin-bottom: 5px;
-    }
+  > h2 {
+    font-size: 15px;
+    font-weight: 900;
+    margin-bottom: 5px;
+  }
 
-    > h3 {
-        font-size: 13px;
-        font-weight: 400;
-        align-items: center;
-        display: flex;
-    }
+  > h3 {
+    font-size: 13px;
+    font-weight: 400;
+    align-items: center;
+    display: flex;
+  }
 
-    > h3 > .MuiSvgIcon-root {
-        color: green;
-        font-size: 14px;
-        margin-right: 2px;
-        margin-top: 1px;
-    }
+  > h3 > .MuiSvgIcon-root {
+    color: green;
+    font-size: 14px;
+    margin-right: 2px;
+    margin-top: 1px;
+  }
 `;
 
 const NewMessageIcon = styled(CreateIcon)`
@@ -188,4 +193,4 @@ const NewMessageIcon = styled(CreateIcon)`
     opacity: 0.8;
     cursor: pointer;
   }
-`
+`;
