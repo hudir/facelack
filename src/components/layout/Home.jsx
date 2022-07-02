@@ -6,8 +6,9 @@ import Channel from "./channel/Channel";
 import Header from "./sidebarAndSearchbar/Header";
 import Sidebar from "./sidebarAndSearchbar/Sidebar";
 import styled from "styled-components";
-import CreateChannel from "./channel/CreateChannel";
+import CreateChannel from './channel/CreateChannel'
 import Info from './channel/infoModal/Info'
+
 
 export default function Home() {
   const {state, dispatch, showModal, callInfo,currentChannel} = useContext(Context)

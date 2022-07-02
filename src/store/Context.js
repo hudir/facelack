@@ -12,13 +12,15 @@ function ContextProvider({ children }) {
   const [data, setData] = useState(null),
     [initialize, setInitialize] = useState(true);
 
-  const [showModal, setShowModal] = useState(false),
+    // for create new channel modal
+    const [showModal, setShowModal] = useState(false)
     // for info modal which content about and members
-    [callInfo, setCallInfo] = useState(false);
+    ,[callInfo, setCallInfo] = useState(false);
 
-  const [currentChannel, setCurrentChannel] = useState(null);
+    const [currentChannel, setCurrentChannel] = useState(null)
 
-  const userCollectionRef = collection(db, "user");
+    const userCollectionRef= collection(db, "user")
+
 
   // get data from firebase
   useEffect(() => {
@@ -47,19 +49,22 @@ function ContextProvider({ children }) {
     }
   }, [data]);
 
-  // update data in firebase
-  useEffect(() => {
-    (async function () {
-      const newDoc = doc(db, "user", "DzRtcfNnNIVke15BqREm");
-      const obj = {
-        users: state.users,
-        channels: state.channels,
-      };
-      if (!initialize) {
-        await updateDoc(newDoc, obj);
-      }
-    })();
-  }, [state.users, state.channels, state.currentUserChannels]);
+    // update data in firebase
+    useEffect(()=>{  
+         (async function(){
+            const newDoc = doc(db,'user',
+               "DzRtcfNnNIVke15BqREm")
+            const obj={
+                users: state.users,
+                channels:state.channels
+            };
+            if (!initialize) {
+                await updateDoc(newDoc , obj)}
+               
+
+        })()  
+    }, [state.users, state.channels, state.currentUserChannels])
+
 
   return (
     <Context.Provider

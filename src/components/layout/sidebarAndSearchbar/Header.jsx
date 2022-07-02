@@ -11,7 +11,7 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import NewMessage from "./NewMessage";
 
 export default function Header() {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch,setCurrentChannel } = useContext(Context);
   const [logOut, setLogOut] = useState(false);
   const [newMessage, setNewMessage] = useState(false);
 
@@ -33,6 +33,7 @@ export default function Header() {
       type: "LOGOUT",
     });
     navi("/");
+    setCurrentChannel(null)
   };
   return (
     <HeaderContainer>
