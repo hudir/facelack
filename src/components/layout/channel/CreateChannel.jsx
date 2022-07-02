@@ -14,7 +14,7 @@ import { IOSSwitch } from "./Switch";
 import ToggleButton from "@mui/material/ToggleButton";
 
 export default function CreateChannel() {
-  const { state, dispatch, setShowModal } = useContext(Context);
+  const { state, dispatch, setShowModal , showModal} = useContext(Context);
 
   const [exists, setExists] = useState(false);
 
@@ -57,21 +57,8 @@ export default function CreateChannel() {
   };
 
   return (
-    <CreateChannelContainer
-      open={() => setShowModal(true)}
-      onClose={() => setShowModal(false)}
-    >
-      <DialogTitleContainer>
-        {!text ? "Create a channel" : "Create a private channel"}{" "}
-        <ToggleButton
-          value="check"
-          onChange={() => {
-            setShowModal(false);
-          }}
-        >
-          X
-        </ToggleButton>
-      </DialogTitleContainer>
+    <Dialog open={showModal} onClose={() => setShowModal(false)}>
+      <DialogTitle> Create a channel</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Channels are where your team communicates. They´re best when organized
@@ -125,7 +112,7 @@ export default function CreateChannel() {
           </DialogActions>
         </form>
       </DialogContent>
-    </CreateChannelContainer>
+    </Dialog>
   );
 }
 

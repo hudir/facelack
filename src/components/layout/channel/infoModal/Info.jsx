@@ -1,10 +1,11 @@
-import React, { useContext} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import { Context } from "../../../../store/Context";
 import About from "./About";
 import Members from "./Members";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { Context } from "../../../../store/Context";
+
 
 
 const style = {
@@ -19,9 +20,13 @@ const style = {
   p: 4,
 };
 
-export default function Info({ open, setOpen }) {
-
-  const {currentChannel} =useContext(Context)
+export default function Info({ channel, open, setOpen }) {
+  const [joined, setJoined] = useState(false);
+  const {state} = useContext(Context)
+  // console.log(state);
+  useEffect(()=>{
+    channel.members.some(id=>id===state.currentUser.userID) ? setJoined(true) : setJoined(false)
+  }, [])
   
   const handleClose = () => setOpen(false);
 
@@ -35,20 +40,20 @@ export default function Info({ open, setOpen }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <h2># {currentChannel.channelName}</h2>
+          <h2># {channel.channelName}</h2>
           <nav>
-            <Link to={"../" + currentChannel.channelName + "/about"}>About</Link>
-            <Link to={"../" + currentChannel.channelName + "/members"}>Members</Link>
+            <Link to={"../" + channel.channelName + "/about"}>About</Link>
+            <Link to={"../" + channel.channelName + "/members"}>Members</Link>
           </nav>
           <hr />
           <Routes>
             <Route
               path={"/about"}
-              element={<About channel={currentChannel} joined={currentChannel.joined} />}
+              element={<About channel={channel} joined={joined} />}
             />
             <Route
               path={"/members"}
-              element={<Members channel={currentChannel} joined={currentChannel.joined} />}
+              element={<Members channel={channel} joined={joined} />}
             />
           </Routes>
         </Box>

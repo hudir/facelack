@@ -107,4 +107,4 @@ const SignUpContainer = styled.div`
       color: orange;
     }
   }
-`;
+`
