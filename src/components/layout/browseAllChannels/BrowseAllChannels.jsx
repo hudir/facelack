@@ -6,6 +6,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 
+
 export default function BrowseAllChannels() {
   const { state, dispatch, setShowModal, setCurrentChannel } =
     useContext(Context);
@@ -66,18 +67,18 @@ export default function BrowseAllChannels() {
               <div>
                 {el.members.some((x) => x === state.currentUser.userID) ? (
                   <span className="joined">
-                    <DoneIcon /> Joined :
+                    <DoneIcon /> Joined <span style={{fontSize: '30px'}}>· </span>
                   </span>
                 ) : null}
-                <span className="members">
-                  {el.members.length > 1 ? (
+                <span className="members" style={{fontWeight: 'bold'}}>
+                  { el.members.length > 1 ? (
                     <span>{el.members.length} members</span>
                   ) : (
                     <span>{el.members.length} member</span>
                   )}
                 </span>
 
-                <span className="description">: {el.description}</span>
+                <span className="description" ><span style={{fontSize: '30px'}}> · </span> {el.description}</span>
               </div>
 
               {el.members.some((x) => x === state.currentUser.userID) ? (
@@ -152,7 +153,7 @@ const ChannelContainer = styled.div`
 const ChannelInfo = styled.div`
   display: flex;
   height: 25px;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   .joined {
     color: green;
@@ -165,7 +166,7 @@ const ChannelInfo = styled.div`
 
   .members,
   .description {
-    color: #686868;
+    color: #383838;
     font-size: 15px;
   }
 `;
