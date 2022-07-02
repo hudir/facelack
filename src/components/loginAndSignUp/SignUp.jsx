@@ -71,7 +71,7 @@ export default function SignUp({setSignUp}) {
     </SignUpContainer>
   );
 }
-
+}
 const SignUpContainer = styled.div`
   position: absolute;
   height: 100vh;
@@ -121,4 +121,4 @@ const SignUpContainer = styled.div`
       color: orange;
     }
   }
-`;
+`

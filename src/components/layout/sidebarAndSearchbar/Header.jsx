@@ -62,7 +62,8 @@ export default function Header() {
         <input type="text" placeholder="Search" />
       </HeaderSearch>
       <HeaderRight>
-        <HeaderAvatar onClick={() => setLogOut((pre) => !pre)}>
+        <HeaderAvatar onClick={() => setLogOut((pre) => !pre)} 
+        style={{backgroundColor: state.currentUser.color}}>
           {state.currentUser.userName.slice(0, 1).toUpperCase()}
         </HeaderAvatar>
         {logOut && (

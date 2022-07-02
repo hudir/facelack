@@ -14,13 +14,12 @@ export default function Channel() {
   let { channelName } = useParams();
   // console.log(channelName);
 
-  const [currentChannel, setCurrentChannel] = useState(null),
+  const 
     [input, setInput] = useState(""),
-    [notJoinedChannel, setNotJoinedChannel] = useState(null)
+    [notJoinedChannel, setNotJoinedChannel] = useState(null),
+    [edit, setEdit] = useState({status:false,index:null})
+   
 
-
-    const [mouseOver,setMouseOver] =useState(false)
-    console.log(mouseOver);
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -34,6 +33,7 @@ export default function Channel() {
         (el) => el.channelName === channelName
       )[0];
       setCurrentChannel(channel);
+    
     }
   }, [state.currentUserChannels, channelName]);
 
@@ -44,8 +44,7 @@ export default function Channel() {
         (el) => el.channelName === channelName
       )[0];
       setNotJoinedChannel(channel);
-    }
-  }, [state.channels, channelName]);
+  }}, [state.channels, channelName]);
 
   const postMassage = (e) => {
     e.preventDefault();
@@ -63,6 +62,25 @@ export default function Channel() {
     });
     setInput("");
   };
+
+  
+  const editHandler =(e,index,msg) =>{
+    console.log(msg);
+    e.preventDefault();
+    const time = new Date().toString();
+    dispatch({
+      type: "EDIT",
+      postObj: {
+        ...msg,
+        time: time,
+        body: e.target.edit.value,
+        edited:true
+      },
+      index:index
+    });
+    setEdit({status:false,index:null})
+  
+  }
 
   return (
     <ChatInputContainer>
@@ -85,19 +103,25 @@ export default function Channel() {
               </Header>
               {currentChannel.messages.length > 0 &&
                 currentChannel.messages.map((el, i) => (
-                  <MessageContainer key={i} onMouseOver={e=>state.currentUser.userID===el.user && setMouseOver(true)} onMouseLeave={e=>setMouseOver(false)}>
+                  <MessageContainer key={i}>
                     <HeaderAvatar style={{backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color}}>
                       {el.user.slice(2, 3).toUpperCase()}
                     </HeaderAvatar>
                     <div className="msg-right">
                       <span>{el.user.slice(2)}</span>
                       <small>{JSON.stringify(el.time)}</small>
-                      <p>{el.body}</p>
+                     {edit.status && edit.index===i ? 
+                     (
+                      <form onSubmit={(e)=>editHandler(e,i,el)} className='editForm'>
+                        <input name="edit" type="text" placeholder={el.body}/>
+                        <button type="submit">Save Change</button>
+                      </form>
+                     )  : <p>{el.body}</p>  }
                     </div>
 
                     {state.currentUser.userID===el.user && <div>
                       <button onClick={()=>{
-                        
+                        setEdit(pre=>({index:i, status:!pre.status}))
                       }}>Edit</button>
                       <button onClick={()=>{
                         dispatch({
@@ -126,7 +150,7 @@ export default function Channel() {
               </button>
             </form>
           </div>
-          {open && <Info open={open} setOpen={setOpen} channel={currentChannel} joined={true} />}
+          {open && <Info channel={currentChannel} open={open} setOpen={setOpen}  />}
 
         </>
       ) : (
@@ -182,7 +206,7 @@ export default function Channel() {
           </div>
         )
       )}
-       {open && <Info open={open} setOpen={setOpen} channel={currentChannel} joined={true} />}
+       {open && <Info  channel={notJoinedChannel} open={open} setOpen={setOpen}  />}
       
     </ChatInputContainer>
   );
@@ -296,6 +320,20 @@ const MessageContainer = styled.div`
     color: gray;
     margin-left: 4px;
     font-size: 10px;
+  }
+
+  .editForm {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+
+    input {
+      width: 100%;
+      height: 50px;
+    }
+
   }
 `;
 

@@ -3,6 +3,7 @@ import AddPeople from "./AddPeople";
 
 export default function Members({ channel, joined }) {
   const [addPeople, setAddPeople] = useState(false);
+
   return (
     <div>
       {joined && (

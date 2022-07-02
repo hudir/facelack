@@ -13,7 +13,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 export default function CreateChannel() {
-  const { state, dispatch, setShowModal } = useContext(Context);
+  const { state, dispatch, setShowModal , showModal} = useContext(Context);
 
   const [exists, setExists] = useState(false);
 
@@ -54,7 +54,7 @@ export default function CreateChannel() {
   };
 
   return (
-    <Dialog open={() => setShowModal(true)} onClose={() => setShowModal(false)}>
+    <Dialog open={showModal} onClose={() => setShowModal(false)}>
       <DialogTitle> Create a channel</DialogTitle>
       <DialogContent>
         <DialogContentText>

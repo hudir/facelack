@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../../../../store/Context";
 
 export default function About({ channel, joined }) {
   const { dispatch } = useContext(Context);
+  const navi = useNavigate()
   
   return (
     <div>
@@ -21,13 +23,14 @@ export default function About({ channel, joined }) {
           <div>
             {joined && (
               <button
-                onClick={() =>
+                onClick={() =>{
                   dispatch({
                     type: "LEAVE_CHANNEL",
                     name: channel.channelName,
                     private: channel.private,
                   })
-                }
+                  navi('/browseAllChannels')
+                }}
               >
                 Leave Channel
               </button>
