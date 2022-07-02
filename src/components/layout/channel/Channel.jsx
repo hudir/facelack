@@ -13,15 +13,13 @@ import "firebase/compat/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Channel() {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch ,setCallInfo,currentChannel, setCurrentChannel} = useContext(Context);
 
   let { channelName } = useParams();
   // console.log(channelName);
-
-  const [currentChannel, setCurrentChannel] = useState(null),
-    [input, setInput] = useState(""),
-    [notJoinedChannel, setNotJoinedChannel] = useState(null),
-    [callInfo, setCallInfo] = useState(false);
+    const [input, setInput] = useState(""),
+    [notJoinedChannel, setNotJoinedChannel] = useState(null)
+    
 
   // this is for the channel user joined
   useEffect(() => {
@@ -110,7 +108,6 @@ export default function Channel() {
             </form>
           </div>
 
-          {callInfo && <Info channel={currentChannel} joined={true} />}
         </>
       ) : (
         notJoinedChannel && (

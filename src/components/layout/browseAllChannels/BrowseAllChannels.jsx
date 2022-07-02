@@ -6,12 +6,13 @@ import CreateChannel from "../channel/CreateChannel";
 import DoneIcon from "@mui/icons-material/Done";
 
 export default function BrowseAllChannels() {
-  const { state, dispatch, showModal, setShowModal } = useContext(Context);
+  const { state, dispatch, showModal, setShowModal ,setCurrentChannel} = useContext(Context);
 
   const [channelsToRender, setChannelsToRender] = useState(null);
 
   const [showButton, setShowButton] = useState(false);
 
+  useEffect(()=>setCurrentChannel(null), [])
   useEffect(() => {
     const publicChannel = state.channels.filter(
       (el) =>
