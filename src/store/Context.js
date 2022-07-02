@@ -19,8 +19,8 @@ function ContextProvider({ children }) {
 
     const [currentChannel, setCurrentChannel] = useState(null)
 
-
     const userCollectionRef= collection(db, "user")
+
 
   // get data from firebase
   useEffect(() => {
@@ -65,9 +65,23 @@ function ContextProvider({ children }) {
         })()  
     }, [state.users, state.channels, state.currentUserChannels])
 
-    return <Context.Provider value={{
-        state, dispatch, showModal, setShowModal, callInfo, setCallInfo, currentChannel, setCurrentChannel
-    }}>{children}</Context.Provider>
+
+  return (
+    <Context.Provider
+      value={{
+        state,
+        dispatch,
+        showModal,
+        setShowModal,
+        callInfo,
+        setCallInfo,
+        currentChannel,
+        setCurrentChannel,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 }
 
 export { Context, ContextProvider };

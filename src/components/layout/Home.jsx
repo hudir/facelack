@@ -31,7 +31,7 @@ export default function Home() {
         <Route path="browseAllChannels" element={<BrowseAllChannels />} />
         <Route path="*" element={<BrowseAllChannels />} />
       </Routes>
-      {showModal && <CreateChannel/>}
+      {showModal && <CreateChannel />}
       {callInfo && <Info channel={currentChannel} joined={true} />}
     </AppBody>
   );
