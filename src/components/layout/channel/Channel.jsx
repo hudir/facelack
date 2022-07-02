@@ -7,21 +7,24 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Avatar } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import { Link, useNavigate } from "react-router-dom";
 
 export default function Channel() {
   const { state, dispatch ,setCallInfo,currentChannel, setCurrentChannel} = useContext(Context);
 
   let { channelName } = useParams();
   // console.log(channelName);
-    const [input, setInput] = useState(""),
+
+  const [currentChannel, setCurrentChannel] = useState(null),
+    [input, setInput] = useState(""),
     [notJoinedChannel, setNotJoinedChannel] = useState(null)
+
 
     const [mouseOver,setMouseOver] =useState(false)
     console.log(mouseOver);
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+
     
 
   // this is for the channel user joined
@@ -67,7 +70,7 @@ export default function Channel() {
         <>
           <div>
             <ChatContainer>
-              <Header onClick={() => setCallInfo((pre) => !pre)}>
+              <Header onClick={() => handleOpen(true)}>
                 <HeaderLeft>
                   <h4>
                     <strong>#{currentChannel.channelName}</strong>
@@ -123,13 +126,14 @@ export default function Channel() {
               </button>
             </form>
           </div>
+          {open && <Info open={open} setOpen={setOpen} channel={currentChannel} joined={true} />}
 
         </>
       ) : (
         notJoinedChannel && (
           <div className="notJoined">
             <ChatContainer>
-            <Header onClick={() => setCallInfo((pre) => !pre)}>
+              <Header onClick={() => handleOpen(true)}>
                 <HeaderLeft>
                   <h4>
                     <strong>#{notJoinedChannel.channelName}</strong>
@@ -142,25 +146,25 @@ export default function Channel() {
                   </p>
                 </HeaderRight>
               </Header>
-            {notJoinedChannel.messages.length > 0 &&
-              notJoinedChannel.messages.map((el, i) => (
-                <MessageContainer key={i}>
-                  <HeaderAvatar>
-                    {el.user.slice(2, 3).toUpperCase()}
-                  </HeaderAvatar>
-                  <div className="msg-right">
-                    <span>{el.user.slice(2)}</span>
-                    <small>{JSON.stringify(el.time)}</small>
-                    <p>{el.body}</p>
-                  </div>
-                </MessageContainer>
-              ))}
-              </ChatContainer>
+              {notJoinedChannel.messages.length > 0 &&
+                notJoinedChannel.messages.map((el, i) => (
+                  <MessageContainer key={i}>
+                    <HeaderAvatar>
+                      {el.user.slice(2, 3).toUpperCase()}
+                    </HeaderAvatar>
+                    <div className="msg-right">
+                      <span>{el.user.slice(2)}</span>
+                      <small>{JSON.stringify(el.time)}</small>
+                      <p>{el.body}</p>
+                    </div>
+                  </MessageContainer>
+                ))}
+            </ChatContainer>
 
             <NotJoined>
-              <div className='divNotJoined'>
-              <h3># {notJoinedChannel.channelName}</h3>
-              <p>{notJoinedChannel.description}</p>
+              <div className="divNotJoined">
+                <h3># {notJoinedChannel.channelName}</h3>
+                <p>{notJoinedChannel.description}</p>
                 <button className="details">Details</button>
                 <button
                   className="join"
@@ -174,11 +178,12 @@ export default function Channel() {
                   Join channel
                 </button>
               </div>
-
             </NotJoined>
           </div>
         )
       )}
+       {open && <Info open={open} setOpen={setOpen} channel={currentChannel} joined={true} />}
+      
     </ChatInputContainer>
   );
 }
@@ -188,8 +193,8 @@ const ChatInputContainer = styled.div`
   flex-grow: 1;
   overflow-y: scroll;
   margin-top: 50px;
-  /* margin-bottom: 50px; */
   border-radius: 20px;
+
   form {
     position: relative;
     display: flex;
@@ -208,9 +213,10 @@ const ChatInputContainer = styled.div`
     z-index: 2;
     outline: none;
     transition: box-shadow 300ms ease-out;
-  :focus {
-    box-shadow: 0px 0px 13px #335aad;
-  }
+
+    :focus {
+      box-shadow: 0px 0px 13px #335aad;
+    }
   }
 
   form button {
@@ -226,11 +232,13 @@ const ChatContainer = styled.div`
   flex-grow: 1;
   margin-top: 30px;
   padding: 20px 10px;
-  max-height: calc(100vh-100px); 
+  max-height: calc(100vh-100px);
+
   .notJoined {
     margin-top: 90px;
   }
 `;
+
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -241,6 +249,7 @@ const Header = styled.div`
 const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
+
 
   h4 {
     display: flex;
@@ -255,6 +264,7 @@ const HeaderLeft = styled.div`
 `;
 
 const HeaderRight = styled.div`
+
   p {
     display: flex;
     align-items: center;
@@ -280,6 +290,7 @@ const MessageContainer = styled.div`
     font-weight: bold;
     font-size: 18px;
   }
+
   small {
     padding-left: 10px;
     color: gray;
@@ -304,12 +315,11 @@ const NotJoined = styled.div`
   margin: 0 auto;
   padding: 20px;
   z-index: 100;
- 
 
   .divNotJoined {
     text-align: center;
     position: relative;
-    transform: translateX(-50%) ;
+    transform: translateX(-50%);
 
     p {
       margin: 10px 0;
@@ -352,12 +362,4 @@ const NotJoined = styled.div`
     color: #6e6e6e;
     font-size: 12px;
   }
-
-  /* a {
-    color: #5a5a5a;
-    font-size: 14px;
-    :hover {
-      color: blue;
-    }
-  } */
 `;

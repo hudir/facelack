@@ -2,8 +2,6 @@ import React, { useContext, useState } from "react";
 import { Context } from "../../../store/Context";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import  { db }  from '../database/firebase'
-
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,7 +9,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -74,15 +71,6 @@ export default function CreateChannel() {
               value={newChannel}
               onChange={(e) => setNewChannel(e.target.value)}
             />
-            {/* <MessageField
-                id="outlined-multiline"
-                label="Channel Name"
-               
-                rows={1}
-                value={newChannel}
-                placeholder="Please enter channel name"
-                onChange={(e)=> setNewChannel(e.target.value)}
-              /> */}
           </MessageFieldContainer>
           {exists && <p>The Channel already exists, please try another</p>}
 
@@ -119,61 +107,13 @@ export default function CreateChannel() {
   );
 }
 
-const CreateChannelContainer = styled.div`
-  /* height: 60%;
-  width: 60%;
-  left: 25%;
-  top: 25%;
-  position: absolute;
-  background: linear-gradient(
-    180deg,
-    var(--slack-color) 0%,
-    #45023bec 50%,
-    var(--slack-color) 100%
-  );
+const CreateChannelContainer = styled.div``;
 
-  form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 8;
-  }
-  form * {
-    width: 100%;
-    margin-bottom: 10px;
-    font-size: 1rem;
-    color: #ff9900;
-  }
-  form input {
-    color: black;
-  }
-  .glass {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    z-index: 1;
-  } */
-`;
+const InputContainer = styled.div``;
 
-const InputContainer = styled.div`
-  /* display: flex;
-  justify-content: center;
-  width: 80%;
-  margin: 10px auto;
-  padding: 10px; */
-`;
-
-const TextFieldInput = styled(TextField)`
-  /* width: 100%; */
-`;
+const TextFieldInput = styled(TextField)``;
 const MessageFieldContainer = styled.div`
   padding: 20px;
-  /* width: 80%;
-  margin: 0 auto; */
 `;
 
-const MessageField = styled(TextField)`
-  /* width: 100%; */
-`;
+const MessageField = styled(TextField)``;
