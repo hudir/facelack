@@ -161,6 +161,7 @@ export default function SignUp({ setSignUp, open, setOpen, handleClickOpen }) {
   );
 }
 
+
 // const SignUpContainer = styled.div`
 //   position: absolute;
 //   height: 100vh;
@@ -215,3 +216,4 @@ export default function SignUp({ setSignUp, open, setOpen, handleClickOpen }) {
 const DialogTitleCont = styled(DialogTitle)`
   text-align: center;
 `;
+
