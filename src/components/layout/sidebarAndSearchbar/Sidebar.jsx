@@ -55,37 +55,11 @@ export default function Sidebar() {
 
       <hr />
 
-      <div onClick={() => setShowChannels(pre=>!pre)}>
-      <SidebarOption Icon={showChannels ? ExpandMoreIcon : ExpandLessIcon} title="Channels" /></div>
-
-
-      {showChannels ? state.currentUserChannels && (
-        <UlContainer>
-          {state.currentUserChannels.map((el, i) => (
-            <Link to={`${el.channelName}`} >
-              <SidebarOption key={i} title={el.channelName}>
-                {" "}
-              </SidebarOption>
-            </Link>
-          ))}
-        </UlContainer>
-      ) : null}
-
-            <div onClick={()=> setShowCreate(pre=>!pre)}>
-              
-            <SidebarOption Icon={AddIcon} title='Add Channel'> 
-       
-        </SidebarOption>
-            </div>
-
-            {showCreate &&  <CreateButton onClick={()=> setShowCreate(false)}><Link to="browseAllChannels" style={{}} className='browser'>
-        {" "}
-        <SidebarOption title="Channel Browser" ></SidebarOption>
-      </Link>
-
-      <div  onClick={(e) => setShowModal((pre) => !pre)} className="create">
-      <SidebarOption title='Create new channel' onClick={()=> setShowCreate(false)}>
-      </SidebarOption>
+      <div onClick={() => setShowChannels((pre) => !pre)}>
+        <SidebarOption
+          Icon={showChannels ? ExpandMoreIcon : ExpandLessIcon}
+          title="Channels"
+        />
       </div>
 
       {showChannels
