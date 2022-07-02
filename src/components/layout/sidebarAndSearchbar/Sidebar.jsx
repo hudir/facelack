@@ -13,6 +13,7 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
+import BasicMenu from "./BasicMenu";
 
 export default function Sidebar() {
   const { state, showModal, setShowModal } = useContext(Context);
@@ -22,6 +23,16 @@ export default function Sidebar() {
   const [showCreate, setShowCreate] = useState(false);
 
   const [showOptions, setShowOptions] = useState(false);
+
+  // For Basic Menu
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <SidebarContainer>
@@ -74,20 +85,11 @@ export default function Sidebar() {
           )
         : null}
 
-      <div onClick={() => setShowCreate((pre) => !pre)}>
+      <div onClick={handleClick}>
         <SidebarOption Icon={AddIcon} title="Add Channel"></SidebarOption>
       </div>
-      {showCreate && (
-        <CreateButton>
-          <Link to="browseAllChannels" className="browser">
-            {" "}
-            <SidebarOption title="Channel Browser"></SidebarOption>
-          </Link>
-
-          <div onClick={(e) => setShowModal((pre) => !pre)} className="create">
-            <SidebarOption title="Create new channel"></SidebarOption>
-          </div>
-        </CreateButton>
+      {open && (
+        <BasicMenu anchorEl={anchorEl} open={open} handleClose={handleClose}/>
       )}
     </SidebarContainer>
   );
@@ -120,21 +122,5 @@ const UlContainer = styled.ul`
   a {
     color: white;
     text-decoration: none;
-  }
-`;
-const CreateButton = styled.div`
-  background-color: lightgray;
-  border-radius: 5px;
-  color: "black";
-  text-decoration: "none";
-  .create,
-  .browser {
-    color: black;
-    text-decoration: none;
-  }
-
-  .browser:hover,
-  .create:hover {
-    color: white;
   }
 `;
