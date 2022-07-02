@@ -7,25 +7,27 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Avatar } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined';
 
 export default function Channel() {
-
-  const { state, dispatch , currentChannel, setCurrentChannel} = useContext(Context);
+  const { state, dispatch, currentChannel, setCurrentChannel } =
+    useContext(Context);
 
   let { channelName } = useParams();
   // console.log(channelName);
 
   // const [currentChannel, setCurrentChannel] = useState(null)
-    const [input, setInput] = useState(""),
-    [notJoinedChannel, setNotJoinedChannel] = useState(null)
+  const [input, setInput] = useState(""),
+    [notJoinedChannel, setNotJoinedChannel] = useState(null);
 
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    const [mouseOver,setMouseOver] =useState(false)
-    console.log(mouseOver);
+  const [mouseOver, setMouseOver] = useState(false);
+  console.log(mouseOver);
 
-    const handleOpen = () => setOpen(true);
-
+  const handleOpen = () => setOpen(true);
 
   // this is for the channel user joined
   useEffect(() => {
@@ -85,8 +87,20 @@ export default function Channel() {
               </Header>
               {currentChannel.messages.length > 0 &&
                 currentChannel.messages.map((el, i) => (
-                  <MessageContainer key={i} onMouseOver={e=>state.currentUser.userID===el.user && setMouseOver(true)} onMouseLeave={e=>setMouseOver(false)}>
-                    <HeaderAvatar style={{backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color}}>
+                  <MessageContainer
+                    key={i}
+                    onMouseOver={(e) =>
+                      state.currentUser.userID === el.user && setMouseOver(true)
+                    }
+                    onMouseLeave={(e) => setMouseOver(false)}
+                  >
+                    <HeaderAvatar
+                      style={{
+                        backgroundColor: state.users.filter(
+                          (x) => x.userID === el.user
+                        )[0].color,
+                      }}
+                    >
                       {el.user.slice(2, 3).toUpperCase()}
                     </HeaderAvatar>
                     <div className="msg-right">
@@ -95,18 +109,22 @@ export default function Channel() {
                       <p>{el.body}</p>
                     </div>
 
-                    {state.currentUser.userID===el.user && <div>
-                      <button onClick={()=>{
-                        
-                      }}>Edit</button>
-                      <button onClick={()=>{
-                        dispatch({
-                          type:'DELETE',
-                          index:i,
-                          name:currentChannel.channelName
-                        })
-                      }}>Delete</button>
-                    </div>}
+                    {state.currentUser.userID === el.user && (
+                      <div>
+                        <IconButton aria-label="delete" size="small" color='success' onClick={() => {}}>
+                          <EditLocationOutlinedIcon />
+                        </IconButton>
+                        <IconButton aria-label="delete" size="small" color='error' onClick={() => {
+                            dispatch({
+                              type: "DELETE",
+                              index: i,
+                              name: currentChannel.channelName,
+                            });
+                          }}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    )}
                   </MessageContainer>
                 ))}
             </ChatContainer>
@@ -126,8 +144,14 @@ export default function Channel() {
               </button>
             </form>
           </div>
-          {open && <Info open={open} setOpen={setOpen} channel={currentChannel} joined={true} />}
-
+          {open && (
+            <Info
+              open={open}
+              setOpen={setOpen}
+              channel={currentChannel}
+              joined={true}
+            />
+          )}
         </>
       ) : (
         notJoinedChannel && (
@@ -182,8 +206,14 @@ export default function Channel() {
           </div>
         )
       )}
-      {open && <Info open={open} setOpen={setOpen} channel={currentChannel} joined={true} />}
-      
+      {open && (
+        <Info
+          open={open}
+          setOpen={setOpen}
+          channel={currentChannel}
+          joined={true}
+        />
+      )}
     </ChatInputContainer>
   );
 }
@@ -250,7 +280,6 @@ const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
 
-
   h4 {
     display: flex;
     text-transform: lowercase;
@@ -264,7 +293,6 @@ const HeaderLeft = styled.div`
 `;
 
 const HeaderRight = styled.div`
-
   p {
     display: flex;
     align-items: center;
