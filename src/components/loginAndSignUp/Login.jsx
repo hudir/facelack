@@ -41,6 +41,7 @@ export default function Login() {
         <div>
           <label htmlFor="UserName">Username</label>
           <Input
+            required
             aria-label="username"
             type="text"
             id="UserName"
@@ -52,6 +53,7 @@ export default function Login() {
         <div>
           <label htmlFor="Password">Password</label>
           <Input
+            required
             aria-label="password"
             type="password"
             id="Password"
