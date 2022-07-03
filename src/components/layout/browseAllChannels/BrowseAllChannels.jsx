@@ -5,6 +5,7 @@ import styled from "styled-components";
 import DoneIcon from "@mui/icons-material/Done";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import Moment from 'moment';
 
 
 export default function BrowseAllChannels() {
@@ -30,8 +31,8 @@ export default function BrowseAllChannels() {
       name: channelName,
       private: notPublic,
     });
-    const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
-      // console.log(new Date(time*1000))
+    const time = Moment().format('MMMM Do YYYY, h:mm:ss a');
+    
       dispatch({
         type: "POST",
         postObj: {
@@ -52,8 +53,8 @@ export default function BrowseAllChannels() {
       type: "JOIN_CHANNEL",
       name: channelName,
     });
-    const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
-      // console.log(new Date(time*1000))
+    const time = Moment().format('MMMM Do YYYY, h:mm:ss a');
+
       dispatch({
         type: "POST",
         postObj: {

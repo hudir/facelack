@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import InfoNav from './InfoNav'
-import { Link, NavLink, Route, Routes } from "react-router-dom";
-import About from "./About";
-import Members from "./Members";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Context } from "../../../../store/Context";
@@ -24,13 +21,12 @@ const style = {
 export default function Info({ channel, open, setOpen }) {
   const [joined, setJoined] = useState(false);
   const {state} = useContext(Context)
-  // console.log(state);
+
   useEffect(()=>{
     channel.members.some(id=>id===state.currentUser.userID) ? setJoined(true) : setJoined(false)
   }, [])
   
   const handleClose = () => setOpen(false);
-
 
   return (
     <div>

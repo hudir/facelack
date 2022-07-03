@@ -4,15 +4,7 @@ import { Modal, Input, Row, Checkbox, Button, Text } from "@nextui-org/react";
 import { Mail } from "./Mail";
 import { Password } from "./Password";
 
-export default function SignUp({
-  setSignUp,
-  open,
-  setOpen,
-  handleClickOpen,
-  handler,
-  visible,
-  closeHandler,
-}) {
+export default function SignUp({ visible, closeHandler }) {
   const { state, dispatch } = useContext(Context);
   const [newUserName, setNewUserName] = useState(""),
     [newPassword, setNewPassword] = useState(""),
@@ -54,7 +46,7 @@ export default function SignUp({
           </Modal.Header>
           <Modal.Body>
             <Input
-            aria-label="username"
+              aria-label="username"
               type="text"
               value={newUserName}
               onChange={(e) => setNewUserName(e.target.value)}
@@ -68,7 +60,7 @@ export default function SignUp({
               contentLeft={<Mail fill="currentColor" />}
             />
             <Input
-            aria-label="password"
+              aria-label="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               required

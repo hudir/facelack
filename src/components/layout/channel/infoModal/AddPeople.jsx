@@ -11,23 +11,26 @@ import DialogTitle from "@mui/material/DialogTitle";
 export default function AddPeople({ channel, open, handleClose }) {
   const { state, dispatch } = useContext(Context);
 
+  const [input, setInput] = useState('')
+
   const [info, setInfo] = useState(null);
 
   const addPeopleHandler = (e) => {
     e.preventDefault();
-    if (!state.users.some((el) => e.target.people.value === el.userName)) {
+    if (!state.users.some((el) => input === el.userName)) {
       setInfo("User does not exist");
     } else if (
-      channel.members.some((id) => e.target.people.value === id.slice(2))
+      channel.members.some((id) => input === id.slice(2))
     ) {
-      setInfo(`${e.target.people.value} already joined this channel`);
+      setInfo(`${input} already joined this channel`);
     } else {
       dispatch({
         type: "ADD_USER",
-        name: e.target.people.value,
+        name: input,
         channelName: channel.channelName,
       });
     }
+    console.log(input)
   };
   return (
     <form>
@@ -37,6 +40,7 @@ export default function AddPeople({ channel, open, handleClose }) {
         <DialogContent>
           <DialogContentText># {channel.channelName}</DialogContentText>
           <TextField
+          onChange={(e) =>setInput(e.target.value)}
             name="people"
             autoFocus
             margin="dense"
