@@ -6,6 +6,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import Moment from 'moment';
+import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
 
 
 export default function BrowseAllChannels() {
@@ -88,7 +89,7 @@ export default function BrowseAllChannels() {
         channelsToRender.map((el, i) => (
           <ChannelContainer key={i}>
             <Link to={`../${el.channelName}`}>
-              <h3>#{el.channelName}</h3>
+              <h3>{el.private ? (<RiGitRepositoryPrivateFill />) : '#'} {el.channelName}</h3>
             </Link>
             <ChannelInfo>
               <div>
