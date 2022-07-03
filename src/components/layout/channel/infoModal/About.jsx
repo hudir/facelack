@@ -34,7 +34,7 @@ export default function About({ channel, joined }) {
                   dispatch({
                     type: "POST",
                     postObj: {
-                      user: ' ',
+                      user: state.currentUser.userID,
                       time: time,
                       body: `${state.currentUser.userName} left channel ${channel.channelName}`,
                       reply: [],
