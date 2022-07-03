@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../../../../store/Context";
 import AddPeople from "./AddPeople";
 import { styled } from "@mui/material/styles";
 import List from "@mui/material/List";
@@ -12,6 +13,7 @@ import Grid from "@mui/material/Grid";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function Members({ channel, joined }) {
+  const { state } = useContext(Context);
 
   const [dense, setDense] = useState(false);
 
@@ -47,7 +49,19 @@ export default function Members({ channel, joined }) {
               {channel.members.map((el, i) => (
                 <ListItem key={i}>
                   <ListItemAvatar>
-                    <Avatar>{el.slice(2, 3).toUpperCase()}</Avatar>
+                    <Avatar
+                      // style={
+                      //   state.users.filter((x) => x.userID === el.user)[0]
+                      //     ? {
+                      //         backgroundColor: state.users.filter(       ==>  BGCOLOR IN AVATAR NOT WORKING
+                      //           (x) => x.userID === el.user
+                      //         )[0].color,
+                      //       }
+                      //     : null
+                      // }
+                    >
+                      {el.slice(2, 3).toUpperCase()}
+                    </Avatar>
                   </ListItemAvatar>
                   {el.slice(2)}
                 </ListItem>

@@ -58,7 +58,7 @@ export default function BasicTabs({ channel, joined }) {
           aria-label="basic tabs example"
         >
           <Tab label="About" {...a11yProps(0)} />
-          <Tab label="Members" {...a11yProps(1)} />
+          <Tab label={`Members (${channel.members.length})`} {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
