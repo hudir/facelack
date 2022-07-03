@@ -110,11 +110,12 @@ export default function Channel() {
               </Header>
               {currentChannel.messages.length > 0 &&
                 currentChannel.messages.map((el, i) => (
-                  <MessageContainer key={i}>
-                    <HeaderAvatar style={state.users.filter(x=>x.userID===el.user)[0] ? {backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color} : null}>
+                  <MessageContainer key={i} style={el.systemInfo ? {opacity: '0.6'} : null}>
+                    {el.systemInfo ? null : <HeaderAvatar style={state.users.filter(x=>x.userID===el.user)[0] ? {backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color} : null}>
                      
-                      {el.user.slice(2, 3).toUpperCase()}
-                    </HeaderAvatar>
+                     {el.user.slice(2, 3).toUpperCase()}
+                   </HeaderAvatar>}
+                    
                     <div className="msg-right">
                       <span>{el.user.slice(2)}</span>
                       <small>{JSON.stringify(el.time)}</small>
@@ -186,10 +187,12 @@ export default function Channel() {
               </Header>
               {notJoinedChannel.messages.length > 0 &&
                 notJoinedChannel.messages.map((el, i) => (
-                  <MessageContainer key={i}>
-                    <HeaderAvatar>
-                      {el.user.slice(2, 3).toUpperCase()}
-                    </HeaderAvatar>
+                  <MessageContainer key={i} style={el.systemInfo ? {opacity: '0.6'} : null}>
+                    {el.systemInfo ? null  : <HeaderAvatar style={state.users.filter(x=>x.userID===el.user)[0] ? {backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color} : null}>
+                     
+                     {el.user.slice(2, 3).toUpperCase()}
+                   </HeaderAvatar> }
+                   
                     <div className="msg-right">
                       <span>{el.user.slice(2)}</span>
                       <small>{JSON.stringify(el.time)}</small>
@@ -206,11 +209,25 @@ export default function Channel() {
                 <button className="details">Details</button>
                 <button
                   className="join"
-                  onClick={() =>
+                  onClick={() =>{
                     dispatch({
                       type: "JOIN_CHANNEL",
                       name: notJoinedChannel.channelName,
-                    })
+                    });
+                    const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
+      // console.log(new Date(time*1000))
+      dispatch({
+        type: "POST",
+        postObj: {
+          user: ' ',
+          time: time,
+          body: `${state.currentUser.userName} joined channel ${notJoinedChannel.channelName}`,
+          reply: [],
+          channelName: notJoinedChannel.channelName,
+          systemInfo:true
+        },
+      });
+                  }
                   }
                 >
                   Join channel
