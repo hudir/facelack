@@ -146,6 +146,7 @@ export default function reducerFunc(prev, action){
 
             return {...prev, channels:newChannel_addPeople, currentUserChannels:newCurrentUserChannels_addPeople}
 
+        // for connecting with firebase
         case "UPDATE":
             if (prev.currentUser) { const newcurrentUserChannels1 = action.channels.filter(el=>el.members.some(id=>id===prev.currentUser.userID))
                 return {...prev, 
