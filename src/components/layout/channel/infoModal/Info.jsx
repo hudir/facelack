@@ -6,6 +6,7 @@ import Members from "./Members";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Context } from "../../../../store/Context";
+import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
 
 
 
@@ -43,7 +44,7 @@ export default function Info({ channel, open, setOpen }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <h2># {channel.channelName}</h2>
+          <h2>{channel.private ? (<RiGitRepositoryPrivateFill />) : '#'} {channel.channelName}</h2>
           <nav>
             <InfoNav channel={channel} joined={joined} />
           </nav>
