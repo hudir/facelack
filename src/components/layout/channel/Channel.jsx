@@ -10,13 +10,13 @@ import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined';
+import Moment from 'moment';
 
 export default function Channel() {
   const { state, dispatch, currentChannel, setCurrentChannel } =
     useContext(Context);
 
   let { channelName } = useParams();
-  // console.log(channelName);
 
   const 
     [input, setInput] = useState(""),
@@ -53,8 +53,7 @@ export default function Channel() {
 
   const postMassage = (e) => {
     e.preventDefault();
-    const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
-    // console.log(new Date(time*1000))
+    const time = Moment().format('MMMM Do YYYY, h:mm:ss a') 
     dispatch({
       type: "POST",
       postObj: {
@@ -72,7 +71,7 @@ export default function Channel() {
   const editHandler =(e,index,msg) =>{
     console.log(msg);
     e.preventDefault();
-    const time = new Date().toString();
+    const time = Moment().format('MMMM Do YYYY, h:mm:ss a') 
     dispatch({
       type: "EDIT",
       postObj: {
@@ -212,8 +211,8 @@ export default function Channel() {
                       type: "JOIN_CHANNEL",
                       name: notJoinedChannel.channelName,
                     });
-                    const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
-      // console.log(new Date(time*1000))
+                    const time = Moment().format('MMMM Do YYYY, h:mm:ss a');
+
       dispatch({
         type: "POST",
         postObj: {
