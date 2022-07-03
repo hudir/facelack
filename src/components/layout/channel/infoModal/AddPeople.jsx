@@ -22,12 +22,29 @@ export default function AddPeople({ channel, open, handleClose }) {
     ) {
       setInfo(`${e.target.people.value} already joined this channel`);
     } else {
+      console.log(111);
       dispatch({
         type: "ADD_USER",
         name: e.target.people.value,
         channelName: channel.channelName,
       });
+      const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
+      // console.log(new Date(time*1000))
+      const userID = state.users.filter(x=>x.userName===e.target.people.value).map(y=>y.userID)[0]
+      dispatch({
+        type: "POST",
+        postObj: {
+          user: userID,
+          time: time,
+          body: `${e.target.people.value} has been added to ${channel.channelName} by ${state.currentUser.userName}`,
+          reply: [],
+          channelName: channel.channelName,
+          systemInfo:true
+        },
+      });
+      console.log(111);
     }
+    e.target.people.value=''
   };
   return (
     <form>

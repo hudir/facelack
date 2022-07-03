@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/Context";
 import SignUp from "./SignUp";
 import styled from "styled-components";
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { state, dispatch } = useContext(Context);
@@ -11,6 +12,10 @@ export default function Login() {
   const [userName, setUserName] = useState(""),
     [password, setPassword] = useState(""),
     [signUp, setSignUp] = useState(false);
+
+    const clearURL = useNavigate()
+  
+    useEffect(()=>clearURL('/'),[])
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
