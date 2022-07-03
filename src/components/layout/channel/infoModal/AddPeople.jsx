@@ -7,6 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
 
 export default function AddPeople({ channel, open, handleClose }) {
   const { state, dispatch } = useContext(Context);
@@ -52,7 +53,7 @@ export default function AddPeople({ channel, open, handleClose }) {
         {channel.private && <p>This is Private Channel</p>}
         <DialogTitle>Add people</DialogTitle>
         <DialogContent>
-          <DialogContentText># {channel.channelName}</DialogContentText>
+          <DialogContentText>{channel.private ? (<RiGitRepositoryPrivateFill />) : '#'} {channel.channelName}</DialogContentText>
           <TextField
             name="people"
             autoFocus
