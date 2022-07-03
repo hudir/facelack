@@ -17,7 +17,6 @@ export default function Channel() {
     useContext(Context);
 
   let { channelName } = useParams();
-  // console.log(channelName);
 
   const 
     [input, setInput] = useState(""),
@@ -54,7 +53,7 @@ export default function Channel() {
 
   const postMassage = (e) => {
     e.preventDefault();
-    const time = Moment().format('MMMM Do YYYY, h:mm:ss a') // FIX TIMESTAMP!!!!!!!!
+    const time = Moment().format('MMMM Do YYYY, h:mm:ss a') 
     dispatch({
       type: "POST",
       postObj: {
@@ -72,7 +71,7 @@ export default function Channel() {
   const editHandler =(e,index,msg) =>{
     console.log(msg);
     e.preventDefault();
-    const time = new Date().toString();
+    const time = Moment().format('MMMM Do YYYY, h:mm:ss a') 
     dispatch({
       type: "EDIT",
       postObj: {
@@ -112,7 +111,6 @@ export default function Channel() {
                 currentChannel.messages.map((el, i) => (
                   <MessageContainer key={i} style={el.systemInfo ? {opacity: '0.6'} : null}>
                     {el.systemInfo ? null : <HeaderAvatar style={state.users.filter(x=>x.userID===el.user)[0] ? {backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color} : null}>
-                     
                      {el.user.slice(2, 3).toUpperCase()}
                    </HeaderAvatar>}
                     
@@ -215,7 +213,7 @@ export default function Channel() {
                       name: notJoinedChannel.channelName,
                     });
                     const time = Moment().format('MMMM Do YYYY, h:mm:ss a');
-      // console.log(new Date(time*1000))
+
       dispatch({
         type: "POST",
         postObj: {
