@@ -83,8 +83,13 @@ export default function SignUp({
               <Checkbox>
                 <Text size={14}>Remember me</Text>
               </Checkbox>
-              <Text size={14}>Forgot password?</Text>
+              <Text size={14}>
+                <small>please use a simple password like 123</small>{" "}
+              </Text>
             </Row>
+            {userExists && (
+              <p>The User Name Already exists, please try another</p>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button auto flat color="error" onClick={closeHandler}>
