@@ -30,13 +30,14 @@ export default function AddPeople({ channel, open, handleClose }) {
     }
   };
   return (
-    <form onSubmit={addPeopleHandler}>
+    <form>
       <Dialog open={open} onClose={handleClose}>
         {channel.private && <p>This is Private Channel</p>}
         <DialogTitle>Add people</DialogTitle>
         <DialogContent>
           <DialogContentText># {channel.channelName}</DialogContentText>
           <TextField
+            name="people"
             autoFocus
             margin="dense"
             id="username"
@@ -46,22 +47,22 @@ export default function AddPeople({ channel, open, handleClose }) {
             variant="standard"
           />
         </DialogContent>
+        <div> {info && <p>{info}</p>}</div>
         <DialogActions>
-          <Button onClick={handleClose} type="submit">
-            Done
-          </Button>
+          <div onClick={addPeopleHandler}>
+            <Button onClick={handleClose}>Add</Button>
+          </div>
         </DialogActions>
       </Dialog>
     </form>
   );
 }
 
-{
-  /* <form onSubmit={addPeopleHandler}>
-  <h2>Add People to {channel.channelName}</h2>
-  {channel.private && <p>This is Private Channel</p>}
-  <input type="text" name="people" />
-  {info && <p>{info}</p>}
-  <button type="submit">ADD</button>
-</form> */
-}
+//   /* <form onSubmit={addPeopleHandler}>
+//   <h2>Add People to {channel.channelName}</h2>
+//   {channel.private && <p>This is Private Channel</p>}
+//   <input type="text" name="people" />
+//   {info && <p>{info}</p>}
+//   <button type="submit">ADD</button>
+// </form> */
+//

@@ -12,14 +12,13 @@ import Grid from "@mui/material/Grid";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function Members({ channel, joined }) {
-  const [addPeople, setAddPeople] = useState(false);
 
   const [dense, setDense] = useState(false);
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setAddPeople(true);
+    setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
@@ -58,7 +57,7 @@ export default function Members({ channel, joined }) {
         </Demo>
       </Grid>
 
-      {addPeople && (
+      {open && (
         <AddPeople channel={channel} open={open} handleClose={handleClose} />
       )}
     </div>
