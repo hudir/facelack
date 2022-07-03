@@ -87,6 +87,8 @@ export default function Channel() {
   
   }
 
+  // console.log(state.users.map(el=>el.color))
+
   return (
     <ChatInputContainer>
       {currentChannel ? (
@@ -109,7 +111,8 @@ export default function Channel() {
               {currentChannel.messages.length > 0 &&
                 currentChannel.messages.map((el, i) => (
                   <MessageContainer key={i}>
-                    <HeaderAvatar style={{backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color}}>
+                    <HeaderAvatar style={state.users.filter(x=>x.userID===el.user)[0] ? {backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color} : null}>
+                     
                       {el.user.slice(2, 3).toUpperCase()}
                     </HeaderAvatar>
                     <div className="msg-right">

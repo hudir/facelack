@@ -1,6 +1,6 @@
 let init = {
     appName: 'facelack',
-    users:[{userName:'admin',password:'admin',online:false, userID:'00admin'}],
+    users:[{userName:'admin',password:'admin',online:false, userID:'00admin',color:''}],
     currentUser:null,
     currentUserChannels:null,
     currentChannel:null,

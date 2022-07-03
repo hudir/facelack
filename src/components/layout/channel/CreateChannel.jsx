@@ -14,7 +14,7 @@ import { IOSSwitch } from "./Switch";
 import ToggleButton from "@mui/material/ToggleButton";
 
 export default function CreateChannel() {
-  const { state, dispatch, setShowModal } = useContext(Context);
+  const { state, dispatch, setShowModal,showModal } = useContext(Context);
 
   const [exists, setExists] = useState(false);
 
@@ -52,13 +52,26 @@ export default function CreateChannel() {
         newChannel: newChannelObj,
       });
       setShowModal(false);
+
+      const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
+      // console.log(new Date(time*1000))
+      dispatch({
+        type: "POST",
+        postObj: {
+          user: '00admin',
+          time: time,
+          body: `${state.currentUser.userName} create channel ${newChannelObj.channelName}`,
+          reply: [],
+          channelName: newChannelObj.channelName,
+        },
+      });
       navigate(newChannelObj.channelName);
     }
   };
 
   return (
     <CreateChannelContainer
-      open={() => setShowModal(true)}
+      open={ showModal}
       onClose={() => setShowModal(false)}
     >
       <DialogTitleContainer>
