@@ -9,9 +9,10 @@ import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import NewMessage from "./NewMessage";
+import { Dropdown, Text } from "@nextui-org/react";
 
 export default function Header() {
-  const { state, dispatch,setCurrentChannel } = useContext(Context);
+  const { state, dispatch, setCurrentChannel } = useContext(Context);
   const [logOut, setLogOut] = useState(false);
   const [newMessage, setNewMessage] = useState(false);
 
@@ -33,7 +34,7 @@ export default function Header() {
       type: "LOGOUT",
     });
     navi("/");
-    setCurrentChannel(null)
+    setCurrentChannel(null);
   };
   return (
     <HeaderContainer>
@@ -62,19 +63,43 @@ export default function Header() {
         <input type="text" placeholder="Search" />
       </HeaderSearch>
       <HeaderRight>
-        <HeaderAvatar onClick={() => setLogOut((pre) => !pre)} 
-        style={{backgroundColor: state.currentUser.color}}>
-          {state.currentUser.userName.slice(0, 1).toUpperCase()}
-        </HeaderAvatar>
-        {logOut && (
-          <Dropdown>
-            <li>
-              <Button variant="contained" color="error" onClick={logOutHandle}>
-                Logout
-              </Button>
-            </li>
-          </Dropdown>
-        )}
+        <Dropdown placement="bottom-left">
+          <Dropdown.Trigger>
+            <HeaderAvatar
+              onClick={() => setLogOut((pre) => !pre)}
+              style={{ backgroundColor: state.currentUser.color }}
+            >
+              {state.currentUser.userName.slice(0, 1).toUpperCase()}
+            </HeaderAvatar>
+          </Dropdown.Trigger>
+          <Dropdown.Menu color="secondary" aria-label="Avatar Actions">
+            <Dropdown.Item key="profile" css={{ height: "$18" }}>
+              <Text b color="inherit" css={{ d: "flex" }}>
+                Signed in as {state.currentUser.userName}
+              </Text>
+            </Dropdown.Item>
+            <Dropdown.Item key="settings" withDivider>
+              My Settings
+            </Dropdown.Item>
+            <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
+            <Dropdown.Item key="analytics" withDivider>
+              Analytics
+            </Dropdown.Item>
+            <Dropdown.Item key="system">System</Dropdown.Item>
+            <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
+            <Dropdown.Item key="help_and_feedback" withDivider>
+              Help & Feedback
+            </Dropdown.Item>
+            <Dropdown.Item
+              key="logout"
+              color="error"
+              withDivider
+              onClick={logOutHandle}
+            >
+              <Button onClick={logOutHandle}>Log Out</Button>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </HeaderRight>
     </HeaderContainer>
   );
@@ -135,19 +160,9 @@ const HeaderAvatar = styled(Avatar)`
   margin-left: auto;
   margin-right: 20px;
 
-  > .MuiSvgIcon-root {
-    background-color: #032631;
-  }
-
   :hover {
     opacity: 0.8;
   }
-`;
-
-const Dropdown = styled.ul`
-  position: absolute;
-  right: 70px;
-  list-style-type: none;
 `;
 
 const SidebarHeader = styled.div`

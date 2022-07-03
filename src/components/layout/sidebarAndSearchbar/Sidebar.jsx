@@ -16,11 +16,9 @@ import AddIcon from "@mui/icons-material/Add";
 import BasicMenu from "./BasicMenu";
 
 export default function Sidebar() {
-  const { state, showModal, setShowModal, currentChannel } = useContext(Context);
+  const { state, currentChannel } = useContext(Context);
 
   const [showChannels, setShowChannels] = useState(false);
-
-  const [showCreate, setShowCreate] = useState(false);
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -75,7 +73,17 @@ export default function Sidebar() {
         ? state.currentUserChannels && (
             <UlContainer>
               {state.currentUserChannels.map((el, i) => (
-                <Link to={`${el.channelName}`} key={i} style={currentChannel? el.channelName===currentChannel.channelName ?{color:'yellow'} : null : null}>
+                <Link
+                  to={`${el.channelName}`}
+                  key={i}
+                  style={
+                    currentChannel
+                      ? el.channelName === currentChannel.channelName
+                        ? { color: "yellow" }
+                        : null
+                      : null
+                  }
+                >
                   <SidebarOption key={i} title={el.channelName}>
                     {" "}
                   </SidebarOption>
@@ -89,7 +97,7 @@ export default function Sidebar() {
         <SidebarOption Icon={AddIcon} title="Add Channel"></SidebarOption>
       </div>
       {open && (
-        <BasicMenu anchorEl={anchorEl} open={open} handleClose={handleClose}/>
+        <BasicMenu anchorEl={anchorEl} open={open} handleClose={handleClose} />
       )}
     </SidebarContainer>
   );

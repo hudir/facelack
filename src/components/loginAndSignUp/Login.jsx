@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import { Context } from "../../store/Context";
 import SignUp from "./SignUp";
 import styled from "styled-components";
-import {Button} from "@nextui-org/react"
+import { Button } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 
 export default function Login() {
   const { state, dispatch } = useContext(Context);
@@ -38,8 +39,8 @@ export default function Login() {
       <h1>{signUp ? "Bye Bye slack" : "Welcome to " + state.appName}</h1>
       <form onSubmit={onSubmitHandler}>
         <div>
-          <label htmlFor="UserName">UserName</label>
-          <input
+          <label htmlFor="UserName">Username</label>
+          <Input
             type="text"
             id="UserName"
             value={userName}
@@ -49,7 +50,7 @@ export default function Login() {
 
         <div>
           <label htmlFor="Password">Password</label>
-          <input
+          <Input
             type="password"
             id="Password"
             value={password}
@@ -57,17 +58,17 @@ export default function Login() {
           />
         </div>
 
-        <button type="submit" className="my-3 btn btn-light">
-          Login
-        </button>
+        <Button auto color="warning" shadow type="submit">
+          Log in
+        </Button>
       </form>
 
       <SignUpSection>
-        <p>if you are first time ues facelack, please sign up</p>
+        <p>New to facelack? Sign up and start chating!</p>
 
         <Button auto color="warning" shadow onClick={handler}>
-        Sign Up
-      </Button>
+          Sign Up
+        </Button>
 
         <SignUp
           handler={handler}
@@ -92,6 +93,11 @@ const LoginContainer = styled.div`
   h1 {
     font-size: 4.5rem;
     margin-bottom: 2rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   form div {
     margin: 0.5rem;
@@ -128,9 +134,8 @@ const LoginContainer = styled.div`
   }
 `;
 
-
 const SignUpSection = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
