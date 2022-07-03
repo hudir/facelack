@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { IOSSwitch } from "./Switch";
 import ToggleButton from "@mui/material/ToggleButton";
+import Moment from 'moment';
 
 export default function CreateChannel() {
   const { state, dispatch, setShowModal,showModal } = useContext(Context);
@@ -29,7 +30,7 @@ export default function CreateChannel() {
   const createNewChannelHandler = (e) => {
     e.preventDefault();
 
-    const time = JSON.stringify(new Date());
+    const time = Moment().format('MMMM Do YYYY, h:mm:ss a');
     const createBy = { time: time, user: state.currentUser.userName };
 
     const newChannelObj = {
@@ -53,8 +54,8 @@ export default function CreateChannel() {
       });
       setShowModal(false);
 
-      const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
-      // console.log(new Date(time*1000))
+      const time = Moment().format('MMMM Do YYYY, h:mm:ss a');
+ 
       dispatch({
         type: "POST",
         postObj: {

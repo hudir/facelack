@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import InfoNav from './InfoNav'
-import { Link, NavLink, Route, Routes } from "react-router-dom";
-import About from "./About";
-import Members from "./Members";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Context } from "../../../../store/Context";
@@ -33,7 +30,6 @@ export default function Info({ channel, open, setOpen }) {
   }, [])
   
   const handleClose = () => setOpen(false);
-
 
   return (
     <div>

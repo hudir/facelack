@@ -13,24 +13,20 @@ import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined';
 import Moment from 'moment';
 import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
 
+
 export default function Channel() {
   const { state, dispatch, currentChannel, setCurrentChannel } =
     useContext(Context);
 
   let { channelName } = useParams();
 
-  const 
-    [input, setInput] = useState(""),
+  const [input, setInput] = useState(""),
     [notJoinedChannel, setNotJoinedChannel] = useState(null),
-    [edit, setEdit] = useState({status:false,index:null})
-   
+    [edit, setEdit] = useState({ status: false, index: null });
 
   const [open, setOpen] = useState(false);
 
-  
-    const handleOpen = () => setOpen(true);
-
-    
+  const handleOpen = () => setOpen(true);
 
   // this is for the channel user joined
   useEffect(() => {
@@ -39,7 +35,6 @@ export default function Channel() {
         (el) => el.channelName === channelName
       )[0];
       setCurrentChannel(channel);
-    
     }
   }, [state.currentUserChannels, channelName]);
 
@@ -50,11 +45,12 @@ export default function Channel() {
         (el) => el.channelName === channelName
       )[0];
       setNotJoinedChannel(channel);
-  }}, [state.channels, channelName]);
+    }
+  }, [state.channels, channelName]);
 
   const postMassage = (e) => {
     e.preventDefault();
-    const time = Moment().format('MMMM Do YYYY, h:mm:ss a') 
+    const time = Moment().format("MMMM Do YYYY, h:mm:ss a");
     dispatch({
       type: "POST",
       postObj: {
@@ -68,24 +64,22 @@ export default function Channel() {
     setInput("");
   };
 
-  
-  const editHandler =(e,index,msg) =>{
+  const editHandler = (e, index, msg) => {
     console.log(msg);
     e.preventDefault();
-    const time = Moment().format('MMMM Do YYYY, h:mm:ss a') 
+    const time = Moment().format("MMMM Do YYYY, h:mm:ss a");
     dispatch({
       type: "EDIT",
       postObj: {
         ...msg,
         time: time,
         body: e.target.edit.value,
-        edited:true
+        edited: true,
       },
-      index:index
+      index: index,
     });
-    setEdit({status:false,index:null})
-  
-  }
+    setEdit({ status: false, index: null });
+  };
 
   // console.log(state.users.map(el=>el.color))
 
@@ -111,40 +105,73 @@ export default function Channel() {
               {currentChannel.messages.length > 0 &&
                 currentChannel.messages.map((el, i) => (
                   <MessageContainer key={i}>
-                     <HeaderAvatar style={state.users.filter(x=>x.userID===el.user)[0] ? {backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color} : null}>        
-                     {el.user.slice(2, 3).toUpperCase()}
-                   </HeaderAvatar>
-                    
+                    <HeaderAvatar
+                      style={
+                        state.users.filter((x) => x.userID === el.user)[0]
+                          ? {
+                              backgroundColor: state.users.filter(
+                                (x) => x.userID === el.user
+                              )[0].color,
+                            }
+                          : null
+                      }
+                    >
+                      {el.user.slice(2, 3).toUpperCase()}
+                    </HeaderAvatar>
+
                     <div className="msg-right">
                       <span>{el.user.slice(2)}</span>
                       <small>{JSON.stringify(el.time)}</small>
-                     {edit.status && edit.index===i ? 
-                     (
-                      <form onSubmit={(e)=>editHandler(e,i,el)} className='editForm'>
-                        <input name="edit" type="text" placeholder={el.body}/>
-                        <button type="submit">Save Change</button>
-                      </form>
-                     )  : <p style={el.systemInfo ? {opacity: '0.5'} : null}>{el.body}</p>  }
+                      {edit.status && edit.index === i ? (
+                        <form
+                          onSubmit={(e) => editHandler(e, i, el)}
+                          className="editForm"
+                        >
+                          <input
+                            name="edit"
+                            type="text"
+                            placeholder={el.body}
+                          />
+                          <button type="submit">Save Change</button>
+                        </form>
+                      ) : (
+                        <p style={el.systemInfo ? { opacity: "0.5" } : null}>
+                          {el.body}
+                        </p>
+                      )}
                     </div>
-
 
                     {!el.systemInfo && state.currentUser.userID === el.user && (
                       <div>
-                        <IconButtonStyle aria-label="delete" size="small" color='success' onClick={() => {setEdit(pre=>({index:i, status:!pre.status}))}}>
+                        <IconButtonStyle
+                          aria-label="delete"
+                          size="small"
+                          color="success"
+                          onClick={() => {
+                            setEdit((pre) => ({
+                              index: i,
+                              status: !pre.status,
+                            }));
+                          }}
+                        >
                           <EditLocationOutlinedIcon />
                         </IconButtonStyle>
-                        <IconButtonStyle aria-label="delete" size="small" color='error' onClick={() => {
+                        <IconButtonStyle
+                          aria-label="delete"
+                          size="small"
+                          color="error"
+                          onClick={() => {
                             dispatch({
                               type: "DELETE",
                               index: i,
                               name: currentChannel.channelName,
                             });
-                          }}>
+                          }}
+                        >
                           <DeleteIcon />
                         </IconButtonStyle>
                       </div>
                     )}
-
                   </MessageContainer>
                 ))}
             </ChatContainer>
@@ -164,8 +191,9 @@ export default function Channel() {
               </button>
             </form>
           </div>
-          {open && <Info channel={currentChannel} open={open} setOpen={setOpen}  />}
-
+          {open && (
+            <Info channel={currentChannel} open={open} setOpen={setOpen} />
+          )}
         </>
       ) : (
         notJoinedChannel && (
@@ -186,15 +214,27 @@ export default function Channel() {
               </Header>
               {notJoinedChannel.messages.length > 0 &&
                 notJoinedChannel.messages.map((el, i) => (
-                  <MessageContainer key={i} >
-                   <HeaderAvatar style={state.users.filter(x=>x.userID===el.user)[0] ? {backgroundColor: state.users.filter(x=>x.userID===el.user)[0].color} : null}>    
-                     {el.user.slice(2, 3).toUpperCase()}
-                   </HeaderAvatar> 
-                   
+                  <MessageContainer key={i}>
+                    <HeaderAvatar
+                      style={
+                        state.users.filter((x) => x.userID === el.user)[0]
+                          ? {
+                              backgroundColor: state.users.filter(
+                                (x) => x.userID === el.user
+                              )[0].color,
+                            }
+                          : null
+                      }
+                    >
+                      {el.user.slice(2, 3).toUpperCase()}
+                    </HeaderAvatar>
+
                     <div className="msg-right">
                       <span>{el.user.slice(2)}</span>
                       <small>{JSON.stringify(el.time)}</small>
-                      <p style={el.systemInfo ? {opacity: '0.5'} : null}>{el.body}</p>
+                      <p style={el.systemInfo ? { opacity: "0.5" } : null}>
+                        {el.body}
+                      </p>
                     </div>
                   </MessageContainer>
                 ))}
@@ -207,26 +247,25 @@ export default function Channel() {
                 <button className="details">Details</button>
                 <button
                   className="join"
-                  onClick={() =>{
+                  onClick={() => {
                     dispatch({
                       type: "JOIN_CHANNEL",
                       name: notJoinedChannel.channelName,
                     });
-                    const time = Moment().format('MMMM Do YYYY, h:mm:ss a');
+                    const time = Moment().format("MMMM Do YYYY, h:mm:ss a");
 
-      dispatch({
-        type: "POST",
-        postObj: {
-          user: state.currentUser.userID,
-          time: time,
-          body: `${state.currentUser.userName} joined channel ${notJoinedChannel.channelName}`,
-          reply: [],
-          channelName: notJoinedChannel.channelName,
-          systemInfo:true
-        },
-      });
-                  }
-                  }
+                    dispatch({
+                      type: "POST",
+                      postObj: {
+                        user: state.currentUser.userID,
+                        time: time,
+                        body: `${state.currentUser.userName} joined channel ${notJoinedChannel.channelName}`,
+                        reply: [],
+                        channelName: notJoinedChannel.channelName,
+                        systemInfo: true,
+                      },
+                    });
+                  }}
                 >
                   Join channel
                 </button>
@@ -235,8 +274,9 @@ export default function Channel() {
           </div>
         )
       )}
-       {open && <Info  channel={notJoinedChannel} open={open} setOpen={setOpen}  />}
-      
+      {open && (
+        <Info channel={notJoinedChannel} open={open} setOpen={setOpen} />
+      )}
     </ChatInputContainer>
   );
 }
@@ -360,7 +400,6 @@ const MessageContainer = styled.div`
       width: 100%;
       height: 50px;
     }
-
   }
 `;
 
@@ -435,4 +474,4 @@ const IconButtonStyle = styled(IconButton)`
   :hover {
     opacity: 1;
   }
-`
+`;

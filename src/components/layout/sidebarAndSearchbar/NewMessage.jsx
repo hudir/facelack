@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Context } from "../../../store/Context";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Moment from "moment";
 
 export default function NewMessage({ handleClose, open }) {
   const { state, dispatch } = useContext(Context);
@@ -22,7 +23,7 @@ export default function NewMessage({ handleClose, open }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const time = new Date().toString();
+    const time = Moment().format("MMMM Do YYYY, h:mm:ss a");
 
     dispatch({
       type: "POST",

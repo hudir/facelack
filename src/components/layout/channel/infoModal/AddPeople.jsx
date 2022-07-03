@@ -7,46 +7,49 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Moment from 'moment';
 import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
+
 
 export default function AddPeople({ channel, open, handleClose }) {
   const { state, dispatch } = useContext(Context);
+
+  const [input, setInput] = useState('')
 
   const [info, setInfo] = useState(null);
 
   const addPeopleHandler = (e) => {
     e.preventDefault();
-    if (!state.users.some((el) => e.target.people.value === el.userName)) {
+    if (!state.users.some((el) => input === el.userName)) {
       setInfo("User does not exist");
     } else if (
-      channel.members.some((id) => e.target.people.value === id.slice(2))
+      channel.members.some((id) => input === id.slice(2))
     ) {
-      setInfo(`${e.target.people.value} already joined this channel`);
+      setInfo(`${input} already joined this channel`);
     } else {
-      console.log(111);
       dispatch({
         type: "ADD_USER",
-        name: e.target.people.value,
+        name: input,
         channelName: channel.channelName,
       });
-      const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
-      // console.log(new Date(time*1000))
-      const userID = state.users.filter(x=>x.userName===e.target.people.value).map(y=>y.userID)[0]
+      const time =  Moment().format("MMMM Do YYYY, h:mm:ss a");
+
+      const userID = state.users.filter(x=>x.userName===input).map(y=>y.userID)[0]
       dispatch({
         type: "POST",
         postObj: {
           user: userID,
           time: time,
-          body: `${e.target.people.value} has been added to ${channel.channelName} by ${state.currentUser.userName}`,
+          body: `${input} has been added to ${channel.channelName} by ${state.currentUser.userName}`,
           reply: [],
           channelName: channel.channelName,
           systemInfo:true
         },
       });
-      console.log(111);
     }
-    e.target.people.value=''
+    console.log(input);
   };
+
   return (
     <form>
       <Dialog open={open} onClose={handleClose}>
@@ -55,6 +58,7 @@ export default function AddPeople({ channel, open, handleClose }) {
         <DialogContent>
           <DialogContentText>{channel.private ? (<RiGitRepositoryPrivateFill />) : '#'} {channel.channelName}</DialogContentText>
           <TextField
+          onChange={(e) =>setInput(e.target.value)}
             name="people"
             autoFocus
             margin="dense"
