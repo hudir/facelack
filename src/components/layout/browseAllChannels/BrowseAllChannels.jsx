@@ -30,6 +30,19 @@ export default function BrowseAllChannels() {
       name: channelName,
       private: notPublic,
     });
+    const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
+      // console.log(new Date(time*1000))
+      dispatch({
+        type: "POST",
+        postObj: {
+          user: ' ',
+          time: time,
+          body: `${state.currentUser.userName} left channel ${channelName}`,
+          reply: [],
+          channelName: channelName,
+          systemInfo:true
+        },
+      });
   };
 
   const navigate = useNavigate();
@@ -39,6 +52,19 @@ export default function BrowseAllChannels() {
       type: "JOIN_CHANNEL",
       name: channelName,
     });
+    const time = new Date().toString(); // FIX TIMESTAMP!!!!!!!!
+      // console.log(new Date(time*1000))
+      dispatch({
+        type: "POST",
+        postObj: {
+          user: ' ',
+          time: time,
+          body: `${state.currentUser.userName} joined channel ${channelName}`,
+          reply: [],
+          channelName: channelName,
+          systemInfo:true
+        },
+      });
     navigate("../" + channelName);
   };
 

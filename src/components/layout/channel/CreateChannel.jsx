@@ -58,11 +58,12 @@ export default function CreateChannel() {
       dispatch({
         type: "POST",
         postObj: {
-          user: '00admin',
+          user: ' ',
           time: time,
-          body: `${state.currentUser.userName} create channel ${newChannelObj.channelName}`,
+          body: `${state.currentUser.userName} created channel ${newChannelObj.channelName}`,
           reply: [],
           channelName: newChannelObj.channelName,
+          systemInfo:true
         },
       });
       navigate(newChannelObj.channelName);
