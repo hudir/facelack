@@ -36,7 +36,7 @@ export default function BrowseAllChannels() {
       dispatch({
         type: "POST",
         postObj: {
-          user: ' ',
+          user: state.currentUser.userID,
           time: time,
           body: `${state.currentUser.userName} left channel ${channelName}`,
           reply: [],
@@ -58,7 +58,7 @@ export default function BrowseAllChannels() {
       dispatch({
         type: "POST",
         postObj: {
-          user: ' ',
+          user: state.currentUser.userID,
           time: time,
           body: `${state.currentUser.userName} joined channel ${channelName}`,
           reply: [],

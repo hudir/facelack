@@ -102,25 +102,20 @@ export default function Channel() {
               </Header>
               {currentChannel.messages.length > 0 &&
                 currentChannel.messages.map((el, i) => (
-                  <MessageContainer
-                    key={i}
-                    style={el.systemInfo ? { opacity: "0.6" } : null}
-                  >
-                    {el.systemInfo ? null : (
-                      <HeaderAvatar
-                        style={
-                          state.users.filter((x) => x.userID === el.user)[0]
-                            ? {
-                                backgroundColor: state.users.filter(
-                                  (x) => x.userID === el.user
-                                )[0].color,
-                              }
-                            : null
-                        }
-                      >
-                        {el.user.slice(2, 3).toUpperCase()}
-                      </HeaderAvatar>
-                    )}
+                  <MessageContainer key={i}>
+                    <HeaderAvatar
+                      style={
+                        state.users.filter((x) => x.userID === el.user)[0]
+                          ? {
+                              backgroundColor: state.users.filter(
+                                (x) => x.userID === el.user
+                              )[0].color,
+                            }
+                          : null
+                      }
+                    >
+                      {el.user.slice(2, 3).toUpperCase()}
+                    </HeaderAvatar>
 
                     <div className="msg-right">
                       <span>{el.user.slice(2)}</span>
@@ -138,11 +133,13 @@ export default function Channel() {
                           <button type="submit">Save Change</button>
                         </form>
                       ) : (
-                        <p>{el.body}</p>
+                        <p style={el.systemInfo ? { opacity: "0.5" } : null}>
+                          {el.body}
+                        </p>
                       )}
                     </div>
 
-                    {state.currentUser.userID === el.user && (
+                    {!el.systemInfo && state.currentUser.userID === el.user && (
                       <div>
                         <IconButtonStyle
                           aria-label="delete"
@@ -215,30 +212,27 @@ export default function Channel() {
               </Header>
               {notJoinedChannel.messages.length > 0 &&
                 notJoinedChannel.messages.map((el, i) => (
-                  <MessageContainer
-                    key={i}
-                    style={el.systemInfo ? { opacity: "0.6" } : null}
-                  >
-                    {el.systemInfo ? null : (
-                      <HeaderAvatar
-                        style={
-                          state.users.filter((x) => x.userID === el.user)[0]
-                            ? {
-                                backgroundColor: state.users.filter(
-                                  (x) => x.userID === el.user
-                                )[0].color,
-                              }
-                            : null
-                        }
-                      >
-                        {el.user.slice(2, 3).toUpperCase()}
-                      </HeaderAvatar>
-                    )}
+                  <MessageContainer key={i}>
+                    <HeaderAvatar
+                      style={
+                        state.users.filter((x) => x.userID === el.user)[0]
+                          ? {
+                              backgroundColor: state.users.filter(
+                                (x) => x.userID === el.user
+                              )[0].color,
+                            }
+                          : null
+                      }
+                    >
+                      {el.user.slice(2, 3).toUpperCase()}
+                    </HeaderAvatar>
 
                     <div className="msg-right">
                       <span>{el.user.slice(2)}</span>
                       <small>{JSON.stringify(el.time)}</small>
-                      <p>{el.body}</p>
+                      <p style={el.systemInfo ? { opacity: "0.5" } : null}>
+                        {el.body}
+                      </p>
                     </div>
                   </MessageContainer>
                 ))}
@@ -261,7 +255,7 @@ export default function Channel() {
                     dispatch({
                       type: "POST",
                       postObj: {
-                        user: " ",
+                        user: state.currentUser.userID,
                         time: time,
                         body: `${state.currentUser.userName} joined channel ${notJoinedChannel.channelName}`,
                         reply: [],

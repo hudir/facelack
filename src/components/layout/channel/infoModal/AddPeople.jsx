@@ -7,6 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Moment from 'moment';
 
 export default function AddPeople({ channel, open, handleClose }) {
   const { state, dispatch } = useContext(Context);
@@ -29,9 +30,24 @@ export default function AddPeople({ channel, open, handleClose }) {
         name: input,
         channelName: channel.channelName,
       });
+      const time =  Moment().format("MMMM Do YYYY, h:mm:ss a");
+
+      const userID = state.users.filter(x=>x.userName===input).map(y=>y.userID)[0]
+      dispatch({
+        type: "POST",
+        postObj: {
+          user: userID,
+          time: time,
+          body: `${input} has been added to ${channel.channelName} by ${state.currentUser.userName}`,
+          reply: [],
+          channelName: channel.channelName,
+          systemInfo:true
+        },
+      });
     }
-    console.log(input)
+    console.log(input);
   };
+
   return (
     <form>
       <Dialog open={open} onClose={handleClose}>

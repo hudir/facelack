@@ -21,9 +21,11 @@ const style = {
 export default function Info({ channel, open, setOpen }) {
   const [joined, setJoined] = useState(false);
   const {state} = useContext(Context)
-
+  // console.log(state);
+  
   useEffect(()=>{
-    channel.members.some(id=>id===state.currentUser.userID) ? setJoined(true) : setJoined(false)
+    channel.members.some(id=>id===state.currentUser.userID) ? setJoined(true) : setJoined(false);
+    
   }, [])
   
   const handleClose = () => setOpen(false);
