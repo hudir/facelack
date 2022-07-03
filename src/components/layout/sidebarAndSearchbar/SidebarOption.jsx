@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { RiGitRepositoryPrivateLine } from 'react-icons/ri';
 
-export default function SidebarOption({ Icon, title }) {
+export default function SidebarOption({ Icon, title, el}) {
   return (
     <SidebarOptionContainer>
       {Icon && <Icon fontSize="small" style={{ padding: 10 }} />}
@@ -9,7 +10,7 @@ export default function SidebarOption({ Icon, title }) {
         <h3>{title}</h3>
       ) : (
         <SidebarOptionChannel>
-          <span># {title}</span>
+          <span>{el.private ? (<RiGitRepositoryPrivateLine />) : '#'} {title}</span>
         </SidebarOptionChannel>
       )}
     </SidebarOptionContainer>

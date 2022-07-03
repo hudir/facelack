@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined';
 import Moment from 'moment';
+import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
 
 export default function Channel() {
   const { state, dispatch, currentChannel, setCurrentChannel } =
@@ -97,7 +98,7 @@ export default function Channel() {
               <Header onClick={() => handleOpen(true)}>
                 <HeaderLeft>
                   <h4>
-                    <strong>#{currentChannel.channelName}</strong>
+                    <strong>{currentChannel.private ? (<RiGitRepositoryPrivateFill />) : '#'} {currentChannel.channelName}</strong>
                   </h4>
                   <StarOutlineIcon />
                 </HeaderLeft>

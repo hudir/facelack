@@ -84,7 +84,7 @@ export default function Sidebar() {
                       : null
                   }
                 >
-                  <SidebarOption key={i} title={el.channelName}>
+                  <SidebarOption key={i} title={el.channelName} el={el}>
                     {" "}
                   </SidebarOption>
                 </Link>
