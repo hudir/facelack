@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../../store/Context";
 import SignUp from "./SignUp";
 import styled from "styled-components";
-import Button from "@mui/material/Button";
+import {Button} from "@nextui-org/react"
 
 export default function Login() {
   const { state, dispatch } = useContext(Context);
@@ -25,11 +25,12 @@ export default function Login() {
     }
   };
 
-  // For Sign Up modal
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  // For sign in Modal
+  const [visible, setVisible] = React.useState(false);
+  const handler = () => setVisible(true);
+  const closeHandler = () => {
+    setVisible(false);
+    console.log("closed");
   };
 
   return (
@@ -61,20 +62,19 @@ export default function Login() {
         </button>
       </form>
 
-      <div>
+      <SignUpSection>
         <p>if you are first time ues facelack, please sign up</p>
 
-        <Button variant="contained" onClick={handleClickOpen}>
-          Sign Up
-        </Button>
+        <Button auto color="warning" shadow onClick={handler}>
+        Sign Up
+      </Button>
 
         <SignUp
-          setSignUp={setSignUp}
-          open={open}
-          setOpen={setOpen}
-          handleClickOpen={handleClickOpen}
+          handler={handler}
+          visible={visible}
+          closeHandler={closeHandler}
         />
-      </div>
+      </SignUpSection>
     </LoginContainer>
   );
 }
@@ -127,3 +127,10 @@ const LoginContainer = styled.div`
     }
   }
 `;
+
+
+const SignUpSection = styled.div`
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+`
