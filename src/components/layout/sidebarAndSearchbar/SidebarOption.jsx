@@ -10,7 +10,7 @@ export default function SidebarOption({ Icon, title, el}) {
         <h3>{title}</h3>
       ) : (
         <SidebarOptionChannel>
-          <span>{el.private ? (<RiGitRepositoryPrivateLine />) : '#'} {title}</span>
+          <span>{el?.private ? (<RiGitRepositoryPrivateLine />) : '#'} {title}</span>
         </SidebarOptionChannel>
       )}
     </SidebarOptionContainer>
