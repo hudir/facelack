@@ -73,12 +73,12 @@ export default function Header() {
             </HeaderAvatar>
           </Dropdown.Trigger>
           <Dropdown.Menu color="secondary" aria-label="Avatar Actions">
-            <Dropdown.Item key="profile" css={{ height: "$18" }}>
+            <Dropdown.Item key="profile" css={{ height: "$18" }} textValue>
               <Text b color="inherit" css={{ d: "flex" }}>
                 Signed in as {state.currentUser.userName}
               </Text>
             </Dropdown.Item>
-            <Dropdown.Item key="settings" withDivider>
+            <Dropdown.Item key="settings" withDivider >
               My Settings
             </Dropdown.Item>
             <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
@@ -91,6 +91,7 @@ export default function Header() {
               Help & Feedback
             </Dropdown.Item>
             <Dropdown.Item
+            textValue
               key="logout"
               color="error"
               withDivider

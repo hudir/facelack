@@ -54,6 +54,7 @@ export default function SignUp({
           </Modal.Header>
           <Modal.Body>
             <Input
+            aria-label="username"
               type="text"
               value={newUserName}
               onChange={(e) => setNewUserName(e.target.value)}
@@ -67,6 +68,7 @@ export default function SignUp({
               contentLeft={<Mail fill="currentColor" />}
             />
             <Input
+            aria-label="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               required
