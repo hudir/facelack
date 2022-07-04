@@ -285,8 +285,10 @@ const ChatInputContainer = styled.div`
   flex: 0.7;
   flex-grow: 1;
   overflow-y: scroll;
-  margin-top: 50px;
+  margin-top: 200px;
   border-radius: 20px;
+  margin-bottom: 50px;
+  height: 67vh;
 
   form {
     position: relative;
@@ -324,8 +326,8 @@ const ChatContainer = styled.div`
   flex: 0.7;
   flex-grow: 1;
   margin-top: 30px;
-  padding: 20px 10px;
-  max-height: calc(100vh-100px);
+  padding: 50px 10px;
+  max-height: calc(70vh-100px);
 
   .notJoined {
     margin-top: 90px;
@@ -333,7 +335,14 @@ const ChatContainer = styled.div`
 `;
 
 const Header = styled.div`
+position:fixed;
+top: 8.4%;
+z-index:4;
+width: 70%;
+height: 50px;
+background-color: white;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid lightgray;
