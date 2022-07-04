@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  createRef,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../../../store/Context";
 import Info from "./infoModal/Info";
@@ -12,11 +18,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditLocationOutlinedIcon from "@mui/icons-material/EditLocationOutlined";
 import Moment from "moment";
 import { RiGitRepositoryPrivateFill } from "react-icons/ri";
-import SaveAsIcon from '@mui/icons-material/SaveAs';
+import SaveAsIcon from "@mui/icons-material/SaveAs";
 
 export default function Channel() {
   const { state, dispatch, currentChannel, setCurrentChannel } =
     useContext(Context);
+
+  const ref = useRef(null);
 
   let { channelName } = useParams();
 
@@ -61,6 +69,7 @@ export default function Channel() {
         channelName: currentChannel.channelName,
       },
     });
+    ref.current?.scrollIntoView({ behavior: "smooth" });
     setInput("");
   };
 
@@ -82,7 +91,11 @@ export default function Channel() {
     setEdit({ status: false, index: null });
   };
 
-  // console.log(state.users.map(el=>el.color))
+  // useEffect(() => {
+  //   if (!edit.status && state?.channels.filter(el=>el.channelName===currentChannel?.channelName)[0]?.messages?.length !== currentChannel?.messages?.length) {
+  //     ref.current?.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }, [currentChannel?.messages]);
 
   return (
     <ChatInputContainer>
@@ -141,12 +154,18 @@ export default function Channel() {
                             type="text"
                             placeholder={el.body}
                           />
-                          <button type="submit"><SaveAsIcon/></button>
+                          <button type="submit">
+                            <SaveAsIcon />
+                          </button>
                         </form>
                       ) : (
                         <p style={el.systemInfo ? { opacity: "0.5" } : null}>
                           {el.body}
-                          {el.edited ?  <small style={{opacity: "0.9",fontSize:'1rem'}}>(edited)</small> : null} 
+                          {el.edited ? (
+                            <small style={{ opacity: "0.9", fontSize: "1rem" }}>
+                              (edited)
+                            </small>
+                          ) : null}
                         </p>
                       )}
                     </div>
@@ -184,6 +203,7 @@ export default function Channel() {
                     )}
                   </MessageContainer>
                 ))}
+              <div ref={ref}></div>
             </ChatContainer>
 
             <form className="msg" onSubmit={postMassage}>
@@ -243,9 +263,13 @@ export default function Channel() {
                       <span>{el.user.slice(2)}</span>
                       <small>{JSON.stringify(el.time)}</small>
                       <p style={el.systemInfo ? { opacity: "0.5" } : null}>
-                          {el.body}
-                          {el.edited ?  <small style={{opacity: "0.9",fontSize:'1rem'}}>(edited)</small> : null} 
-                        </p>
+                        {el.body}
+                        {el.edited ? (
+                          <small style={{ opacity: "0.9", fontSize: "1rem" }}>
+                            (edited)
+                          </small>
+                        ) : null}
+                      </p>
                     </div>
                   </MessageContainer>
                 ))}
@@ -421,10 +445,10 @@ const MessageContainer = styled.div`
     button {
       border: none;
       opacity: 0.3;
-       :hover {
-         opacity: 1;
-         cursor: pointer;
-       }
+      :hover {
+        opacity: 1;
+        cursor: pointer;
+      }
     }
 
     #editInput {
