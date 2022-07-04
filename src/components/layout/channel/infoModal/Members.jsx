@@ -50,15 +50,16 @@ export default function Members({ channel, joined }) {
                 <ListItem key={i}>
                   <ListItemAvatar>
                     <Avatar
-                      // style={
-                      //   state.users.filter((x) => x.userID === el.user)[0]
-                      //     ? {
-                      //         backgroundColor: state.users.filter(       ==>  BGCOLOR IN AVATAR NOT WORKING
-                      //           (x) => x.userID === el.user
-                      //         )[0].color,
-                      //       }
-                      //     : null
-                      // }
+                      style={
+                        state.users.filter((x) => x.userID === el)[0]
+                          ? {
+                              backgroundColor: state.users.filter(
+                                //  BGCOLOR IN AVATAR NOT WORKING is fixed
+                                (x) => x.userID === el
+                              )[0].color,
+                            }
+                          : null
+                      }
                     >
                       {el.slice(2, 3).toUpperCase()}
                     </Avatar>
