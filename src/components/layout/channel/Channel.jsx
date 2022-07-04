@@ -9,10 +9,10 @@ import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined';
-import Moment from 'moment';
-import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
-
+import EditLocationOutlinedIcon from "@mui/icons-material/EditLocationOutlined";
+import Moment from "moment";
+import { RiGitRepositoryPrivateFill } from "react-icons/ri";
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 
 export default function Channel() {
   const { state, dispatch, currentChannel, setCurrentChannel } =
@@ -74,10 +74,10 @@ export default function Channel() {
         ...msg,
         time: time,
         body: e.target.edit.value,
-        edited: true
+        edited: true,
       },
       index: index,
-      name:currentChannel.channelName
+      name: currentChannel.channelName,
     });
     setEdit({ status: false, index: null });
   };
@@ -93,7 +93,14 @@ export default function Channel() {
               <Header onClick={() => handleOpen(true)}>
                 <HeaderLeft>
                   <h4>
-                    <strong>{currentChannel.private ? (<RiGitRepositoryPrivateFill />) : '#'} {currentChannel.channelName}</strong>
+                    <strong>
+                      {currentChannel.private ? (
+                        <RiGitRepositoryPrivateFill />
+                      ) : (
+                        "#"
+                      )}{" "}
+                      {currentChannel.channelName}
+                    </strong>
                   </h4>
                   <StarOutlineIcon />
                 </HeaderLeft>
@@ -134,7 +141,7 @@ export default function Channel() {
                             type="text"
                             placeholder={el.body}
                           />
-                          <button type="submit">Save Change</button>
+                          <button type="submit"><SaveAsIcon/></button>
                         </form>
                       ) : (
                         <p style={el.systemInfo ? { opacity: "0.5" } : null}>
@@ -337,12 +344,13 @@ const ChatContainer = styled.div`
 `;
 
 const Header = styled.div`
-position:fixed;
-top: 8.4%;
-z-index:4;
-width: 70%;
-height: 50px;
-background-color: white;
+  position: fixed;
+  top: 8.4%;
+  z-index: 4;
+  width: calc(100% - 310px);
+
+  height: 50px;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -402,22 +410,31 @@ const MessageContainer = styled.div`
 
   #editForm {
     position: relative !important;
-    top:0 !important;
+    top: 0 !important;
     z-index: 10;
     width: 100%;
     height: 70%;
-   
+
     opacity: 1;
+    button {
+      border: none;
+      opacity: 0.3;
+       :hover {
+         opacity: 1;
+         cursor: pointer;
+       }
+    }
 
     #editInput {
       position: sticky !important;
       z-index: 99 !important;
-      top:0 !important;
-      width: 50% !important;
-      height: 50px !important;
-     
-    opacity: 1 !important;
-   
+      top: 0 !important;
+      width: 80% !important;
+      height: 40px !important;
+      border-radius: 10px;
+      border: 1px solid lightgray;
+
+      opacity: 1 !important;
     }
   }
 `;
