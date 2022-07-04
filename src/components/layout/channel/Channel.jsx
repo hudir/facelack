@@ -285,10 +285,10 @@ const ChatInputContainer = styled.div`
   flex: 0.7;
   flex-grow: 1;
   overflow-y: scroll;
-  margin-top: 200px;
+  margin-top: 70px;
   border-radius: 20px;
   margin-bottom: 50px;
-  height: 67vh;
+  height: 80vh;
 
   form {
     position: relative;
