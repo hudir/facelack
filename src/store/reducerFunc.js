@@ -76,13 +76,13 @@ export default function reducerFunc(prev, action){
              console.log(action)
             const newChannelsEd=prev.channels.map(el=>{
                 if(el.channelName===action.name){
-                    msgEd=el.messages.map((x,i)=>i===action.index? action.postObj : x)
+                    msgEd=el.messages.map((x,i)=>i===action.index ? action.postObj : x)
                     return {...el, messages:msgEd}
                 } else return el
             })
             const newCurrentUserChannelsEd=prev.currentUserChannels.map(el=>{
                 if(el.channelName===action.name){
-                    msgEd=el.messages.map((x,i)=>i===action.index? action.postObj : x)
+                    msgEd=el.messages.map((x,i)=>i===action.index ? action.postObj : x)
                     return {...el, messages:msgEd}
                 } else return el
             })

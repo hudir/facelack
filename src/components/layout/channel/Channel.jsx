@@ -65,7 +65,7 @@ export default function Channel() {
   };
 
   const editHandler = (e, index, msg) => {
-    console.log(msg);
+    // console.log(index);
     e.preventDefault();
     const time = Moment().format("MMMM Do YYYY, h:mm:ss a");
     dispatch({
@@ -74,9 +74,10 @@ export default function Channel() {
         ...msg,
         time: time,
         body: e.target.edit.value,
-        edited: true,
+        edited: true
       },
       index: index,
+      name:currentChannel.channelName
     });
     setEdit({ status: false, index: null });
   };
@@ -125,9 +126,10 @@ export default function Channel() {
                       {edit.status && edit.index === i ? (
                         <form
                           onSubmit={(e) => editHandler(e, i, el)}
-                          className="editForm"
+                          id="editForm"
                         >
                           <input
+                            id="editInput"
                             name="edit"
                             type="text"
                             placeholder={el.body}
@@ -176,7 +178,7 @@ export default function Channel() {
                 ))}
             </ChatContainer>
 
-            <form onSubmit={postMassage}>
+            <form className="msg" onSubmit={postMassage}>
               <input
                 name="input"
                 id=""
@@ -290,7 +292,7 @@ const ChatInputContainer = styled.div`
   margin-bottom: 50px;
   height: 80vh;
 
-  form {
+  .msg {
     position: relative;
     display: flex;
     justify-content: center;
@@ -298,7 +300,7 @@ const ChatInputContainer = styled.div`
     align-items: center;
   }
 
-  form input {
+  .msg input {
     position: fixed;
     bottom: 30px;
     width: 60%;
@@ -314,7 +316,7 @@ const ChatInputContainer = styled.div`
     }
   }
 
-  form button {
+  .msg button {
     opacity: 0;
     position: fixed;
     bottom: 30px;
@@ -398,16 +400,24 @@ const MessageContainer = styled.div`
     font-size: 10px;
   }
 
-  .editForm {
-    position: relative;
+  #editForm {
+    position: relative !important;
+    top:0 !important;
     z-index: 10;
     width: 100%;
-    height: 100%;
-    background-color: aqua;
+    height: 70%;
+   
+    opacity: 1;
 
-    input {
-      width: 100%;
-      height: 50px;
+    #editInput {
+      position: sticky !important;
+      z-index: 99 !important;
+      top:0 !important;
+      width: 50% !important;
+      height: 50px !important;
+     
+    opacity: 1 !important;
+   
     }
   }
 `;
