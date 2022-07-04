@@ -91,11 +91,11 @@ export default function Channel() {
     setEdit({ status: false, index: null });
   };
 
-  useEffect(() => {
-    if (!edit.status && state?.channels.filter(el=>el.channelName===currentChannel?.channelName)[0]?.messages?.length !== currentChannel?.messages?.length) {
-      ref.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [currentChannel?.messages]);
+  // useEffect(() => {
+  //   if (!edit.status && state?.channels.filter(el=>el.channelName===currentChannel?.channelName)[0]?.messages?.length !== currentChannel?.messages?.length) {
+  //     ref.current?.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }, [currentChannel?.messages]);
 
   return (
     <ChatInputContainer>
