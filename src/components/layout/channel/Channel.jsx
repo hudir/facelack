@@ -139,6 +139,7 @@ export default function Channel() {
                       ) : (
                         <p style={el.systemInfo ? { opacity: "0.5" } : null}>
                           {el.body}
+                          {el.edited ?  <small style={{opacity: "0.9",fontSize:'1rem'}}>(edited)</small> : null} 
                         </p>
                       )}
                     </div>
@@ -235,8 +236,9 @@ export default function Channel() {
                       <span>{el.user.slice(2)}</span>
                       <small>{JSON.stringify(el.time)}</small>
                       <p style={el.systemInfo ? { opacity: "0.5" } : null}>
-                        {el.body}
-                      </p>
+                          {el.body}
+                          {el.edited ?  <small style={{opacity: "0.9",fontSize:'1rem'}}>(edited)</small> : null} 
+                        </p>
                     </div>
                   </MessageContainer>
                 ))}
